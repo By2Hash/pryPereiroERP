@@ -17,7 +17,7 @@ namespace pryPereiroERP
             private DataSet DS;
             private string ERROR = "";
 
-            private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=E:\\Escritorio\\Apellidos.db1.accdb";
+            private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=E:\\Escritorio\\Pereiro.db1.accdb";
 
             public clsConexion()
             {

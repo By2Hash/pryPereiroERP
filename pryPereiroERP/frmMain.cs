@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace pryPereiroERP
 {
-    public partial class frmERP : Form
+    public partial class frmMain : Form
     {
-        public frmERP()
+        public frmMain()
         {
             InitializeComponent();
             VerificarConexion();
