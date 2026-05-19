@@ -49,29 +49,43 @@ namespace pryPereiroERP
             return ERROR;
         }
 
-        public bool ValidarUsuario(String nombre, String contraseña)
+        public clsUsuario ValidarUsuario(String nombre, String contraseña)
         {
             try
             {
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                string query = "SELECT COUNT(*) FROM Usuarios WHERE Nombre = @nombre AND Contraseña = @contra";
+                string query = "SELECT Nombre, Apellido FROM Usuarios " +
+                                "WHERE Nombre = @nombre AND Contraseña = @contra";
 
                 OleDbCommand cmd = new OleDbCommand(query, CNN);
                 cmd.Parameters.AddWithValue("@nombre", nombre);
                 cmd.Parameters.AddWithValue("@contra", contraseña);
 
-                int resultado = (int)cmd.ExecuteScalar();
+                OleDbDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    clsUsuario usuario = new clsUsuario();
+                    usuario.Nombre = reader["Nombre"].ToString();
+                    usuario.Apellido = reader["Apellido"].ToString();
+                    usuario.HoraConexion = DateTime.Now.ToString("dd/MM/yyyy  HH:mm:ss");
+
+                    CNN.Close();
+                    return usuario;
+                }
 
                 CNN.Close();
-                return resultado > 0;
+                ERROR = "Usuario o contraseña incorrectos.";
+                return null;
+
 
             }
             catch(Exception ex)
             {
                 ERROR = ex.Message;
-                return false;
+                return null;
             }
         }
 
