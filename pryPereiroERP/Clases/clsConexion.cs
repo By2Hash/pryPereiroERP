@@ -49,6 +49,32 @@ namespace pryPereiroERP
             return ERROR;
         }
 
+        public bool ValidarUsuario(String nombre, String contraseña)
+        {
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                string query = "SELECT COUNT(*) FROM Usuarios WHERE Nombre = @nombre AND Contraseña = @contra";
+
+                OleDbCommand cmd = new OleDbCommand(query, CNN);
+                cmd.Parameters.AddWithValue("@nombre", nombre);
+                cmd.Parameters.AddWithValue("@contra", contraseña);
+
+                int resultado = (int)cmd.ExecuteScalar();
+
+                CNN.Close();
+                return resultado > 0;
+
+            }
+            catch(Exception ex)
+            {
+                ERROR = ex.Message;
+                return false;
+            }
+        }
+
 
 
 
