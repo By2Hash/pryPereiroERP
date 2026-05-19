@@ -16,3 +16,7 @@ Consignas
   * se tiene que insertar la fecha la hora en la que se conecto
   * El ususario que se conecto, un contador de cuantas veces inicio sesion
   * grabar los intentos fallidos
+
+
+<img width="718" height="227" alt="image" src="https://github.com/user-attachments/assets/99b46639-a0ec-4105-a129-00103b2e0844" />
+
