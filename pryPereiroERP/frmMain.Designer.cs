@@ -2,6 +2,7 @@
 {
     partial class frmMain
     {
+
         /// <summary>
         /// Variable del diseñador necesaria.
         /// </summary>
@@ -30,6 +31,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStripTop = new System.Windows.Forms.StatusStrip();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -38,15 +40,24 @@
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(634, 22);
             this.statusStrip1.TabIndex = 0;
-            this.statusStrip1.Text = "statusStrip1";
+
+            // 
+            // statusStripTop
+            // 
+            this.statusStripTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.statusStripTop.Name = "statusStripTop";
+            this.statusStripTop.TabIndex = 1;
+            this.statusStripTop.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 397);
+            this.ClientSize = new System.Drawing.Size(951, 611);
+            this.Controls.Add(this.statusStripTop);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
@@ -59,6 +70,8 @@
         #endregion
 
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStripTop;
     }
+
 }
 

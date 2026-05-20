@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace pryPereiroERP
 {
-    internal class clsUsuario
+    public class clsUsuario
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }

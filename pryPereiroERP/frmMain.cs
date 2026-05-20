@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace pryPereiroERP
@@ -13,12 +7,6 @@ namespace pryPereiroERP
     public partial class frmMain : Form
     {
         private clsUsuario _usuario;
-
-        // Constructor que recibe el usuario
-        public frmMain()
-        {
-            InitializeComponent();
-        }
 
         public frmMain(clsUsuario usuario)
         {
@@ -34,37 +22,36 @@ namespace pryPereiroERP
 
         private void MostrarDatosUsuario()
         {
-            // Usando labels en el StatusStrip (ya lo tenés)
-            statusStrip1.Items.Clear();
+            statusStripTop.Items.Clear();
 
-            ToolStripStatusLabel lblNombre = new ToolStripStatusLabel(
-                "👤 " + _usuario.Nombre + " " + _usuario.Apellido);
+            var lblNombre = new ToolStripStatusLabel("👤 " + _usuario.Nombre + " " + _usuario.Apellido);
             lblNombre.ForeColor = Color.White;
 
-            ToolStripStatusLabel lblRol = new ToolStripStatusLabel(
-                " | Rol: " + _usuario.Rol);
-            lblRol.ForeColor = Color.LightBlue;
+            var lblHora = new ToolStripStatusLabel(" | Conectado: " + _usuario.HoraConexion);
+            lblHora.ForeColor = Color.White;
 
-            ToolStripStatusLabel lblHora = new ToolStripStatusLabel(
-                " | Conectado: " + _usuario.HoraConexion);
-            lblHora.ForeColor = Color.LightGreen;
-
-            statusStrip1.Items.Add(lblNombre);
-            statusStrip1.Items.Add(lblRol);
-            statusStrip1.Items.Add(lblHora);
+            statusStripTop.Items.Add(lblNombre);
+            statusStripTop.Items.Add(lblHora);
         }
 
         private void VerificarConexion()
         {
+            statusStrip1.Items.Clear(); // limpiar también este
+
             clsConexion conexion = new clsConexion();
             ToolStripStatusLabel lbl;
 
             if (conexion.ProbarConexion())
-                lbl = new ToolStripStatusLabel(" | 🟢 DB Conectada") { ForeColor = Color.Green };
+                lbl = new ToolStripStatusLabel("🟢 DB Conectada") { ForeColor = Color.Green };
             else
-                lbl = new ToolStripStatusLabel(" | 🔴 Sin conexión") { ForeColor = Color.Red };
+                lbl = new ToolStripStatusLabel("🔴 Sin conexión") { ForeColor = Color.Red };
 
             statusStrip1.Items.Add(lbl);
+        }
+
+        private void statusStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
