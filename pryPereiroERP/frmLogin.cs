@@ -46,7 +46,7 @@ namespace pryPereiroERP
                 {
                     intentos--;
                     MessageBox.Show("Datos incorrectos. Intentos restantes: " + intentos,
-                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                   "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
