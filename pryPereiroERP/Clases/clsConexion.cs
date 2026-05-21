@@ -169,6 +169,28 @@ namespace pryPereiroERP
             }
             return cantidad;
         }
-    
+
+        public DataTable ObtenerProvincias()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                string query = "SELECT Id, Nombre FROM Provincias ORDER BY Nombre";
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+            }
+            return dt;
+        }
+
+
     }
 }

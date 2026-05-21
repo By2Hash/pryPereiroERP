@@ -33,18 +33,20 @@
             this.lblApellido = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.gpbDomicilio = new System.Windows.Forms.GroupBox();
-            this.lblDireccion = new System.Windows.Forms.Label();
-            this.lblGPO = new System.Windows.Forms.Label();
-            this.cmbLocalidad = new System.Windows.Forms.ComboBox();
-            this.cmbProvincia = new System.Windows.Forms.ComboBox();
-            this.lblLocalidad = new System.Windows.Forms.Label();
+            this.txtGEO = new System.Windows.Forms.TextBox();
+            this.txtDireccion = new System.Windows.Forms.TextBox();
             this.lblProvincia = new System.Windows.Forms.Label();
+            this.lblLocalidad = new System.Windows.Forms.Label();
+            this.cmbProvincia = new System.Windows.Forms.ComboBox();
+            this.cmbLocalidad = new System.Windows.Forms.ComboBox();
+            this.lblGPO = new System.Windows.Forms.Label();
+            this.lblDireccion = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.txtDireccion = new System.Windows.Forms.TextBox();
-            this.txtGEO = new System.Windows.Forms.TextBox();
             this.gpbContacto = new System.Windows.Forms.GroupBox();
+            this.mskTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.txtMail = new System.Windows.Forms.TextBox();
             this.lblRedes = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.lblTelefono = new System.Windows.Forms.Label();
@@ -52,8 +54,6 @@
             this.lblActivar = new System.Windows.Forms.Label();
             this.chkActivar = new System.Windows.Forms.CheckBox();
             this.btnCargar = new System.Windows.Forms.Button();
-            this.txtMail = new System.Windows.Forms.TextBox();
-            this.mskTelefono = new System.Windows.Forms.MaskedTextBox();
             this.gpbDomicilio.SuspendLayout();
             this.gpbContacto.SuspendLayout();
             this.SuspendLayout();
@@ -106,39 +106,28 @@
             this.gpbDomicilio.TabStop = false;
             this.gpbDomicilio.Text = "Domicilio";
             // 
-            // lblDireccion
+            // txtGEO
             // 
-            this.lblDireccion.AutoSize = true;
-            this.lblDireccion.Location = new System.Drawing.Point(11, 30);
-            this.lblDireccion.Name = "lblDireccion";
-            this.lblDireccion.Size = new System.Drawing.Size(75, 20);
-            this.lblDireccion.TabIndex = 0;
-            this.lblDireccion.Text = "Dirección";
+            this.txtGEO.Location = new System.Drawing.Point(107, 62);
+            this.txtGEO.Name = "txtGEO";
+            this.txtGEO.Size = new System.Drawing.Size(130, 26);
+            this.txtGEO.TabIndex = 8;
             // 
-            // lblGPO
+            // txtDireccion
             // 
-            this.lblGPO.AutoSize = true;
-            this.lblGPO.Location = new System.Drawing.Point(11, 65);
-            this.lblGPO.Name = "lblGPO";
-            this.lblGPO.Size = new System.Drawing.Size(44, 20);
-            this.lblGPO.TabIndex = 1;
-            this.lblGPO.Text = "GPO";
+            this.txtDireccion.Location = new System.Drawing.Point(107, 30);
+            this.txtDireccion.Name = "txtDireccion";
+            this.txtDireccion.Size = new System.Drawing.Size(130, 26);
+            this.txtDireccion.TabIndex = 7;
             // 
-            // cmbLocalidad
+            // lblProvincia
             // 
-            this.cmbLocalidad.FormattingEnabled = true;
-            this.cmbLocalidad.Location = new System.Drawing.Point(107, 131);
-            this.cmbLocalidad.Name = "cmbLocalidad";
-            this.cmbLocalidad.Size = new System.Drawing.Size(121, 28);
-            this.cmbLocalidad.TabIndex = 2;
-            // 
-            // cmbProvincia
-            // 
-            this.cmbProvincia.FormattingEnabled = true;
-            this.cmbProvincia.Location = new System.Drawing.Point(107, 97);
-            this.cmbProvincia.Name = "cmbProvincia";
-            this.cmbProvincia.Size = new System.Drawing.Size(121, 28);
-            this.cmbProvincia.TabIndex = 3;
+            this.lblProvincia.AutoSize = true;
+            this.lblProvincia.Location = new System.Drawing.Point(11, 97);
+            this.lblProvincia.Name = "lblProvincia";
+            this.lblProvincia.Size = new System.Drawing.Size(72, 20);
+            this.lblProvincia.TabIndex = 5;
+            this.lblProvincia.Text = "Provincia";
             // 
             // lblLocalidad
             // 
@@ -149,14 +138,39 @@
             this.lblLocalidad.TabIndex = 4;
             this.lblLocalidad.Text = "Localidad";
             // 
-            // lblProvincia
+            // cmbProvincia
             // 
-            this.lblProvincia.AutoSize = true;
-            this.lblProvincia.Location = new System.Drawing.Point(11, 97);
-            this.lblProvincia.Name = "lblProvincia";
-            this.lblProvincia.Size = new System.Drawing.Size(72, 20);
-            this.lblProvincia.TabIndex = 5;
-            this.lblProvincia.Text = "Provincia";
+            this.cmbProvincia.FormattingEnabled = true;
+            this.cmbProvincia.Location = new System.Drawing.Point(107, 97);
+            this.cmbProvincia.Name = "cmbProvincia";
+            this.cmbProvincia.Size = new System.Drawing.Size(121, 28);
+            this.cmbProvincia.TabIndex = 3;
+            // 
+            // cmbLocalidad
+            // 
+            this.cmbLocalidad.FormattingEnabled = true;
+            this.cmbLocalidad.Location = new System.Drawing.Point(107, 131);
+            this.cmbLocalidad.Name = "cmbLocalidad";
+            this.cmbLocalidad.Size = new System.Drawing.Size(121, 28);
+            this.cmbLocalidad.TabIndex = 2;
+            // 
+            // lblGPO
+            // 
+            this.lblGPO.AutoSize = true;
+            this.lblGPO.Location = new System.Drawing.Point(11, 65);
+            this.lblGPO.Name = "lblGPO";
+            this.lblGPO.Size = new System.Drawing.Size(44, 20);
+            this.lblGPO.TabIndex = 1;
+            this.lblGPO.Text = "GPO";
+            // 
+            // lblDireccion
+            // 
+            this.lblDireccion.AutoSize = true;
+            this.lblDireccion.Location = new System.Drawing.Point(11, 30);
+            this.lblDireccion.Name = "lblDireccion";
+            this.lblDireccion.Size = new System.Drawing.Size(75, 20);
+            this.lblDireccion.TabIndex = 0;
+            this.lblDireccion.Text = "Dirección";
             // 
             // textBox1
             // 
@@ -182,20 +196,6 @@
             this.textBox3.Size = new System.Drawing.Size(100, 26);
             this.textBox3.TabIndex = 6;
             // 
-            // txtDireccion
-            // 
-            this.txtDireccion.Location = new System.Drawing.Point(107, 30);
-            this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(130, 26);
-            this.txtDireccion.TabIndex = 7;
-            // 
-            // txtGEO
-            // 
-            this.txtGEO.Location = new System.Drawing.Point(107, 62);
-            this.txtGEO.Name = "txtGEO";
-            this.txtGEO.Size = new System.Drawing.Size(130, 26);
-            this.txtGEO.TabIndex = 8;
-            // 
             // gpbContacto
             // 
             this.gpbContacto.Controls.Add(this.mskTelefono);
@@ -211,6 +211,21 @@
             this.gpbContacto.TabIndex = 7;
             this.gpbContacto.TabStop = false;
             this.gpbContacto.Text = "Contacto";
+            // 
+            // mskTelefono
+            // 
+            this.mskTelefono.Location = new System.Drawing.Point(149, 78);
+            this.mskTelefono.Mask = "000-000-0000";
+            this.mskTelefono.Name = "mskTelefono";
+            this.mskTelefono.Size = new System.Drawing.Size(121, 26);
+            this.mskTelefono.TabIndex = 10;
+            // 
+            // txtMail
+            // 
+            this.txtMail.Location = new System.Drawing.Point(149, 30);
+            this.txtMail.Name = "txtMail";
+            this.txtMail.Size = new System.Drawing.Size(121, 26);
+            this.txtMail.TabIndex = 9;
             // 
             // lblRedes
             // 
@@ -280,21 +295,6 @@
             this.btnCargar.Text = "Cargar Usuario";
             this.btnCargar.UseVisualStyleBackColor = false;
             // 
-            // txtMail
-            // 
-            this.txtMail.Location = new System.Drawing.Point(149, 30);
-            this.txtMail.Name = "txtMail";
-            this.txtMail.Size = new System.Drawing.Size(121, 26);
-            this.txtMail.TabIndex = 9;
-            // 
-            // mskTelefono
-            // 
-            this.mskTelefono.Location = new System.Drawing.Point(149, 78);
-            this.mskTelefono.Mask = "000-000-0000";
-            this.mskTelefono.Name = "mskTelefono";
-            this.mskTelefono.Size = new System.Drawing.Size(121, 26);
-            this.mskTelefono.TabIndex = 10;
-            // 
             // frmRRHH
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,6 +315,7 @@
             this.Name = "frmRRHH";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Datos Personales";
+            this.Load += new System.EventHandler(this.frmRRHH_Load);
             this.gpbDomicilio.ResumeLayout(false);
             this.gpbDomicilio.PerformLayout();
             this.gpbContacto.ResumeLayout(false);
