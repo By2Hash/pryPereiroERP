@@ -1,7 +1,10 @@
+------ EPISODIO 1 -----
+
 <img width="628" height="433" alt="{0F7E8070-B053-4751-ABFC-76199924C4A6}" src="https://github.com/user-attachments/assets/a757f0a1-44b8-4b5f-8f5a-4f701c7548d3" />
 
 
-Consignas
+CONSIGNAS
+
 1 - Crear una base de datos con los ususarios, perfiles y su relacion
 
 2 - Crear una clase clsConexion en el proyecto y agregar la base de datos al proyecto
@@ -19,4 +22,12 @@ Consignas
 
 
 <img width="718" height="227" alt="image" src="https://github.com/user-attachments/assets/99b46639-a0ec-4105-a129-00103b2e0844" />
+
+
+------ EPISODIO 2 -----
+
+
+1 - Crear la interfaz de RRHH, para ingresar los datos personales de los usuarios, tanto direccion como mail y redes sociales
+
+2 - Crear diferentes perfiles en la tabla 'Perfil', si en el Login se selecciona el RRHH en el comboBox, redirigir al nuevo form.
 
