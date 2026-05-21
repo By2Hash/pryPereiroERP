@@ -51,6 +51,12 @@
   <ItemGroup>
     <Compile Include="Clases\clsConexion.cs" />
     <Compile Include="Clases\clsUsuario.cs" />
+    <Compile Include="frmDatosPersonales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDatosPersonales.Designer.cs">
+      <DependentUpon>frmDatosPersonales.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmDatosPersonales.resx">
+      <DependentUpon>frmDatosPersonales.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
