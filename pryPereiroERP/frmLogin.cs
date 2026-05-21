@@ -39,7 +39,7 @@ namespace pryPereiroERP
                 {
                     frmMain principal = new frmMain(usuario);  // le pasamos el usuario
                     principal.Show();
-                    this.Hide();
+                    
                     return;
                 }
                 else
