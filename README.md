@@ -31,3 +31,5 @@ CONSIGNAS
 
 2 - Crear diferentes perfiles en la tabla 'Perfil', si en el Login se selecciona el RRHH en el comboBox, redirigir al nuevo form.
 
+3 - 21/5/26 - Formularios listos, comboBoxs listos con los datos de la tablas correspondientes, falta programar el boton cuando el perdil sea RRHH para dirigir al formDatosPersonales
+
