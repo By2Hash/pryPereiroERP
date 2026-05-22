@@ -15,25 +15,67 @@ namespace pryPereiroERP
         public frmRRHH()
         {
             InitializeComponent();
-            CargarProvincias();
+            
         }
 
         private void CargarProvincias()
         {
-            clsConexion conexion = new clsConexion();
-            DataTable dt = conexion.ObtenerProvincias();
+            try
+            {
+                clsConexion conexion = new clsConexion();
+                DataTable dt = conexion.ObtenerProvincias();
 
-            cmbProvincia.DataSource = dt;
-            cmbProvincia.DisplayMember = "Nombre";      // lo que ve el usuario
-            cmbProvincia.ValueMember = "Id"; // valor interno
-            cmbProvincia.SelectedIndex = -1;             // sin selección inicial
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    cmbProvincia.DataSource = dt;
+                    cmbProvincia.DisplayMember = "Nombres";
+                    cmbProvincia.ValueMember = "Id_Provincia";
+                    cmbProvincia.SelectedIndex = -1; // Arranca vacío sin selección
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar provincias: " + ex.Message);
+            }
         }
 
+
+        private void CargarLocalidades()
+        {
+            try
+            {
+                clsConexion conexion = new clsConexion();
+                DataTable dt = conexion.ObtenerLocalidades(); // Llama al nuevo método sin filtros
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    cmbLocalidad.DataSource = dt;
+                    cmbLocalidad.DisplayMember = "Nombres";
+                    cmbLocalidad.ValueMember = "Id_Localidad";
+                    cmbLocalidad.SelectedIndex = -1; // Arranca vacío sin selección
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar localidades: " + ex.Message);
+            }
+        }
         private void chkActivar_CheckedChanged(object sender, EventArgs e)
         {
         }
 
         private void frmRRHH_Load(object sender, EventArgs e)
+        {
+            CargarProvincias();
+            CargarLocalidades();
+        }
+
+        private void cmbProvincia_SelectedIndexChanged(object sender, EventArgs e)
+        {
+          
+        }
+
+        private void cmbLocalidad_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

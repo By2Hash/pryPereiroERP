@@ -15,6 +15,8 @@ namespace pryPereiroERP
         public frmLogin()
         {
             InitializeComponent();
+            CargarPerfiles();
+            
 
         }
 
@@ -55,6 +57,40 @@ namespace pryPereiroERP
                 MessageBox.Show("Intentos agotados. La aplicación se cerrará.",
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
+            }
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+            CargarPerfiles();
+            
+        }
+
+        public void CargarPerfiles()
+        {
+            try
+            {
+                clsConexion conexion = new clsConexion();
+                DataTable dt = conexion.ObtenerPerfil();
+
+                // 🔴 AGREGÁ ESTO TEMPORALMENTE: Si el método falló, te va a decir por qué
+                if (!string.IsNullOrEmpty(conexion.GetError()))
+                {
+                    MessageBox.Show("Error interno de la base de datos: " + conexion.GetError());
+                    return;
+                }
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    cmbPerfil.DataSource = dt;
+                    cmbPerfil.DisplayMember = "Nombre";
+                    cmbPerfil.ValueMember = "Id_Perfil";
+                    cmbPerfil.SelectedIndex = -1;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los perfiles: " + ex.Message);
             }
         }
     }

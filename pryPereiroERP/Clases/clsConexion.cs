@@ -178,7 +178,7 @@ namespace pryPereiroERP
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                string query = "SELECT Id, Nombre FROM Provincias ORDER BY Nombre";
+                string query = "SELECT Id_Provincia, Nombres FROM Provincias ORDER BY Nombres";
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
 
@@ -191,6 +191,63 @@ namespace pryPereiroERP
             return dt;
         }
 
+
+        public DataTable ObtenerLocalidades()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                string query = "SELECT Id_Localidad, Nombres FROM Localidades ORDER BY Nombres";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+            }
+            return dt;
+        }
+
+
+        public DataTable ObtenerPerfil()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                // Seguridad: Si la conexión quedó abierta por otro proceso, la cerramos antes de reusarla
+                if (CNN.State == System.Data.ConnectionState.Open)
+                {
+                    CNN.Close();
+                }
+
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                string query = "SELECT [Id_Perfil], [Nombre] FROM [Perfil] ORDER BY [Nombre]";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                // Si falló a mitad de camino, nos aseguramos de no dejar la base de datos colgada
+                if (CNN.State == System.Data.ConnectionState.Open)
+                {
+                    CNN.Close();
+                }
+            }
+
+            return dt; // ◄ Siempre al final de todo
+        }
 
     }
 }
