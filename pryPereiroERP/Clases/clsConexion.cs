@@ -8,7 +8,7 @@ namespace pryPereiroERP
     internal class clsConexion
     {
         private OleDbConnection CNN;
-   
+
         private string ERROR = "";
 
         private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Pereiro.db1.accdb";
@@ -16,7 +16,7 @@ namespace pryPereiroERP
         public clsConexion()
         {
             CNN = new OleDbConnection();
-          
+
         }
 
         public bool ProbarConexion()
@@ -146,8 +146,8 @@ namespace pryPereiroERP
             {
                 MessageBox.Show("Error al guardar en la base de datos: " + ex.Message, "Fallo en Auditoría");
                 ERROR = "Error en auditoría: " + ex.Message;
-                }
             }
+        }
 
         public int ContadorDeInicioSesion(string usuario)
         {
@@ -251,7 +251,8 @@ namespace pryPereiroERP
                 }
             }
 
-            return dt;
+            return dt;    
 
+        }
     }
 }
