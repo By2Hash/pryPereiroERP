@@ -8,7 +8,7 @@ namespace pryPereiroERP
     internal class clsConexion
     {
         private OleDbConnection CNN;
-        private DataSet DS;
+   
         private string ERROR = "";
 
         private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Pereiro.db1.accdb";
@@ -16,7 +16,7 @@ namespace pryPereiroERP
         public clsConexion()
         {
             CNN = new OleDbConnection();
-            DS = new DataSet();
+          
         }
 
         public bool ProbarConexion()
@@ -41,14 +41,13 @@ namespace pryPereiroERP
             return ERROR;
         }
 
-        public clsUsuario ValidarUsuario(string nombre, string contraseña)
+        public clsUsuario ValidarUsuario(string nombre, string contraseña, string perfilSeleccionado)
         {
             try
             {
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                // PASO 1: Validar usuario y obtener su Id_Usuario
                 string query1 = "SELECT Id_Usuario, Nombre, Apellido FROM Usuarios " +
                                 "WHERE Nombre = ? AND Contraseña = ?";
 
@@ -61,16 +60,12 @@ namespace pryPereiroERP
                 if (!reader1.Read())
                 {
                     reader1.Close();
-
-                    // 🔴 LLAMADO EXTRA: Registramos que hubo un intento con contraseña incorrecta
                     RegistrarAuditoria(nombre, "Fallido");
-
                     CNN.Close();
                     ERROR = "Usuario o contraseña incorrectos.";
                     return null;
                 }
 
-                // Guardamos los datos del usuario si las credenciales son correctas
                 clsUsuario usuario = new clsUsuario();
                 usuario.Nombre = reader1["Nombre"].ToString();
                 usuario.Apellido = reader1["Apellido"].ToString();
@@ -78,7 +73,7 @@ namespace pryPereiroERP
                 int idUsuario = Convert.ToInt32(reader1["Id_Usuario"]);
                 reader1.Close();
 
-                // PASO 2: Buscar el perfil usando el Id_Usuario obtenido
+                // Verificar que el perfil seleccionado coincida con el perfil real del usuario
                 string query2 = "SELECT p.Nombre FROM Perfil AS p " +
                                 "INNER JOIN [Relacion-Usuario-Perfil] AS r ON p.Id_Perfil = r.Id_Perfil " +
                                 "WHERE r.Id_Usuario = ?";
@@ -90,24 +85,34 @@ namespace pryPereiroERP
 
                 if (reader2.Read())
                 {
-                    usuario.Rol = reader2["Nombre"].ToString();
+                    string perfilReal = reader2["Nombre"].ToString();
+                    reader2.Close();
+
+                    // ← El perfil seleccionado debe coincidir con el perfil real
+                    if (perfilReal != perfilSeleccionado)
+                    {
+                        RegistrarAuditoria(nombre, "Fallido");
+                        CNN.Close();
+                        ERROR = "El perfil seleccionado no corresponde a este usuario.";
+                        return null;
+                    }
+
+                    usuario.Rol = perfilReal;
                 }
                 else
                 {
+                    reader2.Close();
                     usuario.Rol = "Sin perfil";
                 }
-                reader2.Close();
 
-                // 🟢 LLAMADO EXTRA: El usuario ingresó bien, registramos el éxito
                 RegistrarAuditoria(nombre, "Exitoso");
-
                 CNN.Close();
                 return usuario;
             }
             catch (Exception ex)
             {
                 ERROR = ex.Message;
-                if (CNN.State == System.Data.ConnectionState.Open)
+                if (CNN.State == ConnectionState.Open)
                     CNN.Close();
                 return null;
             }

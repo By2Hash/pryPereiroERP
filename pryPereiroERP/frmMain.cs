@@ -22,6 +22,7 @@ namespace pryPereiroERP
         private void Form1_Load(object sender, EventArgs e)
         {
 
+           // MessageBox.Show(_usuario == null ? "Usuario es NULL" : "Usuario: " + _usuario.Nombre);
             if (_usuario == null) return;
             MostrarDatosUsuario();
             VerificarConexion();

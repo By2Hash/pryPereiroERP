@@ -24,32 +24,52 @@ namespace pryPereiroERP
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
+            // Si falta cualquier campo, descontamos intento
             if (String.IsNullOrWhiteSpace(txtNombre.Text) ||
-                String.IsNullOrWhiteSpace(txtContraseña.Text))
+                String.IsNullOrWhiteSpace(txtContraseña.Text) ||
+                cmbPerfil.SelectedIndex == -1)
             {
                 intentos--;
-                MessageBox.Show("Debe completar usuario y contraseña. " +
+                MessageBox.Show("Debe completar todos los campos (Nombre, Contraseña y Perfil).\n" +
                                 "Intentos restantes: " + intentos,
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
+                string perfilSeleccionado = cmbPerfil.Text;
+
                 clsConexion conexion = new clsConexion();
-                clsUsuario usuario = conexion.ValidarUsuario(txtNombre.Text, txtContraseña.Text);
+                clsUsuario usuario = conexion.ValidarUsuario(txtNombre.Text, txtContraseña.Text, perfilSeleccionado);
 
                 if (usuario != null)
                 {
-                    frmMain principal = new frmMain(usuario);  // le pasamos el usuario
-                    principal.Show();
-                    
+
+                    txtNombre.Clear();
+                    txtContraseña.Clear();
+                    cmbPerfil.SelectedIndex = -1;
+
+                    if (usuario.Rol == "RRHH")
+                    {
+                        frmRRHH rrhh = new frmRRHH();
+                        rrhh.Show();
+                        
+                    }
+                    else
+                    {
+                        frmMain principal = new frmMain(usuario);
+                        principal.Show();
+                        
+                    }
                     return;
                 }
                 else
                 {
                     intentos--;
-                    MessageBox.Show("Datos incorrectos. Intentos restantes: " + intentos,
+                    MessageBox.Show(conexion.GetError() + "\nIntentos restantes: " + intentos,
                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+               
             }
 
             if (intentos == 0)
@@ -58,8 +78,9 @@ namespace pryPereiroERP
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
-        }
 
+          
+        }
         private void frmLogin_Load(object sender, EventArgs e)
         {
             CargarPerfiles();
