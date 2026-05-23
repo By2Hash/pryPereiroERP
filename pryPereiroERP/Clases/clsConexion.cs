@@ -225,7 +225,6 @@ namespace pryPereiroERP
             DataTable dt = new DataTable();
             try
             {
-                // Seguridad: Si la conexión quedó abierta por otro proceso, la cerramos antes de reusarla
                 if (CNN.State == System.Data.ConnectionState.Open)
                 {
                     CNN.Close();
@@ -244,7 +243,6 @@ namespace pryPereiroERP
             catch (Exception ex)
             {
                 ERROR = ex.Message;
-                // Si falló a mitad de camino, nos aseguramos de no dejar la base de datos colgada
                 if (CNN.State == System.Data.ConnectionState.Open)
                 {
                     CNN.Close();
