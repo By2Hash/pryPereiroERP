@@ -316,7 +316,7 @@
             // 
             this.btnCargar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnCargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCargar.Location = new System.Drawing.Point(706, 440);
+            this.btnCargar.Location = new System.Drawing.Point(746, 440);
             this.btnCargar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(164, 45);

@@ -251,8 +251,7 @@ namespace pryPereiroERP
                 }
             }
 
-            return dt; // ◄ Siempre al final de todo
-        }
+            return dt;
 
     }
 }
