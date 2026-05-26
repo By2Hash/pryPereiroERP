@@ -38,3 +38,9 @@ CONSIGNAS
 1 - Una vez hecho la base de datos Auditoria, que grbae la hora y fecha en la que ingreso el usuario
 
 2 - Crear una pantalla solo para el admin = frmMain. Se tiene que filtrar la informacion de auditoria.
+
+Puntos a destacar: Mejorar la tabla de Auditoria, agregar mas funciones al frmMain para filtrar la tabla
+<img width="640" height="391" alt="{0DA76E77-E634-4A04-BF0E-80BAC8C0580F}" src="https://github.com/user-attachments/assets/bc4e7e53-3090-4e4d-8f9b-f6ba22f19cad" />
+
+En la tabla de 'Usuario', agregar todos las columnas 
+
