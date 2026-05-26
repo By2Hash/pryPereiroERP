@@ -33,3 +33,8 @@ CONSIGNAS
 
 3 - 21/5/26 - Formularios listos, comboBoxs listos con los datos de la tablas correspondientes, falta programar el boton cuando el perdil sea RRHH para dirigir al formDatosPersonales
 
+----- EPISODIO 3 ------
+
+1 - Una vez hecho la base de datos Auditoria, que grbae la hora y fecha en la que ingreso el usuario
+
+2 - Crear una pantalla solo para el admin = frmMain. Se tiene que filtrar la informacion de auditoria.
