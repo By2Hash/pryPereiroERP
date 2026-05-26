@@ -43,4 +43,6 @@ Puntos a destacar: Mejorar la tabla de Auditoria, agregar mas funciones al frmMa
 <img width="640" height="391" alt="{0DA76E77-E634-4A04-BF0E-80BAC8C0580F}" src="https://github.com/user-attachments/assets/bc4e7e53-3090-4e4d-8f9b-f6ba22f19cad" />
 
 En la tabla de 'Usuario', agregar todos las columnas 
+Cambiar en la tabla 'Auditoria-Sesion' en la columna Intento, cambiarlo por un SI/NO.
 
+Agregar la columna en Auditoria-Sesion, que registre los movimientos del usuario. Ej: Ingreso al frmMain(Panel de administrador), frmRRHH(Ingreso un nuevo usuario)
