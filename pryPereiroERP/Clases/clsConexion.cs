@@ -265,5 +265,67 @@ namespace pryPereiroERP
             return dt;    
 
         }
+
+        public bool InsertarUsuario(string nombre, string apellido, string mail, string contraseña,
+                            bool activo, string dni,
+                            string direccion, string gps, string provincia, string localidad,
+                            string telefono, string redesSociales)
+        {
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                // 1. Insertar en Usuarios
+                string queryUsuario = @"INSERT INTO Usuarios (Nombre, Apellido, Mail, Contraseña, Activo, DNI)
+                                VALUES (?, ?, ?, ?, ?, ?)";
+
+                OleDbCommand cmdUsuario = new OleDbCommand(queryUsuario, CNN);
+                cmdUsuario.Parameters.AddWithValue("?", nombre);
+                cmdUsuario.Parameters.AddWithValue("?", apellido);
+                cmdUsuario.Parameters.AddWithValue("?", mail);
+                cmdUsuario.Parameters.AddWithValue("?", contraseña);
+                cmdUsuario.Parameters.AddWithValue("?", activo);
+                cmdUsuario.Parameters.AddWithValue("?", dni);
+                cmdUsuario.ExecuteNonQuery();
+
+                // 2. Obtener el Id del usuario recién insertado
+                OleDbCommand cmdId = new OleDbCommand("SELECT @@IDENTITY", CNN);
+                int nuevoId = Convert.ToInt32(cmdId.ExecuteScalar());
+
+                // 3. Insertar en Domicilio_Usuario
+                string queryDomicilio = @"INSERT INTO Domicilio_Usuario (Id_Usuario, GPS, Provincia, Localidad, Dirección)
+                                  VALUES (?, ?, ?, ?, ?)";
+
+                OleDbCommand cmdDomicilio = new OleDbCommand(queryDomicilio, CNN);
+                cmdDomicilio.Parameters.AddWithValue("?", nuevoId);
+                cmdDomicilio.Parameters.AddWithValue("?", gps);
+                cmdDomicilio.Parameters.AddWithValue("?", provincia);
+                cmdDomicilio.Parameters.AddWithValue("?", localidad);
+                cmdDomicilio.Parameters.AddWithValue("?", direccion);
+                cmdDomicilio.ExecuteNonQuery();
+
+                // 4. Insertar en Contacto_Usuario
+                string queryContacto = @"INSERT INTO Contacto_Usuario (Id_Usuario, Telefono, Redes_Sociales)
+                                 VALUES (?, ?, ?)";
+
+                OleDbCommand cmdContacto = new OleDbCommand(queryContacto, CNN);
+                cmdContacto.Parameters.AddWithValue("?", nuevoId);
+                cmdContacto.Parameters.AddWithValue("?", telefono);
+                cmdContacto.Parameters.AddWithValue("?", redesSociales);
+                cmdContacto.ExecuteNonQuery();
+
+                CNN.Close();
+                ERROR = "";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open)
+                    CNN.Close();
+                return false;
+            }
+        }
     }
 }

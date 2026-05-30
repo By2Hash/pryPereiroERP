@@ -68,6 +68,8 @@ namespace pryPereiroERP
         {
             CargarProvincias();
             CargarLocalidades();
+
+            btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
         }
 
         private void cmbProvincia_SelectedIndexChanged(object sender, EventArgs e)
@@ -77,7 +79,77 @@ namespace pryPereiroERP
 
         private void cmbLocalidad_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Validaciones básicas
+            if (string.IsNullOrWhiteSpace(textBox1.Text) ||   // DNI
+                string.IsNullOrWhiteSpace(textBox2.Text) ||   // Apellido
+                string.IsNullOrWhiteSpace(textBox3.Text) ||   // Nombre
+                string.IsNullOrWhiteSpace(txtMail.Text))
+            {
+                MessageBox.Show("DNI, Apellido, Nombre y Mail son obligatorios.",
+                                "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            // Leer provincia y localidad seleccionadas (texto visible)
+            string provincia = cmbProvincia.SelectedIndex >= 0
+                               ? cmbProvincia.Text : "";
+            string localidad = cmbLocalidad.SelectedIndex >= 0
+                               ? cmbLocalidad.Text : "";
+
+            // Redes Sociales del comboBox4
+            string redes = comboBox4.SelectedIndex >= 0
+                           ? comboBox4.Text : "";
+
+            // Generar contraseña automática: nombre + DNI (podés cambiar esto)
+            string contraseñaGenerada = textBox3.Text.ToLower() + textBox1.Text;
+
+            clsConexion conexion = new clsConexion();
+            bool resultado = conexion.InsertarUsuario(
+                nombre: textBox3.Text.Trim(),
+                apellido: textBox2.Text.Trim(),
+                mail: txtMail.Text.Trim(),
+                contraseña: contraseñaGenerada,
+                activo: chkActivar.Checked,
+                dni: textBox1.Text.Trim(),
+                direccion: txtDireccion.Text.Trim(),
+                gps: txtGPS.Text.Trim(),
+                provincia: provincia,
+                localidad: localidad,
+                telefono: mskTelefono.Text.Trim(),
+                redesSociales: redes
+            );
+
+            if (resultado)
+            {
+                MessageBox.Show("Usuario ingresado correctamente.\nContraseña generada: " + contraseñaGenerada,
+                                "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LimpiarFormulario();
+            }
+            else
+            {
+                MessageBox.Show("Error al guardar: " + conexion.GetError(),
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LimpiarFormulario()
+        {
+            textBox1.Clear();   // DNI
+            textBox2.Clear();   // Apellido
+            textBox3.Clear();   // Nombre
+            txtMail.Clear();
+            txtDireccion.Clear();
+            txtGPS.Clear();
+            mskTelefono.Clear();
+            cmbProvincia.SelectedIndex = -1;
+            cmbLocalidad.SelectedIndex = -1;
+            comboBox4.SelectedIndex = -1;
+            chkActivar.Checked = false;
         }
     }
 }
