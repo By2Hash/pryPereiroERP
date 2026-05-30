@@ -41,6 +41,15 @@ namespace pryPereiroERP
                 clsConexion conexion = new clsConexion();
                 clsUsuario usuario = conexion.ValidarUsuario(txtNombre.Text, txtContraseña.Text, perfilSeleccionado);
 
+                if(usuario != null)
+                {
+                    MessageBox.Show("¡Bienvenido, " + usuario.Nombre + "!", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show(conexion.GetError(), "Error de Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 if (usuario != null)
                 {
 
@@ -52,13 +61,13 @@ namespace pryPereiroERP
                     {
                         frmRRHH rrhh = new frmRRHH();
                         rrhh.Show();
-                        
+
                     }
                     else
                     {
                         frmMain principal = new frmMain(usuario);
                         principal.Show();
-                        
+
                     }
                     return;
                 }

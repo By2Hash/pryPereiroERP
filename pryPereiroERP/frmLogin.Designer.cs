@@ -54,7 +54,7 @@
             this.pnlIniciarSesion.Location = new System.Drawing.Point(14, 114);
             this.pnlIniciarSesion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlIniciarSesion.Name = "pnlIniciarSesion";
-            this.pnlIniciarSesion.Size = new System.Drawing.Size(759, 334);
+            this.pnlIniciarSesion.Size = new System.Drawing.Size(802, 336);
             this.pnlIniciarSesion.TabIndex = 2;
             // 
             // lblPerfil
@@ -72,7 +72,7 @@
             // cmbPerfil
             // 
             this.cmbPerfil.FormattingEnabled = true;
-            this.cmbPerfil.Location = new System.Drawing.Point(285, 205);
+            this.cmbPerfil.Location = new System.Drawing.Point(298, 212);
             this.cmbPerfil.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmbPerfil.Name = "cmbPerfil";
             this.cmbPerfil.Size = new System.Drawing.Size(206, 28);
@@ -82,7 +82,7 @@
             // 
             this.btnIngresar.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIngresar.Location = new System.Drawing.Point(532, 78);
+            this.btnIngresar.Location = new System.Drawing.Point(567, 78);
             this.btnIngresar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(147, 46);
@@ -94,7 +94,7 @@
             // txtContraseña
             // 
             this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraseña.Location = new System.Drawing.Point(285, 138);
+            this.txtContraseña.Location = new System.Drawing.Point(298, 139);
             this.txtContraseña.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtContraseña.MaxLength = 12;
             this.txtContraseña.Name = "txtContraseña";
@@ -105,9 +105,9 @@
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(285, 74);
+            this.txtNombre.Location = new System.Drawing.Point(298, 78);
             this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtNombre.MaxLength = 12;
+            this.txtNombre.MaxLength = 30;
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(206, 35);
             this.txtNombre.TabIndex = 2;
@@ -132,9 +132,9 @@
             this.lblNombre.Location = new System.Drawing.Point(96, 78);
             this.lblNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(101, 29);
+            this.lblNombre.Size = new System.Drawing.Size(153, 29);
             this.lblNombre.TabIndex = 0;
-            this.lblNombre.Text = "Nombre";
+            this.lblNombre.Text = "Nombre/Mail";
             // 
             // lblBienvenida
             // 
@@ -152,7 +152,7 @@
             this.AcceptButton = this.btnIngresar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(790, 466);
+            this.ClientSize = new System.Drawing.Size(830, 466);
             this.Controls.Add(this.lblBienvenida);
             this.Controls.Add(this.pnlIniciarSesion);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

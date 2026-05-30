@@ -48,12 +48,14 @@ namespace pryPereiroERP
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                string query1 = "SELECT Id_Usuario, Nombre, Apellido FROM Usuarios " +
-                                "WHERE Nombre = ? AND Contraseña = ?";
+                string query1 = "SELECT Id_Usuario, Nombre, Apellido, Mail, Activo FROM Usuarios " +
+                                "WHERE (Nombre = ? OR Mail = ?) AND Contraseña = ? ";
 
                 OleDbCommand cmd1 = new OleDbCommand(query1, CNN);
                 cmd1.Parameters.AddWithValue("?", nombre);
+                cmd1.Parameters.AddWithValue("?", nombre); // Se repite para permitir búsqueda por mail
                 cmd1.Parameters.AddWithValue("?", contraseña);
+               
 
                 OleDbDataReader reader1 = cmd1.ExecuteReader();
 
@@ -63,6 +65,17 @@ namespace pryPereiroERP
                     RegistrarAuditoria(nombre, "Fallido");
                     CNN.Close();
                     ERROR = "Usuario o contraseña incorrectos.";
+                    return null;
+                }
+
+                bool estaActivo = Convert.ToBoolean(reader1["Activo"]);
+
+                if (estaActivo == false)
+                {
+                    reader1.Close();
+                    RegistrarAuditoria(nombre, "Fallido");
+                    CNN.Close();
+                    ERROR = "El usuario está inactivo. Contacte al administrador.";
                     return null;
                 }
 
