@@ -41,9 +41,9 @@
             this.cmbLocalidad = new System.Windows.Forms.ComboBox();
             this.lblGPS = new System.Windows.Forms.Label();
             this.lblDireccion = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtDNI = new System.Windows.Forms.TextBox();
+            this.txtApellido = new System.Windows.Forms.TextBox();
+            this.txtNombre = new System.Windows.Forms.TextBox();
             this.gpbContacto = new System.Windows.Forms.GroupBox();
             this.mskTelefono = new System.Windows.Forms.MaskedTextBox();
             this.txtMail = new System.Windows.Forms.TextBox();
@@ -54,6 +54,8 @@
             this.lblActivar = new System.Windows.Forms.Label();
             this.chkActivar = new System.Windows.Forms.CheckBox();
             this.btnCargar = new System.Windows.Forms.Button();
+            this.txtContraseña = new System.Windows.Forms.TextBox();
+            this.lblContraseña = new System.Windows.Forms.Label();
             this.gpbDomicilio.SuspendLayout();
             this.gpbContacto.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +64,7 @@
             // 
             this.lblDni.AutoSize = true;
             this.lblDni.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDni.Location = new System.Drawing.Point(20, 74);
+            this.lblDni.Location = new System.Drawing.Point(40, 122);
             this.lblDni.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDni.Name = "lblDni";
             this.lblDni.Size = new System.Drawing.Size(54, 29);
@@ -73,7 +75,7 @@
             // 
             this.lblApellido.AutoSize = true;
             this.lblApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblApellido.Location = new System.Drawing.Point(300, 74);
+            this.lblApellido.Location = new System.Drawing.Point(499, 52);
             this.lblApellido.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblApellido.Name = "lblApellido";
             this.lblApellido.Size = new System.Drawing.Size(102, 29);
@@ -84,7 +86,7 @@
             // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(598, 74);
+            this.lblNombre.Location = new System.Drawing.Point(41, 53);
             this.lblNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(101, 29);
@@ -102,7 +104,7 @@
             this.gpbDomicilio.Controls.Add(this.lblGPS);
             this.gpbDomicilio.Controls.Add(this.lblDireccion);
             this.gpbDomicilio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpbDomicilio.Location = new System.Drawing.Point(24, 152);
+            this.gpbDomicilio.Location = new System.Drawing.Point(25, 206);
             this.gpbDomicilio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gpbDomicilio.Name = "gpbDomicilio";
             this.gpbDomicilio.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -187,32 +189,32 @@
             this.lblDireccion.TabIndex = 0;
             this.lblDireccion.Text = "Dirección";
             // 
-            // textBox1
+            // txtDNI
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(84, 69);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 35);
-            this.textBox1.TabIndex = 4;
+            this.txtDNI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDNI.Location = new System.Drawing.Point(185, 119);
+            this.txtDNI.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtDNI.Name = "txtDNI";
+            this.txtDNI.Size = new System.Drawing.Size(148, 35);
+            this.txtDNI.TabIndex = 4;
             // 
-            // textBox2
+            // txtApellido
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(406, 69);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(148, 35);
-            this.textBox2.TabIndex = 5;
+            this.txtApellido.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtApellido.Location = new System.Drawing.Point(707, 53);
+            this.txtApellido.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtApellido.Name = "txtApellido";
+            this.txtApellido.Size = new System.Drawing.Size(148, 35);
+            this.txtApellido.TabIndex = 5;
             // 
-            // textBox3
+            // txtNombre
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(705, 74);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(148, 35);
-            this.textBox3.TabIndex = 6;
+            this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombre.Location = new System.Drawing.Point(185, 53);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(148, 35);
+            this.txtNombre.TabIndex = 6;
             // 
             // gpbContacto
             // 
@@ -223,7 +225,7 @@
             this.gpbContacto.Controls.Add(this.lblTelefono);
             this.gpbContacto.Controls.Add(this.lblMail);
             this.gpbContacto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpbContacto.Location = new System.Drawing.Point(482, 152);
+            this.gpbContacto.Location = new System.Drawing.Point(483, 206);
             this.gpbContacto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gpbContacto.Name = "gpbContacto";
             this.gpbContacto.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -292,7 +294,7 @@
             // 
             this.lblActivar.AutoSize = true;
             this.lblActivar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblActivar.Location = new System.Drawing.Point(40, 448);
+            this.lblActivar.Location = new System.Drawing.Point(40, 512);
             this.lblActivar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblActivar.Name = "lblActivar";
             this.lblActivar.Size = new System.Drawing.Size(292, 29);
@@ -304,7 +306,7 @@
             this.chkActivar.AutoSize = true;
             this.chkActivar.FlatAppearance.BorderSize = 5;
             this.chkActivar.Font = new System.Drawing.Font("Microsoft Sans Serif", 80F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkActivar.Location = new System.Drawing.Point(357, 454);
+            this.chkActivar.Location = new System.Drawing.Point(357, 518);
             this.chkActivar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chkActivar.Name = "chkActivar";
             this.chkActivar.Size = new System.Drawing.Size(22, 21);
@@ -316,7 +318,7 @@
             // 
             this.btnCargar.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnCargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCargar.Location = new System.Drawing.Point(746, 440);
+            this.btnCargar.Location = new System.Drawing.Point(746, 504);
             this.btnCargar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(164, 45);
@@ -325,18 +327,40 @@
             this.btnCargar.UseVisualStyleBackColor = false;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
+            // txtContraseña
+            // 
+            this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContraseña.Location = new System.Drawing.Point(707, 122);
+            this.txtContraseña.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtContraseña.Name = "txtContraseña";
+            this.txtContraseña.Size = new System.Drawing.Size(148, 35);
+            this.txtContraseña.TabIndex = 12;
+            // 
+            // lblContraseña
+            // 
+            this.lblContraseña.AutoSize = true;
+            this.lblContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblContraseña.Location = new System.Drawing.Point(499, 122);
+            this.lblContraseña.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblContraseña.Name = "lblContraseña";
+            this.lblContraseña.Size = new System.Drawing.Size(136, 29);
+            this.lblContraseña.TabIndex = 11;
+            this.lblContraseña.Text = "Contraseña";
+            // 
             // frmRRHH
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(968, 551);
+            this.ClientSize = new System.Drawing.Size(954, 616);
+            this.Controls.Add(this.txtContraseña);
+            this.Controls.Add(this.lblContraseña);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.chkActivar);
             this.Controls.Add(this.lblActivar);
             this.Controls.Add(this.gpbContacto);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.txtApellido);
+            this.Controls.Add(this.txtDNI);
             this.Controls.Add(this.gpbDomicilio);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblApellido);
@@ -370,9 +394,9 @@
         private System.Windows.Forms.ComboBox cmbLocalidad;
         private System.Windows.Forms.Label lblGPS;
         private System.Windows.Forms.Label lblDireccion;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtDNI;
+        private System.Windows.Forms.TextBox txtApellido;
+        private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.GroupBox gpbContacto;
         private System.Windows.Forms.Label lblRedes;
         private System.Windows.Forms.ComboBox comboBox4;
@@ -383,5 +407,7 @@
         private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.TextBox txtMail;
         private System.Windows.Forms.MaskedTextBox mskTelefono;
+        private System.Windows.Forms.TextBox txtContraseña;
+        private System.Windows.Forms.Label lblContraseña;
     }
 }

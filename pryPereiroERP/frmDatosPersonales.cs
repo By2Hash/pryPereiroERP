@@ -15,7 +15,7 @@ namespace pryPereiroERP
         public frmRRHH()
         {
             InitializeComponent();
-            
+
         }
 
         private void CargarProvincias()
@@ -69,23 +69,28 @@ namespace pryPereiroERP
             CargarProvincias();
             CargarLocalidades();
 
-            btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
+
         }
 
         private void cmbProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
+
         }
 
         private void cmbLocalidad_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
             // Validaciones básicas
-            if (string.IsNullOrWhiteSpace(textBox1.Text) ||   // DNI
-                string.IsNullOrWhiteSpace(textBox2.Text) ||   // Apellido
-                string.IsNullOrWhiteSpace(textBox3.Text) ||   // Nombre
-                string.IsNullOrWhiteSpace(txtMail.Text))
+            if (string.IsNullOrWhiteSpace(txtDNI.Text) ||   // DNI
+                string.IsNullOrWhiteSpace(txtApellido.Text) ||   // Apellido
+                string.IsNullOrWhiteSpace(txtNombre.Text) ||   // Nombre
+                string.IsNullOrWhiteSpace(txtMail.Text) ||
+                string.IsNullOrWhiteSpace(txtContraseña.Text))
             {
-                MessageBox.Show("DNI, Apellido, Nombre y Mail son obligatorios.",
+                MessageBox.Show("DNI, Apellido, Nombre,Contraseña y Mail son obligatorios.",
                                 "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -101,16 +106,16 @@ namespace pryPereiroERP
                            ? comboBox4.Text : "";
 
             // Generar contraseña automática: nombre + DNI (podés cambiar esto)
-            string contraseñaGenerada = textBox3.Text.ToLower() + textBox1.Text;
+            string contraseñaGenerada = txtNombre.Text.ToLower() + txtDNI.Text;
 
             clsConexion conexion = new clsConexion();
             bool resultado = conexion.InsertarUsuario(
-                nombre: textBox3.Text.Trim(),
-                apellido: textBox2.Text.Trim(),
+                nombre: txtNombre.Text.Trim(),
+                apellido: txtApellido.Text.Trim(),
                 mail: txtMail.Text.Trim(),
-                contraseña: contraseñaGenerada,
+                contraseña: txtContraseña.Text.Trim(),
                 activo: chkActivar.Checked,
-                dni: textBox1.Text.Trim(),
+                dni: txtDNI.Text.Trim(),
                 direccion: txtDireccion.Text.Trim(),
                 gps: txtGPS.Text.Trim(),
                 provincia: provincia,
@@ -132,17 +137,15 @@ namespace pryPereiroERP
             }
         }
 
-        private void btnCargar_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void LimpiarFormulario()
         {
-            textBox1.Clear();   // DNI
-            textBox2.Clear();   // Apellido
-            textBox3.Clear();   // Nombre
+            txtDNI.Clear();   // DNI
+            txtApellido.Clear();   // Apellido
+            txtNombre.Clear();   // Nombre
             txtMail.Clear();
+            txtContraseña.Clear();
             txtDireccion.Clear();
             txtGPS.Clear();
             mskTelefono.Clear();
