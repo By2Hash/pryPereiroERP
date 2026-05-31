@@ -46,3 +46,14 @@ En la tabla de 'Usuario', agregar todos las columnas
 Cambiar en la tabla 'Auditoria-Sesion' en la columna Intento, cambiarlo por un SI/NO.
 
 Agregar la columna en Auditoria-Sesion, que registre los movimientos del usuario. Ej: Ingreso al frmMain(Panel de administrador), frmRRHH(Ingreso un nuevo usuario)
+
+***** Mejoras 30/05/2026 *****
+<img width="975" height="645" alt="image" src="https://github.com/user-attachments/assets/73af3c89-69e0-48a2-9129-e4f3c29e1dc5" />
+Termine de implementar una grilla para visualizar la tabla de 'Auditoria'. Podria implementar radioButtons para filtar de manera ASC y DESC.
+
+<img width="969" height="645" alt="image" src="https://github.com/user-attachments/assets/5aa4c3a8-a0ca-47a9-baa3-bf6dab40bf64" />
+Agregue dos nuevas tablas, la de 'Domicilio_Usuario' y 'Contacto_Usuario', relacionadas o vinculadas con la tabla 'Usuario', para distribuir la informacion. Faltaria por incorporar la funcion de poder elegir mas de una red social.
+
+----- EPISODIO 4 ------
+
+
