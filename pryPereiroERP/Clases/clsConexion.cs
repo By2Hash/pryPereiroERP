@@ -8,15 +8,12 @@ namespace pryPereiroERP
     internal class clsConexion
     {
         private OleDbConnection CNN;
-
         private string ERROR = "";
-
         private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Pereiro.db1.accdb";
 
         public clsConexion()
         {
             CNN = new OleDbConnection();
-
         }
 
         public bool ProbarConexion()
@@ -53,17 +50,16 @@ namespace pryPereiroERP
 
                 OleDbCommand cmd1 = new OleDbCommand(query1, CNN);
                 cmd1.Parameters.AddWithValue("?", nombre);
-                cmd1.Parameters.AddWithValue("?", nombre); // Se repite para permitir búsqueda por mail
+                cmd1.Parameters.AddWithValue("?", nombre);
                 cmd1.Parameters.AddWithValue("?", contraseña);
-               
 
                 OleDbDataReader reader1 = cmd1.ExecuteReader();
 
                 if (!reader1.Read())
                 {
                     reader1.Close();
-                    RegistrarAuditoria(nombre, "Fallido");
                     CNN.Close();
+                    RegistrarAuditoria(nombre, "Fallido", "frmLogin");
                     ERROR = "Usuario o contraseña incorrectos.";
                     return null;
                 }
@@ -73,8 +69,8 @@ namespace pryPereiroERP
                 if (estaActivo == false)
                 {
                     reader1.Close();
-                    RegistrarAuditoria(nombre, "Fallido");
                     CNN.Close();
+                    RegistrarAuditoria(nombre, "Fallido", "frmLogin");
                     ERROR = "El usuario está inactivo. Contacte al administrador.";
                     return null;
                 }
@@ -86,7 +82,6 @@ namespace pryPereiroERP
                 int idUsuario = Convert.ToInt32(reader1["Id_Usuario"]);
                 reader1.Close();
 
-                // Verificar que el perfil seleccionado coincida con el perfil real del usuario
                 string query2 = "SELECT p.Nombre FROM Perfil AS p " +
                                 "INNER JOIN [Relacion-Usuario-Perfil] AS r ON p.Id_Perfil = r.Id_Perfil " +
                                 "WHERE r.Id_Usuario = ?";
@@ -101,11 +96,10 @@ namespace pryPereiroERP
                     string perfilReal = reader2["Nombre"].ToString();
                     reader2.Close();
 
-                    // ← El perfil seleccionado debe coincidir con el perfil real
                     if (perfilReal != perfilSeleccionado)
                     {
-                        RegistrarAuditoria(nombre, "Fallido");
                         CNN.Close();
+                        RegistrarAuditoria(nombre, "Fallido", "frmLogin");
                         ERROR = "El perfil seleccionado no corresponde a este usuario.";
                         return null;
                     }
@@ -118,8 +112,8 @@ namespace pryPereiroERP
                     usuario.Rol = "Sin perfil";
                 }
 
-                RegistrarAuditoria(nombre, "Exitoso");
                 CNN.Close();
+                RegistrarAuditoria(nombre, "Exitoso", "frmLogin");
                 return usuario;
             }
             catch (Exception ex)
@@ -131,32 +125,33 @@ namespace pryPereiroERP
             }
         }
 
-        //Metodo Registrar Auditoria
-        public void RegistrarAuditoria(string usuario, string estado)
+        public void RegistrarAuditoria(string usuario, string estado, string historial)
         {
             try
             {
-                // Si por alguna razón la conexión se cerró, la volvemos a abrir
                 if (CNN.State == System.Data.ConnectionState.Closed)
                 {
                     CNN.ConnectionString = cadenaConexion;
                     CNN.Open();
                 }
 
-                // Usamos corchetes porque el nombre de la tabla tiene un guion medio
-                string query = "INSERT INTO [Auditoria-Sesion] (Usuario, FechaHora, Estado) VALUES (?, ?, ?)";
+                string query = "INSERT INTO [Auditoria-Sesion] (Usuario, FechaHora, Estado, Historial) VALUES (?, ?, ?, ?)";
 
                 using (OleDbCommand cmd = new OleDbCommand(query, CNN))
                 {
                     cmd.Parameters.AddWithValue("p1", usuario);
                     cmd.Parameters.AddWithValue("p2", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
                     cmd.Parameters.AddWithValue("p3", estado);
+                    cmd.Parameters.AddWithValue("p4", historial);
 
-                    cmd.ExecuteNonQuery(); // Ejecuta el guardado
+                    cmd.ExecuteNonQuery();
                 }
+                CNN.Close();
             }
             catch (Exception ex)
             {
+                if (CNN.State == ConnectionState.Open)
+                    CNN.Close();
                 MessageBox.Show("Error al guardar en la base de datos: " + ex.Message, "Fallo en Auditoría");
                 ERROR = "Error en auditoría: " + ex.Message;
             }
@@ -180,9 +175,11 @@ namespace pryPereiroERP
                     cmd.Parameters.AddWithValue("?", usuario);
                     cantidad = Convert.ToInt32(cmd.ExecuteScalar());
                 }
+                CNN.Close();
             }
             catch (Exception ex)
             {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
                 ERROR = ex.Message;
             }
             return cantidad;
@@ -195,20 +192,18 @@ namespace pryPereiroERP
             {
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
-
                 string query = "SELECT Id_Provincia, Nombres FROM Provincias ORDER BY Nombres";
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
-
                 CNN.Close();
             }
             catch (Exception ex)
             {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
                 ERROR = ex.Message;
             }
             return dt;
         }
-
 
         public DataTable ObtenerLocalidades()
         {
@@ -217,59 +212,44 @@ namespace pryPereiroERP
             {
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
-
                 string query = "SELECT Id_Localidad, Nombres FROM Localidades ORDER BY Nombres";
-
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
-
                 CNN.Close();
             }
             catch (Exception ex)
             {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
                 ERROR = ex.Message;
             }
             return dt;
         }
-
 
         public DataTable ObtenerPerfil()
         {
             DataTable dt = new DataTable();
             try
             {
-                if (CNN.State == System.Data.ConnectionState.Open)
-                {
-                    CNN.Close();
-                }
+                if (CNN.State == System.Data.ConnectionState.Open) CNN.Close();
 
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
-
                 string query = "SELECT [Id_Perfil], [Nombre] FROM [Perfil] ORDER BY [Nombre]";
-
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
-
                 CNN.Close();
             }
             catch (Exception ex)
             {
                 ERROR = ex.Message;
-                if (CNN.State == System.Data.ConnectionState.Open)
-                {
-                    CNN.Close();
-                }
+                if (CNN.State == System.Data.ConnectionState.Open) CNN.Close();
             }
-
-            return dt;    
-
+            return dt;
         }
 
         public bool InsertarUsuario(string nombre, string apellido, string mail, string contraseña,
-                            bool activo, string dni,
-                            string direccion, string gps, string provincia, string localidad,
-                            string telefono, string redesSociales)
+                                    bool activo, string dni, string direccion, string gps,
+                                    string provincia, string localidad, string telefono, string redesSociales)
         {
             try
             {
@@ -278,7 +258,7 @@ namespace pryPereiroERP
 
                 // 1. Insertar en Usuarios
                 string queryUsuario = @"INSERT INTO Usuarios (Nombre, Apellido, Mail, Contraseña, Activo, DNI)
-                                VALUES (?, ?, ?, ?, ?, ?)";
+                                        VALUES (?, ?, ?, ?, ?, ?)";
 
                 OleDbCommand cmdUsuario = new OleDbCommand(queryUsuario, CNN);
                 cmdUsuario.Parameters.AddWithValue("?", nombre);
@@ -287,6 +267,7 @@ namespace pryPereiroERP
                 cmdUsuario.Parameters.AddWithValue("?", contraseña);
                 cmdUsuario.Parameters.AddWithValue("?", activo);
                 cmdUsuario.Parameters.AddWithValue("?", dni);
+                // Se removió el parámetro duplicado de DNI que tenías acá
                 cmdUsuario.ExecuteNonQuery();
 
                 // 2. Obtener el Id del usuario recién insertado
@@ -295,7 +276,7 @@ namespace pryPereiroERP
 
                 // 3. Insertar en Domicilio_Usuario
                 string queryDomicilio = @"INSERT INTO Domicilio_Usuario (Id_Usuario, GPS, Provincia, Localidad, Dirección)
-                                  VALUES (?, ?, ?, ?, ?)";
+                                          VALUES (?, ?, ?, ?, ?)";
 
                 OleDbCommand cmdDomicilio = new OleDbCommand(queryDomicilio, CNN);
                 cmdDomicilio.Parameters.AddWithValue("?", nuevoId);
@@ -307,7 +288,7 @@ namespace pryPereiroERP
 
                 // 4. Insertar en Contacto_Usuario
                 string queryContacto = @"INSERT INTO Contacto_Usuario (Id_Usuario, Telefono, Redes_Sociales)
-                                 VALUES (?, ?, ?)";
+                                         VALUES (?, ?, ?)";
 
                 OleDbCommand cmdContacto = new OleDbCommand(queryContacto, CNN);
                 cmdContacto.Parameters.AddWithValue("?", nuevoId);
@@ -326,6 +307,31 @@ namespace pryPereiroERP
                     CNN.Close();
                 return false;
             }
+        }
+
+        public DataTable ObtenerAuditoria()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                // Traemos todo ordenado por el ID de forma descendente (el último movimiento primero)
+                string query = "SELECT Id_Auditoria, Usuario, FechaHora, Estado, Historial FROM [Auditoria-Sesion] ORDER BY Id_Auditoria DESC";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+            }
+            return dt;
         }
     }
 }

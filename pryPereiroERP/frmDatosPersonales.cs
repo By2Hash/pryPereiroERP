@@ -12,10 +12,12 @@ namespace pryPereiroERP
 {
     public partial class frmRRHH : Form
     {
+        // Se declara la variable para identificar quién está usando este formulario de carga
+        private string nombreUsuarioActual = "Admin_RRHH";
+
         public frmRRHH()
         {
             InitializeComponent();
-
         }
 
         private void CargarProvincias()
@@ -30,7 +32,7 @@ namespace pryPereiroERP
                     cmbProvincia.DataSource = dt;
                     cmbProvincia.DisplayMember = "Nombres";
                     cmbProvincia.ValueMember = "Id_Provincia";
-                    cmbProvincia.SelectedIndex = -1; // Arranca vacío sin selección
+                    cmbProvincia.SelectedIndex = -1;
                 }
             }
             catch (Exception ex)
@@ -39,20 +41,19 @@ namespace pryPereiroERP
             }
         }
 
-
         private void CargarLocalidades()
         {
             try
             {
                 clsConexion conexion = new clsConexion();
-                DataTable dt = conexion.ObtenerLocalidades(); // Llama al nuevo método sin filtros
+                DataTable dt = conexion.ObtenerLocalidades();
 
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     cmbLocalidad.DataSource = dt;
                     cmbLocalidad.DisplayMember = "Nombres";
                     cmbLocalidad.ValueMember = "Id_Localidad";
-                    cmbLocalidad.SelectedIndex = -1; // Arranca vacío sin selección
+                    cmbLocalidad.SelectedIndex = -1;
                 }
             }
             catch (Exception ex)
@@ -60,6 +61,7 @@ namespace pryPereiroERP
                 MessageBox.Show("Error al cargar localidades: " + ex.Message);
             }
         }
+
         private void chkActivar_CheckedChanged(object sender, EventArgs e)
         {
         }
@@ -69,12 +71,13 @@ namespace pryPereiroERP
             CargarProvincias();
             CargarLocalidades();
 
-
+            // Guarda el historial de navegación para este formulario
+            clsConexion conexion = new clsConexion();
+            conexion.RegistrarAuditoria(nombreUsuarioActual, "Navegacion", this.Name);
         }
 
         private void cmbProvincia_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void cmbLocalidad_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,29 +86,21 @@ namespace pryPereiroERP
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            // Validaciones básicas
-            if (string.IsNullOrWhiteSpace(txtDNI.Text) ||   // DNI
-                string.IsNullOrWhiteSpace(txtApellido.Text) ||   // Apellido
-                string.IsNullOrWhiteSpace(txtNombre.Text) ||   // Nombre
+            if (string.IsNullOrWhiteSpace(txtDNI.Text) ||
+                string.IsNullOrWhiteSpace(txtApellido.Text) ||
+                string.IsNullOrWhiteSpace(txtNombre.Text) ||
                 string.IsNullOrWhiteSpace(txtMail.Text) ||
                 string.IsNullOrWhiteSpace(txtContraseña.Text))
             {
-                MessageBox.Show("DNI, Apellido, Nombre,Contraseña y Mail son obligatorios.",
+                MessageBox.Show("DNI, Apellido, Nombre, Contraseña y Mail son obligatorios.",
                                 "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Leer provincia y localidad seleccionadas (texto visible)
-            string provincia = cmbProvincia.SelectedIndex >= 0
-                               ? cmbProvincia.Text : "";
-            string localidad = cmbLocalidad.SelectedIndex >= 0
-                               ? cmbLocalidad.Text : "";
+            string provincia = cmbProvincia.SelectedIndex >= 0 ? cmbProvincia.Text : "";
+            string localidad = cmbLocalidad.SelectedIndex >= 0 ? cmbLocalidad.Text : "";
+            string redes = comboBox4.SelectedIndex >= 0 ? comboBox4.Text : "";
 
-            // Redes Sociales del comboBox4
-            string redes = comboBox4.SelectedIndex >= 0
-                           ? comboBox4.Text : "";
-
-            // Generar contraseña automática: nombre + DNI (podés cambiar esto)
             string contraseñaGenerada = txtNombre.Text.ToLower() + txtDNI.Text;
 
             clsConexion conexion = new clsConexion();
@@ -128,6 +123,10 @@ namespace pryPereiroERP
             {
                 MessageBox.Show("Usuario ingresado correctamente.\nContraseña generada: " + contraseñaGenerada,
                                 "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Registra en auditoría que este administrador creó un usuario exitosamente desde este form
+                conexion.RegistrarAuditoria(nombreUsuarioActual, "Registro Usuario: " + txtNombre.Text.Trim(), this.Name);
+
                 LimpiarFormulario();
             }
             else
@@ -137,13 +136,11 @@ namespace pryPereiroERP
             }
         }
 
-
-
         private void LimpiarFormulario()
         {
-            txtDNI.Clear();   // DNI
-            txtApellido.Clear();   // Apellido
-            txtNombre.Clear();   // Nombre
+            txtDNI.Clear();
+            txtApellido.Clear();
+            txtNombre.Clear();
             txtMail.Clear();
             txtContraseña.Clear();
             txtDireccion.Clear();

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace pryPereiroERP
@@ -16,15 +10,12 @@ namespace pryPereiroERP
         {
             InitializeComponent();
             CargarPerfiles();
-            
-
         }
 
         int intentos = 3;
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
-            // Si falta cualquier campo, descontamos intento
             if (String.IsNullOrWhiteSpace(txtNombre.Text) ||
                 String.IsNullOrWhiteSpace(txtContraseña.Text) ||
                 cmbPerfil.SelectedIndex == -1)
@@ -37,63 +28,48 @@ namespace pryPereiroERP
             else
             {
                 string perfilSeleccionado = cmbPerfil.Text;
-
                 clsConexion conexion = new clsConexion();
                 clsUsuario usuario = conexion.ValidarUsuario(txtNombre.Text, txtContraseña.Text, perfilSeleccionado);
 
-                if(usuario != null)
-                {
-                    MessageBox.Show("¡Bienvenido, " + usuario.Nombre + "!", "Ingreso exitoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(conexion.GetError(), "Error de Login", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
                 if (usuario != null)
                 {
+                    MessageBox.Show("¡Bienvenido, " + usuario.Nombre + "!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    txtNombre.Clear();
-                    txtContraseña.Clear();
-                    cmbPerfil.SelectedIndex = -1;
-
+                    // --- AQUÍ HACEMOS LA REDIRECCIÓN SEGÚN EL ROL ---
                     if (usuario.Rol == "RRHH")
                     {
-                        frmRRHH rrhh = new frmRRHH();
-                        rrhh.Show();
-
+                        // Si el perfil validado es RRHH, instanciamos y abrimos su ventana específica
+                        frmRRHH formularioRRHH = new frmRRHH();
+                        this.Hide();
+                        formularioRRHH.ShowDialog();
+                        this.Close();
                     }
                     else
                     {
-                        frmMain principal = new frmMain(usuario);
-                        principal.Show();
-
+                        // Si es Administrador o cualquier otro perfil, va al menú principal normal
+                        frmMain formularioPrincipal = new frmMain(usuario);
+                        this.Hide();
+                        formularioPrincipal.ShowDialog();
+                        this.Close();
                     }
-                    return;
                 }
                 else
                 {
                     intentos--;
-                    MessageBox.Show(conexion.GetError() + "\nIntentos restantes: " + intentos,
-                                   "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(conexion.GetError() + "\nIntentos restantes: " + intentos, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-               
             }
 
             if (intentos == 0)
             {
-                MessageBox.Show("Intentos agotados. La aplicación se cerrará.",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Intentos agotados. La aplicación se cerrará.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
-
-          
         }
+
         private void frmLogin_Load(object sender, EventArgs e)
         {
             CargarPerfiles();
-            
         }
 
         public void CargarPerfiles()
@@ -103,7 +79,6 @@ namespace pryPereiroERP
                 clsConexion conexion = new clsConexion();
                 DataTable dt = conexion.ObtenerPerfil();
 
-                // 🔴 AGREGÁ ESTO TEMPORALMENTE: Si el método falló, te va a decir por qué
                 if (!string.IsNullOrEmpty(conexion.GetError()))
                 {
                     MessageBox.Show("Error interno de la base de datos: " + conexion.GetError());
