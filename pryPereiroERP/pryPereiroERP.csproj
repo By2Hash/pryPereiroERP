@@ -104,9 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="database_theapplication_3365.ico" />
-    <Content Include="Pereiro.db1.accdb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

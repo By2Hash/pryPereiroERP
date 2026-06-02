@@ -23,7 +23,7 @@ namespace pryPereiroERP
                 intentos--;
                 MessageBox.Show("Debe completar todos los campos (Nombre, Contraseña y Perfil).\n" +
                                 "Intentos restantes: " + intentos,
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -56,7 +56,7 @@ namespace pryPereiroERP
                 else
                 {
                     intentos--;
-                    MessageBox.Show(conexion.GetError() + "\nIntentos restantes: " + intentos, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(conexion.GetError() + "\nIntentos restantes: " + intentos, "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
 

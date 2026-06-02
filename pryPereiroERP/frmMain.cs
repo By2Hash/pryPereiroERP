@@ -89,5 +89,10 @@ namespace pryPereiroERP
                 MessageBox.Show("Error al cargar la grilla de auditoría: " + conexion.GetError(), "Error");
             }
         }
+
+        private void dgvConsulta_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

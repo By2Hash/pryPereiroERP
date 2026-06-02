@@ -40,9 +40,10 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 589);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 375);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(969, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(646, 22);
             this.statusStrip1.TabIndex = 0;
             // 
             // statusStripTop
@@ -52,43 +53,46 @@
             this.statusStripTop.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStripTop.Location = new System.Drawing.Point(0, 0);
             this.statusStripTop.Name = "statusStripTop";
-            this.statusStripTop.Size = new System.Drawing.Size(969, 22);
+            this.statusStripTop.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
+            this.statusStripTop.Size = new System.Drawing.Size(646, 22);
             this.statusStripTop.TabIndex = 1;
             // 
             // dgvConsulta
             // 
             this.dgvConsulta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvConsulta.Location = new System.Drawing.Point(12, 94);
+            this.dgvConsulta.Location = new System.Drawing.Point(8, 61);
+            this.dgvConsulta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvConsulta.Name = "dgvConsulta";
             this.dgvConsulta.RowHeadersWidth = 62;
             this.dgvConsulta.RowTemplate.Height = 28;
-            this.dgvConsulta.Size = new System.Drawing.Size(945, 477);
+            this.dgvConsulta.Size = new System.Drawing.Size(630, 310);
             this.dgvConsulta.TabIndex = 2;
+            this.dgvConsulta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConsulta_CellContentClick);
             // 
             // lblAuditoria
             // 
             this.lblAuditoria.AutoSize = true;
             this.lblAuditoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAuditoria.Location = new System.Drawing.Point(12, 42);
+            this.lblAuditoria.Location = new System.Drawing.Point(8, 27);
+            this.lblAuditoria.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAuditoria.Name = "lblAuditoria";
-            this.lblAuditoria.Size = new System.Drawing.Size(231, 30);
+            this.lblAuditoria.Size = new System.Drawing.Size(163, 22);
             this.lblAuditoria.TabIndex = 3;
             this.lblAuditoria.Text = "Consultar Auditoria";
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(969, 611);
+            this.ClientSize = new System.Drawing.Size(646, 397);
             this.Controls.Add(this.lblAuditoria);
             this.Controls.Add(this.dgvConsulta);
             this.Controls.Add(this.statusStripTop);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Main";
+            this.Text = "Sistema ERP";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvConsulta)).EndInit();
             this.ResumeLayout(false);

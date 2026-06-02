@@ -151,5 +151,10 @@ namespace pryPereiroERP
             comboBox4.SelectedIndex = -1;
             chkActivar.Checked = false;
         }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
