@@ -55,5 +55,9 @@ Termine de implementar una grilla para visualizar la tabla de 'Auditoria'. Podri
 Agregue dos nuevas tablas, la de 'Domicilio_Usuario' y 'Contacto_Usuario', relacionadas o vinculadas con la tabla 'Usuario', para distribuir la informacion. Faltaria por incorporar la funcion de poder elegir mas de una red social.
 
 ----- EPISODIO 4: Una nueva esperanza ------
-
+* Verificar en todos los campos txt en el que se ingresen numeros (DNI), hacer el keyPress 
+* Implementar un radioButton en el frmLogin para mostrar la contraseña
+* En el frmRRHH, implementar un Tab para tener pestañas independientes para ingresar/modificar y eliminar usuario, usando el Id
+* Agregar un Icono al ejecutable (.exe)
+* Cambiar el icono de todos los MessageBoxIncon, por el icono Warning 
 
