@@ -54,6 +54,10 @@ Termine de implementar una grilla para visualizar la tabla de 'Auditoria'. Podri
 <img width="969" height="645" alt="image" src="https://github.com/user-attachments/assets/5aa4c3a8-a0ca-47a9-baa3-bf6dab40bf64" />
 Agregue dos nuevas tablas, la de 'Domicilio_Usuario' y 'Contacto_Usuario', relacionadas o vinculadas con la tabla 'Usuario', para distribuir la informacion. Faltaria por incorporar la funcion de poder elegir mas de una red social.
 
+<img width="179" height="252" alt="{94C92E28-C54E-4C20-A0F4-F1B980A7DA1B}" src="https://github.com/user-attachments/assets/f7f2acba-ba05-4309-8d3f-30e912215905" />
+
+
 ----- EPISODIO 4: Una nueva esperanza ------
+* Verificar en todos los campos txt en el que se ingresen numeros, hacer el keyPress
 
 
