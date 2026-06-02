@@ -1,4 +1,4 @@
------- EPISODIO 1 -----
+------ EPISODIO 1: La amenaza fantasma  -----
 
 <img width="628" height="433" alt="{0F7E8070-B053-4751-ABFC-76199924C4A6}" src="https://github.com/user-attachments/assets/a757f0a1-44b8-4b5f-8f5a-4f701c7548d3" />
 
@@ -24,7 +24,7 @@ CONSIGNAS
 <img width="718" height="227" alt="image" src="https://github.com/user-attachments/assets/99b46639-a0ec-4105-a129-00103b2e0844" />
 
 
------- EPISODIO 2 -----
+------ EPISODIO 2: El ataque de los clones -----
 
 
 1 - Crear la interfaz de RRHH, para ingresar los datos personales de los usuarios, tanto direccion como mail y redes sociales
@@ -33,7 +33,7 @@ CONSIGNAS
 
 3 - 21/5/26 - Formularios listos, comboBoxs listos con los datos de la tablas correspondientes, falta programar el boton cuando el perdil sea RRHH para dirigir al formDatosPersonales
 
------ EPISODIO 3 ------
+----- EPISODIO 3:  La venganza de los Sith  ------
 
 1 - Una vez hecho la base de datos Auditoria, que grbae la hora y fecha en la que ingreso el usuario
 
@@ -54,6 +54,6 @@ Termine de implementar una grilla para visualizar la tabla de 'Auditoria'. Podri
 <img width="969" height="645" alt="image" src="https://github.com/user-attachments/assets/5aa4c3a8-a0ca-47a9-baa3-bf6dab40bf64" />
 Agregue dos nuevas tablas, la de 'Domicilio_Usuario' y 'Contacto_Usuario', relacionadas o vinculadas con la tabla 'Usuario', para distribuir la informacion. Faltaria por incorporar la funcion de poder elegir mas de una red social.
 
------ EPISODIO 4 ------
+----- EPISODIO 4: Una nueva esperanza ------
 
 
