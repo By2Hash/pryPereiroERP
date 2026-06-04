@@ -149,5 +149,11 @@ namespace pryPereiroERP
         {
 
         }
+
+        private void dvgUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            frmRRHH rrhh = new frmRRHH();
+            rrhh.ShowDialog();
+        }
     }
 }

@@ -178,6 +178,7 @@
             this.dvgUsuarios.Size = new System.Drawing.Size(751, 329);
             this.dvgUsuarios.TabIndex = 3;
             this.dvgUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUsuarios_CellContentClick);
+            this.dvgUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUsuarios_CellDoubleClick);
             // 
             // tabAyuda
             // 
