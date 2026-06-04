@@ -356,7 +356,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmRRHH";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Datos Personales";
+            this.Text = "Registrar Usuario";
             this.Load += new System.EventHandler(this.frmRRHH_Load);
             this.gpbDomicilio.ResumeLayout(false);
             this.gpbDomicilio.PerformLayout();

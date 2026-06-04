@@ -94,5 +94,11 @@ namespace pryPereiroERP
         {
 
         }
+
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            frmRRHH rrhh = new frmRRHH();
+            rrhh.ShowDialog();
+        }
     }
 }
