@@ -55,9 +55,18 @@ Termine de implementar una grilla para visualizar la tabla de 'Auditoria'. Podri
 Agregue dos nuevas tablas, la de 'Domicilio_Usuario' y 'Contacto_Usuario', relacionadas o vinculadas con la tabla 'Usuario', para distribuir la informacion. Faltaria por incorporar la funcion de poder elegir mas de una red social.
 
 ----- EPISODIO 4: Una nueva esperanza ------
+
 * Verificar en todos los campos txt en el que se ingresen numeros (DNI), hacer el keyPress 
 * Implementar un radioButton en el frmLogin para mostrar la contraseña
 * En el frmRRHH, implementar un Tab para tener pestañas independientes para ingresar/modificar y eliminar usuario, usando el Id
 * Agregar un Icono al ejecutable (.exe)
-* Cambiar el icono de todos los MessageBoxIncon, por el icono Warning 
+  
+* Cambiar el icono de todos los MessageBoxIncon, por el icono Warning
+* UserFlow antingu de la interfaz: Login (frmLogin) → Main (frmMain) 
+                                   Login (frmLogin) → Datos Personales (frmRRHH)
 
+* UserFlow nuevo para la interfaz: Login (frmLogin) → Main (frm main), que este un tabControl para ver la grilla de la auditoria, si el usuario que ingreso es perfil 'Usuario', no tiene acceso a nada. 'RRHH', puede entrar solo al menu para registrar/modificar o eliminar usuario, 'Admin', tiene acceso a TODO
+
+----- EPISODIO 5: El Imperio Contraataca ------
+<img width="777" height="532" alt="{C8D6EAC2-A577-4A7C-AF5F-5FEF5B174611}" src="https://github.com/user-attachments/assets/9095d247-de17-4b04-9162-cbaf0f8eac68" />
+Grilla de usuarios lista, falta poder modificar y eliminar usuarios haciendo doble clic en la grilla (_CellDoubleClick)
