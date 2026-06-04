@@ -31,6 +31,7 @@ namespace pryPereiroERP
             clsConexion conexion = new clsConexion();
             conexion.RegistrarAuditoria(_usuario.Nombre, "Navegacion", this.Name);
             CargarGrillaAuditoria();
+            CargarGrillaUsuarios();
         }
 
         private void MostrarDatosUsuario()
@@ -90,6 +91,34 @@ namespace pryPereiroERP
             }
         }
 
+        private void CargarGrillaUsuarios()
+        {
+            clsConexion conexion = new clsConexion();
+            DataTable dt = conexion.ObtenerUsuarios();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+               dvgUsuarios.DataSource = dt;
+
+                // Opcional: Mejorar visualmente los encabezados de las columnas
+                dvgUsuarios.Columns["Id_Usuario"].HeaderText = "ID";
+                dvgUsuarios.Columns["DNI"].HeaderText = "DNI";
+                dvgUsuarios.Columns["Nombre"].HeaderText = "Nombre";
+                dvgUsuarios.Columns["Apellido"].HeaderText = "Apellido";
+                dvgUsuarios.Columns["Mail"].HeaderText = "Mail";
+                dvgUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
+                dvgUsuarios.Columns["Activo"].HeaderText = "Activo";
+               
+
+                // Ajustar automáticamente el ancho de las columnas para que se vea ordenado
+                dvgUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            else if (!string.IsNullOrEmpty(conexion.GetError()))
+            {
+                MessageBox.Show("Error al cargar la grilla de auditoría: " + conexion.GetError(), "Error");
+            }
+        }
+
         private void dgvConsulta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -99,6 +128,26 @@ namespace pryPereiroERP
         {
             frmRRHH rrhh = new frmRRHH();
             rrhh.ShowDialog();
+        }
+
+        private void optAsc_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabRRHH_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabGrilla_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dvgUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

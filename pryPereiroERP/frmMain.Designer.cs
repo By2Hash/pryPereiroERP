@@ -39,7 +39,7 @@
             this.tabCuenta = new System.Windows.Forms.TabPage();
             this.lblAuditoria = new System.Windows.Forms.Label();
             this.optAsc = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.optDesc = new System.Windows.Forms.RadioButton();
             this.dvgUsuarios = new System.Windows.Forms.DataGridView();
             this.tabAyuda = new System.Windows.Forms.TabPage();
             this.lblRRHH = new System.Windows.Forms.Label();
@@ -74,12 +74,12 @@
             // dgvConsulta
             // 
             this.dgvConsulta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvConsulta.Location = new System.Drawing.Point(12, 77);
+            this.dgvConsulta.Location = new System.Drawing.Point(7, 77);
             this.dgvConsulta.Margin = new System.Windows.Forms.Padding(2);
             this.dgvConsulta.Name = "dgvConsulta";
             this.dgvConsulta.RowHeadersWidth = 62;
             this.dgvConsulta.RowTemplate.Height = 28;
-            this.dgvConsulta.Size = new System.Drawing.Size(672, 296);
+            this.dgvConsulta.Size = new System.Drawing.Size(752, 342);
             this.dgvConsulta.TabIndex = 2;
             this.dgvConsulta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConsulta_CellContentClick);
             // 
@@ -97,7 +97,7 @@
             // 
             // tabGrilla
             // 
-            this.tabGrilla.Controls.Add(this.radioButton2);
+            this.tabGrilla.Controls.Add(this.optDesc);
             this.tabGrilla.Controls.Add(this.optAsc);
             this.tabGrilla.Controls.Add(this.lblAuditoria);
             this.tabGrilla.Controls.Add(this.dgvConsulta);
@@ -108,6 +108,7 @@
             this.tabGrilla.TabIndex = 0;
             this.tabGrilla.Text = "AUDITORIA";
             this.tabGrilla.UseVisualStyleBackColor = true;
+            this.tabGrilla.Click += new System.EventHandler(this.tabGrilla_Click);
             // 
             // tabRRHH
             // 
@@ -121,6 +122,7 @@
             this.tabRRHH.TabIndex = 1;
             this.tabRRHH.Text = "RRHH";
             this.tabRRHH.UseVisualStyleBackColor = true;
+            this.tabRRHH.Click += new System.EventHandler(this.tabRRHH_Click);
             // 
             // tabCuenta
             // 
@@ -145,24 +147,25 @@
             // optAsc
             // 
             this.optAsc.AutoSize = true;
-            this.optAsc.Location = new System.Drawing.Point(12, 46);
+            this.optAsc.Location = new System.Drawing.Point(9, 46);
             this.optAsc.Name = "optAsc";
-            this.optAsc.Size = new System.Drawing.Size(38, 17);
+            this.optAsc.Size = new System.Drawing.Size(114, 17);
             this.optAsc.TabIndex = 4;
             this.optAsc.TabStop = true;
-            this.optAsc.Text = "Ac";
+            this.optAsc.Text = "Orden Ascendente";
             this.optAsc.UseVisualStyleBackColor = true;
+            this.optAsc.CheckedChanged += new System.EventHandler(this.optAsc_CheckedChanged);
             // 
-            // radioButton2
+            // optDesc
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(124, 46);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 5;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.optDesc.AutoSize = true;
+            this.optDesc.Location = new System.Drawing.Point(143, 46);
+            this.optDesc.Name = "optDesc";
+            this.optDesc.Size = new System.Drawing.Size(121, 17);
+            this.optDesc.TabIndex = 5;
+            this.optDesc.TabStop = true;
+            this.optDesc.Text = "Orden Descendente";
+            this.optDesc.UseVisualStyleBackColor = true;
             // 
             // dvgUsuarios
             // 
@@ -174,6 +177,7 @@
             this.dvgUsuarios.RowTemplate.Height = 28;
             this.dvgUsuarios.Size = new System.Drawing.Size(751, 329);
             this.dvgUsuarios.TabIndex = 3;
+            this.dvgUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUsuarios_CellContentClick);
             // 
             // tabAyuda
             // 
@@ -240,7 +244,7 @@
         private System.Windows.Forms.TabPage tabRRHH;
         private System.Windows.Forms.TabPage tabCuenta;
         private System.Windows.Forms.Label lblAuditoria;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton optDesc;
         private System.Windows.Forms.RadioButton optAsc;
         private System.Windows.Forms.DataGridView dvgUsuarios;
         private System.Windows.Forms.TabPage tabAyuda;

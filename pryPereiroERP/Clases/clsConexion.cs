@@ -333,5 +333,31 @@ namespace pryPereiroERP
             }
             return dt;
         }
+
+        public DataTable ObtenerUsuarios()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                // Traemos todo ordenado por el ID de forma descendente (el último movimiento primero)
+                string query = "SELECT * FROM Usuarios ";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+            }
+            return dt;
+
+        }
     }
 }
