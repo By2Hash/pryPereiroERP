@@ -345,7 +345,7 @@ namespace pryPereiroERP
                 CNN.Open();
 
                 // Traemos todo ordenado por el ID de forma descendente (el último movimiento primero)
-                string query = "SELECT * FROM Usuarios ";
+                string query = "SELECT * FROM Usuarios  ";
 
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
