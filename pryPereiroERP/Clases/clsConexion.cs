@@ -38,7 +38,7 @@ namespace pryPereiroERP
             return ERROR;
         }
 
-        public clsUsuario ValidarUsuario(string nombre, string contraseña, string perfilSeleccionado)
+        public clsUsuario ValidarUsuario(string nombre, string contraseña )
         {
             try
             {
@@ -93,18 +93,8 @@ namespace pryPereiroERP
 
                 if (reader2.Read())
                 {
-                    string perfilReal = reader2["Nombre"].ToString();
+                    usuario.Rol = reader2["Nombre"].ToString();
                     reader2.Close();
-
-                    if (perfilReal != perfilSeleccionado)
-                    {
-                        CNN.Close();
-                        RegistrarAuditoria(nombre, "Fallido", "frmLogin");
-                        ERROR = "El perfil seleccionado no corresponde a este usuario.";
-                        return null;
-                    }
-
-                    usuario.Rol = perfilReal;
                 }
                 else
                 {
@@ -359,5 +349,31 @@ namespace pryPereiroERP
             return dt;
 
         }
+
+        public DataTable ObtenerAuditoriaASC()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                // Traemos todo ordenado por el ID de forma descendente (el último movimiento primero)
+                string query = "SELECT Id_Auditoria, Usuario, FechaHora, Estado, Historial FROM [Auditoria-Sesion] ORDER BY Id_Auditoria ASC";
+
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+            }
+            return dt;
+        }
+
     }
 }

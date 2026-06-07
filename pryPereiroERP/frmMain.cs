@@ -18,6 +18,7 @@ namespace pryPereiroERP
         {
             InitializeComponent();
             _usuario = usuario;
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace pryPereiroERP
             conexion.RegistrarAuditoria(_usuario.Nombre, "Navegacion", this.Name);
             CargarGrillaAuditoria();
             CargarGrillaUsuarios();
+           
         }
 
         private void MostrarDatosUsuario()
@@ -132,7 +134,17 @@ namespace pryPereiroERP
 
         private void optAsc_CheckedChanged(object sender, EventArgs e)
         {
+            if (optAsc.Checked)
+            { 
+                clsConexion conexion = new clsConexion();
+                DataTable dt = conexion.ObtenerAuditoriaASC();
 
+                dgvConsulta.DataSource = dt;
+            }
+            else
+                           {
+                CargarGrillaAuditoria();
+            }
         }
 
         private void tabRRHH_Click(object sender, EventArgs e)
@@ -154,6 +166,51 @@ namespace pryPereiroERP
         {
             frmRRHH rrhh = new frmRRHH();
             rrhh.ShowDialog();
+        }
+
+        private void optDesc_CheckedChanged(object sender, EventArgs e)
+        {
+            if (optDesc.Checked)
+            {
+                clsConexion conexion = new clsConexion();
+                DataTable dt = conexion.ObtenerAuditoria();
+                dgvConsulta.DataSource = dt;
+            }
+            else
+            {
+                CargarGrillaAuditoria();
+            }
+        }
+
+        private void statusStripTop_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Lanzamos el cuadro de diálogo para preguntar
+            DialogResult respuesta = MessageBox.Show(
+                "¿Está seguro de que desea cerrar sesión y salir del sistema ERP?",
+                "Confirmar Salida",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            // Si el usuario responde que NO, cancelamos el cierre de la ventana
+            if (respuesta == DialogResult.No)
+            {
+                e.Cancel = true; // Esto detiene a Windows y mantiene el programa abierto
+            }
+            else
+            {
+                // Si responde que SÍ, dejamos que el formulario se cierre normalmente.
+                // Aquí puedes agregar código para reabrir el Login si no quieres que el programa muera:
+
+                // frmLogin login = new frmLogin();
+                // login.Show();
+                Application.Exit();
+            }
         }
     }
 }

@@ -31,58 +31,52 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.pnlIniciarSesion = new System.Windows.Forms.Panel();
             this.lblPerfil = new System.Windows.Forms.Label();
-            this.cmbPerfil = new System.Windows.Forms.ComboBox();
             this.btnIngresar = new System.Windows.Forms.Button();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.lblContraseña = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblBienvenida = new System.Windows.Forms.Label();
+            this.chkMostrarOcultar = new System.Windows.Forms.CheckBox();
             this.pnlIniciarSesion.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlIniciarSesion
             // 
             this.pnlIniciarSesion.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.pnlIniciarSesion.Controls.Add(this.chkMostrarOcultar);
             this.pnlIniciarSesion.Controls.Add(this.lblPerfil);
-            this.pnlIniciarSesion.Controls.Add(this.cmbPerfil);
             this.pnlIniciarSesion.Controls.Add(this.btnIngresar);
             this.pnlIniciarSesion.Controls.Add(this.txtContraseña);
             this.pnlIniciarSesion.Controls.Add(this.txtNombre);
             this.pnlIniciarSesion.Controls.Add(this.lblContraseña);
             this.pnlIniciarSesion.Controls.Add(this.lblNombre);
-            this.pnlIniciarSesion.Location = new System.Drawing.Point(9, 74);
+            this.pnlIniciarSesion.Location = new System.Drawing.Point(14, 114);
+            this.pnlIniciarSesion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pnlIniciarSesion.Name = "pnlIniciarSesion";
-            this.pnlIniciarSesion.Size = new System.Drawing.Size(535, 218);
+            this.pnlIniciarSesion.Size = new System.Drawing.Size(802, 284);
             this.pnlIniciarSesion.TabIndex = 2;
+            this.pnlIniciarSesion.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlIniciarSesion_Paint);
             // 
             // lblPerfil
             // 
             this.lblPerfil.AutoSize = true;
             this.lblPerfil.BackColor = System.Drawing.SystemColors.Control;
             this.lblPerfil.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPerfil.Location = new System.Drawing.Point(64, 134);
+            this.lblPerfil.Location = new System.Drawing.Point(96, 206);
+            this.lblPerfil.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblPerfil.Name = "lblPerfil";
-            this.lblPerfil.Size = new System.Drawing.Size(44, 20);
+            this.lblPerfil.Size = new System.Drawing.Size(0, 29);
             this.lblPerfil.TabIndex = 6;
-            this.lblPerfil.Text = "Perfil";
-            // 
-            // cmbPerfil
-            // 
-            this.cmbPerfil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbPerfil.FormattingEnabled = true;
-            this.cmbPerfil.Location = new System.Drawing.Point(199, 138);
-            this.cmbPerfil.Name = "cmbPerfil";
-            this.cmbPerfil.Size = new System.Drawing.Size(139, 21);
-            this.cmbPerfil.TabIndex = 5;
             // 
             // btnIngresar
             // 
             this.btnIngresar.BackColor = System.Drawing.Color.DarkTurquoise;
             this.btnIngresar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIngresar.Location = new System.Drawing.Point(378, 51);
+            this.btnIngresar.Location = new System.Drawing.Point(566, 67);
+            this.btnIngresar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnIngresar.Name = "btnIngresar";
-            this.btnIngresar.Size = new System.Drawing.Size(98, 30);
+            this.btnIngresar.Size = new System.Drawing.Size(147, 46);
             this.btnIngresar.TabIndex = 4;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = false;
@@ -91,20 +85,22 @@
             // txtContraseña
             // 
             this.txtContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContraseña.Location = new System.Drawing.Point(199, 90);
+            this.txtContraseña.Location = new System.Drawing.Point(298, 162);
+            this.txtContraseña.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtContraseña.MaxLength = 12;
             this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.PasswordChar = '*';
-            this.txtContraseña.Size = new System.Drawing.Size(139, 26);
+            this.txtContraseña.Size = new System.Drawing.Size(206, 35);
             this.txtContraseña.TabIndex = 3;
+            this.txtContraseña.UseSystemPasswordChar = true;
             // 
             // txtNombre
             // 
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombre.Location = new System.Drawing.Point(199, 51);
+            this.txtNombre.Location = new System.Drawing.Point(298, 78);
+            this.txtNombre.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNombre.MaxLength = 30;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(139, 26);
+            this.txtNombre.Size = new System.Drawing.Size(206, 35);
             this.txtNombre.TabIndex = 2;
             // 
             // lblContraseña
@@ -112,9 +108,10 @@
             this.lblContraseña.AutoSize = true;
             this.lblContraseña.BackColor = System.Drawing.SystemColors.Control;
             this.lblContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblContraseña.Location = new System.Drawing.Point(64, 97);
+            this.lblContraseña.Location = new System.Drawing.Point(96, 168);
+            this.lblContraseña.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblContraseña.Name = "lblContraseña";
-            this.lblContraseña.Size = new System.Drawing.Size(92, 20);
+            this.lblContraseña.Size = new System.Drawing.Size(136, 29);
             this.lblContraseña.TabIndex = 1;
             this.lblContraseña.Text = "Contraseña";
             // 
@@ -123,9 +120,10 @@
             this.lblNombre.AutoSize = true;
             this.lblNombre.BackColor = System.Drawing.SystemColors.Control;
             this.lblNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombre.Location = new System.Drawing.Point(64, 51);
+            this.lblNombre.Location = new System.Drawing.Point(96, 78);
+            this.lblNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(97, 20);
+            this.lblNombre.Size = new System.Drawing.Size(153, 29);
             this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "Nombre/Mail";
             // 
@@ -134,22 +132,33 @@
             this.lblBienvenida.AutoSize = true;
             this.lblBienvenida.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblBienvenida.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBienvenida.Location = new System.Drawing.Point(156, 12);
-            this.lblBienvenida.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblBienvenida.Location = new System.Drawing.Point(234, 18);
             this.lblBienvenida.Name = "lblBienvenida";
-            this.lblBienvenida.Size = new System.Drawing.Size(229, 48);
+            this.lblBienvenida.Size = new System.Drawing.Size(336, 71);
             this.lblBienvenida.TabIndex = 3;
             this.lblBienvenida.Text = "Bienvenido";
+            // 
+            // chkMostrarOcultar
+            // 
+            this.chkMostrarOcultar.AutoSize = true;
+            this.chkMostrarOcultar.Location = new System.Drawing.Point(298, 212);
+            this.chkMostrarOcultar.Name = "chkMostrarOcultar";
+            this.chkMostrarOcultar.Size = new System.Drawing.Size(144, 24);
+            this.chkMostrarOcultar.TabIndex = 7;
+            this.chkMostrarOcultar.Text = "Mostrar/Ocultar";
+            this.chkMostrarOcultar.UseVisualStyleBackColor = true;
+            this.chkMostrarOcultar.CheckedChanged += new System.EventHandler(this.chkMostrarOcultar_CheckedChanged);
             // 
             // frmLogin
             // 
             this.AcceptButton = this.btnIngresar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(553, 303);
+            this.ClientSize = new System.Drawing.Size(830, 420);
             this.Controls.Add(this.lblBienvenida);
             this.Controls.Add(this.pnlIniciarSesion);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
@@ -171,6 +180,6 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.Label lblBienvenida;
         private System.Windows.Forms.Label lblPerfil;
-        private System.Windows.Forms.ComboBox cmbPerfil;
+        private System.Windows.Forms.CheckBox chkMostrarOcultar;
     }
 }

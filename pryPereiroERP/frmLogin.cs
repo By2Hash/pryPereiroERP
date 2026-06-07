@@ -17,19 +17,19 @@ namespace pryPereiroERP
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrWhiteSpace(txtNombre.Text) ||
-                String.IsNullOrWhiteSpace(txtContraseña.Text) ||
-                cmbPerfil.SelectedIndex == -1)
+                String.IsNullOrWhiteSpace(txtContraseña.Text) 
+               )
             {
                 intentos--;
-                MessageBox.Show("Debe completar todos los campos (Nombre, Contraseña y Perfil).\n" +
+                MessageBox.Show("Debe completar todos los campos (Nombre/Mail y Contraseña ).\n" +
                                 "Intentos restantes: " + intentos,
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                string perfilSeleccionado = cmbPerfil.Text;
+              
                 clsConexion conexion = new clsConexion();
-                clsUsuario usuario = conexion.ValidarUsuario(txtNombre.Text, txtContraseña.Text, perfilSeleccionado);
+                clsUsuario usuario = conexion.ValidarUsuario(txtNombre.Text, txtContraseña.Text);
 
                 if (usuario != null)
                 {
@@ -85,17 +85,42 @@ namespace pryPereiroERP
                     return;
                 }
 
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    cmbPerfil.DataSource = dt;
-                    cmbPerfil.DisplayMember = "Nombre";
-                    cmbPerfil.ValueMember = "Id_Perfil";
-                    cmbPerfil.SelectedIndex = -1;
-                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar los perfiles: " + ex.Message);
+            }
+        }
+
+        private void cmbPerfil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnlIniciarSesion_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void optMostrarContra_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void optMostrarContra_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void chkMostrarOcultar_CheckedChanged(object sender, EventArgs e)
+        {
+            if(chkMostrarOcultar.Checked)
+            {
+                txtContraseña.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                txtContraseña.UseSystemPasswordChar = true;
             }
         }
     }
