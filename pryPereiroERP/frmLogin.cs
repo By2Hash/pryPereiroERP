@@ -34,22 +34,10 @@ namespace pryPereiroERP
                     MessageBox.Show("¡Bienvenido, " + usuario.Nombre + "!", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // --- AQUÍ HACEMOS LA REDIRECCIÓN SEGÚN EL ROL ---
-                    if (usuario.Rol == "RRHH")
-                    {
-                        frmRRHH formularioRRHH = new frmRRHH();
-                        formularioRRHH.UsuarioActual = usuario.Nombre;
-                        formularioRRHH.Show();
-                        this.Hide();
-                    }
-                    else
-                    {
-                        // Si es Administrador o cualquier otro perfil, va al menú principal normal
-                        frmMain formularioPrincipal = new frmMain(usuario);
+                    frmMain formularioPrincipal = new frmMain(usuario);
 
-                        formularioPrincipal.Show();
-                        this.Hide();
-
-                    }
+                    formularioPrincipal.Show();
+                    this.Hide();
                 }
                 else
                 {

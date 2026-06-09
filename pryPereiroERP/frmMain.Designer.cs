@@ -1,4 +1,4 @@
-﻿namespace pryPereiroERP
+namespace pryPereiroERP
 {
     partial class frmMain
     {
@@ -20,6 +20,13 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tabAyuda = new System.Windows.Forms.TabPage();
+            this.tabDashboard = new System.Windows.Forms.TabPage();
+            this.lblDashboardTotalUsuarios = new System.Windows.Forms.Label();
+            this.lblDashboardActivos = new System.Windows.Forms.Label();
+            this.lblDashboardAccesosHoy = new System.Windows.Forms.Label();
+            this.lblDashboardTotalValor = new System.Windows.Forms.Label();
+            this.lblDashboardActivosValor = new System.Windows.Forms.Label();
+            this.lblDashboardAccesosValor = new System.Windows.Forms.Label();
             this.tabRRHH = new System.Windows.Forms.TabPage();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.lblRRHH = new System.Windows.Forms.Label();
@@ -48,6 +55,7 @@
             this.tabMenu = new System.Windows.Forms.TabControl();
             this.tabRRHH.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
+            this.tabDashboard.SuspendLayout();
             this.tabGrilla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConsulta)).BeginInit();
             this.gbOrden.SuspendLayout();
@@ -137,6 +145,103 @@
             this.dgvUsuarios.Size = new System.Drawing.Size(1061, 446);
             this.dgvUsuarios.TabIndex = 3;
             this.dgvUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellDoubleClick);
+            // 
+            // txtBuscarUsuario
+            // 
+            this.txtBuscarUsuario = new System.Windows.Forms.TextBox();
+            this.txtBuscarUsuario.BackColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            this.txtBuscarUsuario.ForeColor = System.Drawing.Color.White;
+            this.txtBuscarUsuario.Location = new System.Drawing.Point(10, 10);
+            this.txtBuscarUsuario.Name = "txtBuscarUsuario";
+            this.txtBuscarUsuario.Size = new System.Drawing.Size(200, 20);
+            this.txtBuscarUsuario.TabIndex = 0;
+            this.txtBuscarUsuario.Text = "Buscar usuario...";
+            this.txtBuscarUsuario.Enter += new System.EventHandler(this.txtBuscarUsuario_Enter);
+            this.txtBuscarUsuario.Leave += new System.EventHandler(this.txtBuscarUsuario_Leave);
+            this.txtBuscarUsuario.TextChanged += new System.EventHandler(this.txtBuscarUsuario_TextChanged);
+            this.tabRRHH.Controls.Add(this.txtBuscarUsuario);
+            // 
+            // tabDashboard
+            // 
+            this.tabDashboard.BackColor = System.Drawing.Color.FromArgb(3, 3, 3);
+            this.tabDashboard.Controls.Add(this.lblDashboardTotalValor);
+            this.tabDashboard.Controls.Add(this.lblDashboardActivosValor);
+            this.tabDashboard.Controls.Add(this.lblDashboardAccesosValor);
+            this.tabDashboard.Controls.Add(this.lblDashboardTotalUsuarios);
+            this.tabDashboard.Controls.Add(this.lblDashboardActivos);
+            this.tabDashboard.Controls.Add(this.lblDashboardAccesosHoy);
+            this.tabDashboard.Location = new System.Drawing.Point(4, 22);
+            this.tabDashboard.Name = "tabDashboard";
+            this.tabDashboard.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDashboard.Size = new System.Drawing.Size(940, 477);
+            this.tabDashboard.TabIndex = 0;
+            this.tabDashboard.Text = "DASHBOARD";
+            // 
+            // lblDashboardTotalUsuarios
+            // 
+            this.lblDashboardTotalUsuarios.AutoSize = true;
+            this.lblDashboardTotalUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            this.lblDashboardTotalUsuarios.ForeColor = System.Drawing.Color.FromArgb(255, 219, 137);
+            this.lblDashboardTotalUsuarios.Location = new System.Drawing.Point(30, 30);
+            this.lblDashboardTotalUsuarios.Name = "lblDashboardTotalUsuarios";
+            this.lblDashboardTotalUsuarios.Size = new System.Drawing.Size(140, 20);
+            this.lblDashboardTotalUsuarios.TabIndex = 0;
+            this.lblDashboardTotalUsuarios.Text = "Total Usuarios:";
+            // 
+            // lblDashboardActivos
+            // 
+            this.lblDashboardActivos.AutoSize = true;
+            this.lblDashboardActivos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            this.lblDashboardActivos.ForeColor = System.Drawing.Color.FromArgb(255, 219, 137);
+            this.lblDashboardActivos.Location = new System.Drawing.Point(30, 70);
+            this.lblDashboardActivos.Name = "lblDashboardActivos";
+            this.lblDashboardActivos.Size = new System.Drawing.Size(162, 20);
+            this.lblDashboardActivos.TabIndex = 1;
+            this.lblDashboardActivos.Text = "Usuarios Activos:";
+            // 
+            // lblDashboardAccesosHoy
+            // 
+            this.lblDashboardAccesosHoy.AutoSize = true;
+            this.lblDashboardAccesosHoy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            this.lblDashboardAccesosHoy.ForeColor = System.Drawing.Color.FromArgb(255, 219, 137);
+            this.lblDashboardAccesosHoy.Location = new System.Drawing.Point(30, 110);
+            this.lblDashboardAccesosHoy.Name = "lblDashboardAccesosHoy";
+            this.lblDashboardAccesosHoy.Size = new System.Drawing.Size(195, 20);
+            this.lblDashboardAccesosHoy.TabIndex = 2;
+            this.lblDashboardAccesosHoy.Text = "Accesos Exitosos Hoy:";
+            // 
+            // lblDashboardTotalValor
+            // 
+            this.lblDashboardTotalValor.AutoSize = true;
+            this.lblDashboardTotalValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            this.lblDashboardTotalValor.ForeColor = System.Drawing.Color.White;
+            this.lblDashboardTotalValor.Location = new System.Drawing.Point(240, 26);
+            this.lblDashboardTotalValor.Name = "lblDashboardTotalValor";
+            this.lblDashboardTotalValor.Size = new System.Drawing.Size(30, 31);
+            this.lblDashboardTotalValor.TabIndex = 3;
+            this.lblDashboardTotalValor.Text = "0";
+            // 
+            // lblDashboardActivosValor
+            // 
+            this.lblDashboardActivosValor.AutoSize = true;
+            this.lblDashboardActivosValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            this.lblDashboardActivosValor.ForeColor = System.Drawing.Color.White;
+            this.lblDashboardActivosValor.Location = new System.Drawing.Point(240, 66);
+            this.lblDashboardActivosValor.Name = "lblDashboardActivosValor";
+            this.lblDashboardActivosValor.Size = new System.Drawing.Size(30, 31);
+            this.lblDashboardActivosValor.TabIndex = 4;
+            this.lblDashboardActivosValor.Text = "0";
+            // 
+            // lblDashboardAccesosValor
+            // 
+            this.lblDashboardAccesosValor.AutoSize = true;
+            this.lblDashboardAccesosValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            this.lblDashboardAccesosValor.ForeColor = System.Drawing.Color.White;
+            this.lblDashboardAccesosValor.Location = new System.Drawing.Point(240, 106);
+            this.lblDashboardAccesosValor.Name = "lblDashboardAccesosValor";
+            this.lblDashboardAccesosValor.Size = new System.Drawing.Size(30, 31);
+            this.lblDashboardAccesosValor.TabIndex = 5;
+            this.lblDashboardAccesosValor.Text = "0";
             // 
             // tabGrilla
             // 
@@ -408,6 +513,7 @@
             this.tabMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabMenu.Controls.Add(this.tabDashboard);
             this.tabMenu.Controls.Add(this.tabUsuario);
             this.tabMenu.Controls.Add(this.tabGrilla);
             this.tabMenu.Controls.Add(this.tabRRHH);
@@ -439,6 +545,8 @@
             this.tabRRHH.ResumeLayout(false);
             this.tabRRHH.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
+            this.tabDashboard.ResumeLayout(false);
+            this.tabDashboard.PerformLayout();
             this.tabGrilla.ResumeLayout(false);
             this.tabGrilla.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConsulta)).EndInit();
@@ -482,5 +590,13 @@
         private System.Windows.Forms.GroupBox gbOrden;
         private System.Windows.Forms.RadioButton radioAsc;
         private System.Windows.Forms.RadioButton radioDesc;
+        private System.Windows.Forms.TabPage tabDashboard;
+        private System.Windows.Forms.Label lblDashboardTotalUsuarios;
+        private System.Windows.Forms.Label lblDashboardActivos;
+        private System.Windows.Forms.Label lblDashboardAccesosHoy;
+        private System.Windows.Forms.Label lblDashboardTotalValor;
+        private System.Windows.Forms.Label lblDashboardActivosValor;
+        private System.Windows.Forms.Label lblDashboardAccesosValor;
+        private System.Windows.Forms.TextBox txtBuscarUsuario;
     }
 }

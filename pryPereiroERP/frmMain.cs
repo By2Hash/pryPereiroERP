@@ -45,6 +45,7 @@ namespace pryPereiroERP
             cboTablas.SelectedItem = "Auditoria-Sesion";
 
             CargarGrillaUsuarios();
+            CargarDashboard();
         }
 
         private void CargarDatosUsuarioTab()
@@ -202,7 +203,7 @@ namespace pryPereiroERP
 
             if (dt != null && dt.Rows.Count > 0)
             {
-               dgvUsuarios.DataSource = dt;
+               dgvUsuarios.DataSource = new DataView(dt);
 
                 if (dgvUsuarios.Columns["Id_Usuario"] != null) dgvUsuarios.Columns["Id_Usuario"].HeaderText = "Id";
                 if (dgvUsuarios.Columns["DNI"] != null) dgvUsuarios.Columns["DNI"].HeaderText = "DNI";
@@ -266,6 +267,43 @@ namespace pryPereiroERP
                     login.Show();
                 }
             }
+        }
+
+        private void txtBuscarUsuario_Enter(object sender, EventArgs e)
+        {
+            if (txtBuscarUsuario.Text == "Buscar usuario...")
+            {
+                txtBuscarUsuario.Text = "";
+                txtBuscarUsuario.ForeColor = System.Drawing.Color.White;
+            }
+        }
+
+        private void txtBuscarUsuario_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtBuscarUsuario.Text))
+            {
+                txtBuscarUsuario.Text = "Buscar usuario...";
+                txtBuscarUsuario.ForeColor = System.Drawing.Color.Gray;
+            }
+        }
+
+        private void txtBuscarUsuario_TextChanged(object sender, EventArgs e)
+        {
+            if (dgvUsuarios.DataSource is DataView dv)
+            {
+                if (txtBuscarUsuario.Text == "Buscar usuario..." || string.IsNullOrWhiteSpace(txtBuscarUsuario.Text))
+                    dv.RowFilter = "";
+                else
+                    dv.RowFilter = string.Format("CONVERT(Nombre, System.String) LIKE '%{0}%' OR CONVERT(Apellido, System.String) LIKE '%{0}%' OR CONVERT(Mail, System.String) LIKE '%{0}%'", txtBuscarUsuario.Text.Replace("'", "''"));
+            }
+        }
+
+        private void CargarDashboard()
+        {
+            clsConexion conexion = new clsConexion();
+            lblDashboardTotalValor.Text = conexion.ContarUsuarios().ToString();
+            lblDashboardActivosValor.Text = conexion.ContarUsuariosActivos().ToString();
+            lblDashboardAccesosValor.Text = conexion.ContarAccesosHoy().ToString();
         }
     }
 }

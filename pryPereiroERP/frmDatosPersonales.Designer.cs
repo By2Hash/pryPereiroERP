@@ -45,6 +45,8 @@
             this.btnCargar = new System.Windows.Forms.Button();
             this.txtContraseña = new System.Windows.Forms.TextBox();
             this.lblContraseña = new System.Windows.Forms.Label();
+            this.cmbPerfil = new System.Windows.Forms.ComboBox();
+            this.lblPerfil = new System.Windows.Forms.Label();
             this.gpbDomicilio.SuspendLayout();
             this.gpbContacto.SuspendLayout();
             this.SuspendLayout();
@@ -294,7 +296,7 @@
             this.txtMail.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMail.Location = new System.Drawing.Point(224, 46);
             this.txtMail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtMail.MaxLength = 20;
+            this.txtMail.MaxLength = 100;
             this.txtMail.Name = "txtMail";
             this.txtMail.Size = new System.Drawing.Size(180, 27);
             this.txtMail.TabIndex = 9;
@@ -407,7 +409,7 @@
             this.txtContraseña.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContraseña.Location = new System.Drawing.Point(706, 118);
             this.txtContraseña.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.txtContraseña.MaxLength = 20;
+            this.txtContraseña.MaxLength = 64;
             this.txtContraseña.Name = "txtContraseña";
             this.txtContraseña.Size = new System.Drawing.Size(148, 27);
             this.txtContraseña.TabIndex = 12;
@@ -423,6 +425,28 @@
             this.lblContraseña.Size = new System.Drawing.Size(85, 20);
             this.lblContraseña.TabIndex = 11;
             this.lblContraseña.Text = "Contraseña";
+            // 
+            // lblPerfil
+            // 
+            this.lblPerfil.AutoSize = true;
+            this.lblPerfil.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPerfil.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblPerfil.Location = new System.Drawing.Point(50, 263);
+            this.lblPerfil.Name = "lblPerfil";
+            this.lblPerfil.Size = new System.Drawing.Size(45, 20);
+            this.lblPerfil.TabIndex = 13;
+            this.lblPerfil.Text = "Perfil:";
+            // 
+            // cmbPerfil
+            // 
+            this.cmbPerfil.BackColor = System.Drawing.Color.FromArgb(44, 44, 44);
+            this.cmbPerfil.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPerfil.ForeColor = System.Drawing.Color.White;
+            this.cmbPerfil.FormattingEnabled = true;
+            this.cmbPerfil.Location = new System.Drawing.Point(150, 260);
+            this.cmbPerfil.Name = "cmbPerfil";
+            this.cmbPerfil.Size = new System.Drawing.Size(200, 21);
+            this.cmbPerfil.TabIndex = 14;
             // 
             // frmRRHH
             // 
@@ -443,6 +467,8 @@
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.lblApellido);
             this.Controls.Add(this.lblDni);
+            this.Controls.Add(this.lblPerfil);
+            this.Controls.Add(this.cmbPerfil);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = System.Drawing.Icon.ExtractAssociatedIcon(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -490,5 +516,7 @@
         private System.Windows.Forms.MaskedTextBox mskTelefono;
         private System.Windows.Forms.TextBox txtContraseña;
         private System.Windows.Forms.Label lblContraseña;
+        private System.Windows.Forms.Label lblPerfil;
+        private System.Windows.Forms.ComboBox cmbPerfil;
     }
 }

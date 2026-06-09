@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Data.OleDb;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace pryPereiroERP
@@ -39,6 +41,24 @@ namespace pryPereiroERP
             return ERROR;
         }
 
+        private string HashPassword(string password)
+        {
+            using (SHA256 sha256 = SHA256.Create())
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                StringBuilder sb = new StringBuilder();
+                foreach (byte b in bytes) sb.Append(b.ToString("x2"));
+                return sb.ToString();
+            }
+        }
+
+        private bool VerificarPassword(string input, string storedHash)
+        {
+            if (string.IsNullOrEmpty(storedHash)) return false;
+            if (storedHash.Length == 64) return HashPassword(input) == storedHash;
+            return input == storedHash;
+        }
+
         public clsUsuario ValidarUsuario(string nombre, string contraseña )
         {
             try
@@ -46,13 +66,12 @@ namespace pryPereiroERP
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                string query1 = "SELECT Id_Usuario, Nombre, Apellido, Mail, Activo FROM Usuarios " +
-                                "WHERE (Nombre = ? OR Mail = ?) AND Contraseña = ? ";
+                string query1 = "SELECT Id_Usuario, Nombre, Apellido, Mail, Activo, Contraseña FROM Usuarios " +
+                                "WHERE (Nombre = ? OR Mail = ?)";
 
                 OleDbCommand cmd1 = new OleDbCommand(query1, CNN);
                 cmd1.Parameters.AddWithValue("?", nombre);
                 cmd1.Parameters.AddWithValue("?", nombre);
-                cmd1.Parameters.AddWithValue("?", contraseña);
 
                 OleDbDataReader reader1 = cmd1.ExecuteReader();
 
@@ -65,7 +84,7 @@ namespace pryPereiroERP
                     return null;
                 }
 
-                bool estaActivo = Convert.ToBoolean(reader1["Activo"]);
+                bool estaActivo = reader1["Activo"] != DBNull.Value && Convert.ToBoolean(reader1["Activo"]);
 
                 if (estaActivo == false)
                 {
@@ -73,6 +92,16 @@ namespace pryPereiroERP
                     CNN.Close();
                     RegistrarAuditoria(nombre, "Fallido", "frmLogin");
                     ERROR = "El usuario está inactivo. Contacte al administrador.";
+                    return null;
+                }
+
+                string storedHash = reader1["Contraseña"].ToString();
+                if (!VerificarPassword(contraseña, storedHash))
+                {
+                    reader1.Close();
+                    CNN.Close();
+                    RegistrarAuditoria(nombre, "Fallido", "frmLogin");
+                    ERROR = "Usuario o contraseña incorrectos.";
                     return null;
                 }
 
@@ -241,12 +270,15 @@ namespace pryPereiroERP
 
         public bool InsertarUsuario(string nombre, string apellido, string mail, string contraseña,
                                     bool activo, string dni, string direccion, string gps,
-                                    string provincia, string localidad, string telefono, string redesSociales)
+                                    string provincia, string localidad, string telefono, string redesSociales,
+                                    int idPerfil)
         {
             try
             {
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
+
+                contraseña = HashPassword(contraseña);
 
                 // 1. Insertar en Usuarios
                 string queryUsuario = @"INSERT INTO Usuarios (Nombre, Apellido, Mail, Contraseña, Activo, DNI)
@@ -287,6 +319,13 @@ namespace pryPereiroERP
                 cmdContacto.Parameters.AddWithValue("?", telefono);
                 cmdContacto.Parameters.AddWithValue("?", redesSociales);
                 cmdContacto.ExecuteNonQuery();
+
+                // 5. Insertar en Relacion-Usuario-Perfil
+                string queryRelacion = @"INSERT INTO [Relacion-Usuario-Perfil] (Id_Usuario, Id_Perfil) VALUES (?, ?)";
+                OleDbCommand cmdRelacion = new OleDbCommand(queryRelacion, CNN);
+                cmdRelacion.Parameters.AddWithValue("?", nuevoId);
+                cmdRelacion.Parameters.AddWithValue("?", idPerfil);
+                cmdRelacion.ExecuteNonQuery();
 
                 CNN.Close();
                 ERROR = "";
@@ -337,7 +376,7 @@ namespace pryPereiroERP
                 CNN.Open();
 
                 // Traemos todo ordenado por el ID de forma descendente (el último movimiento primero)
-                string query = "SELECT * FROM Usuarios  ";
+                string query = "SELECT Id_Usuario, Nombre, Apellido, Mail, Activo, DNI FROM Usuarios";
 
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
@@ -418,13 +457,17 @@ namespace pryPereiroERP
         public bool ActualizarUsuario(int id, string nombre, string apellido, string mail,
                                        string contraseña, bool activo, string dni,
                                        string direccion, string gps, string provincia,
-                                       string localidad, string telefono, string redesSociales)
+                                       string localidad, string telefono, string redesSociales,
+                                       int idPerfil)
         {
             try
             {
                 if (CNN.State == ConnectionState.Open) CNN.Close();
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
+
+                if (contraseña.Length != 64)
+                    contraseña = HashPassword(contraseña);
 
                 string queryUsuario = @"UPDATE Usuarios 
                                 SET Nombre=?, Apellido=?, Mail=?, Contraseña=?, Activo=?, DNI=?
@@ -462,6 +505,55 @@ namespace pryPereiroERP
                 cmdContacto.Parameters.AddWithValue("?", id);
                 cmdContacto.ExecuteNonQuery();
 
+                string queryRelacion = @"UPDATE [Relacion-Usuario-Perfil] SET Id_Perfil=? WHERE Id_Usuario=?";
+                OleDbCommand cmdRelacion = new OleDbCommand(queryRelacion, CNN);
+                cmdRelacion.Parameters.AddWithValue("?", idPerfil);
+                cmdRelacion.Parameters.AddWithValue("?", id);
+                if (cmdRelacion.ExecuteNonQuery() == 0)
+                {
+                    queryRelacion = @"INSERT INTO [Relacion-Usuario-Perfil] (Id_Usuario, Id_Perfil) VALUES (?, ?)";
+                    cmdRelacion = new OleDbCommand(queryRelacion, CNN);
+                    cmdRelacion.Parameters.AddWithValue("?", id);
+                    cmdRelacion.Parameters.AddWithValue("?", idPerfil);
+                    cmdRelacion.ExecuteNonQuery();
+                }
+
+                CNN.Close();
+                ERROR = "";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+                return false;
+            }
+        }
+
+        public bool EliminarUsuario(int idUsuario)
+        {
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                OleDbCommand cmd = new OleDbCommand("DELETE FROM Contacto_Usuario WHERE Id_Usuario=?", CNN);
+                cmd.Parameters.AddWithValue("?", idUsuario);
+                cmd.ExecuteNonQuery();
+
+                cmd = new OleDbCommand("DELETE FROM Domicilio_Usuario WHERE Id_Usuario=?", CNN);
+                cmd.Parameters.AddWithValue("?", idUsuario);
+                cmd.ExecuteNonQuery();
+
+                cmd = new OleDbCommand("DELETE FROM [Relacion-Usuario-Perfil] WHERE Id_Usuario=?", CNN);
+                cmd.Parameters.AddWithValue("?", idUsuario);
+                cmd.ExecuteNonQuery();
+
+                cmd = new OleDbCommand("DELETE FROM Usuarios WHERE Id_Usuario=?", CNN);
+                cmd.Parameters.AddWithValue("?", idUsuario);
+                cmd.ExecuteNonQuery();
+
                 CNN.Close();
                 ERROR = "";
                 return true;
@@ -482,7 +574,11 @@ namespace pryPereiroERP
                 if (CNN.State == ConnectionState.Open) CNN.Close();
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
-                string query = "SELECT * FROM [" + tabla + "]";
+                string query;
+                if (tabla.Equals("Usuarios", StringComparison.OrdinalIgnoreCase))
+                    query = "SELECT Id_Usuario, Nombre, Apellido, Mail, Activo, DNI FROM Usuarios";
+                else
+                    query = "SELECT * FROM [" + tabla + "]";
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
                 CNN.Close();
@@ -610,6 +706,66 @@ namespace pryPereiroERP
                 ERROR = ex.Message;
                 if (CNN.State == ConnectionState.Open) CNN.Close();
             }
+            return dt;
+        }
+
+        public int ContarUsuarios()
+        {
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+                OleDbCommand cmd = new OleDbCommand("SELECT COUNT(*) FROM Usuarios", CNN);
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                CNN.Close();
+                return count;
+            }
+            catch { return 0; }
+        }
+
+        public int ContarUsuariosActivos()
+        {
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+                OleDbCommand cmd = new OleDbCommand("SELECT COUNT(*) FROM Usuarios WHERE Activo=True", CNN);
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                CNN.Close();
+                return count;
+            }
+            catch { return 0; }
+        }
+
+        public int ContarAccesosHoy()
+        {
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+                string hoy = DateTime.Now.ToString("dd/MM/yyyy");
+                OleDbCommand cmd = new OleDbCommand("SELECT COUNT(*) FROM [Auditoria-Sesion] WHERE FechaHora LIKE ? AND Estado='Exitoso'", CNN);
+                cmd.Parameters.AddWithValue("?", hoy + "%");
+                int count = Convert.ToInt32(cmd.ExecuteScalar());
+                CNN.Close();
+                return count;
+            }
+            catch { return 0; }
+        }
+
+        public DataTable ObtenerUltimosAccesos(int top)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+                string query = "SELECT TOP " + top + " Usuario, FechaHora, Estado FROM [Auditoria-Sesion] ORDER BY Id_Auditoria DESC";
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+                CNN.Close();
+            }
+            catch { }
             return dt;
         }
 

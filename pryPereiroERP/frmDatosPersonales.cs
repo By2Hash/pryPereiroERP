@@ -14,6 +14,7 @@ namespace pryPereiroERP
     {
         private string nombreUsuarioActual = "Admin_RRHH";
         private int _idUsuario = -1;
+        private int _idPerfil = -1;
 
         public string UsuarioActual
         {
@@ -28,6 +29,7 @@ namespace pryPereiroERP
         {
             InitializeComponent();
             _idUsuario = idUsuario;
+            CargarPerfiles();
         }
 
         private void frmRRHH_Load(object sender, EventArgs e)
@@ -107,6 +109,20 @@ namespace pryPereiroERP
                         }
                     }
                 }
+
+                try
+                {
+                    clsConexion con = new clsConexion();
+                    DataTable dtRel = con.ObtenerDatosTabla("Relacion-Usuario-Perfil");
+                    DataRow[] rows = dtRel.Select("Id_Usuario=" + _idUsuario);
+                    if (rows.Length > 0)
+                    {
+                        _idPerfil = Convert.ToInt32(rows[0]["Id_Perfil"]);
+                        if (cmbPerfil.Items.Count > 0)
+                            cmbPerfil.SelectedValue = _idPerfil;
+                    }
+                }
+                catch { }
             }
             catch (Exception ex)
             {
@@ -157,6 +173,17 @@ namespace pryPereiroERP
             }
         }
 
+        private void CargarPerfiles()
+        {
+            clsConexion conexion = new clsConexion();
+            DataTable dt = conexion.ObtenerDatosTabla("Perfil");
+            cmbPerfil.DataSource = dt;
+            cmbPerfil.DisplayMember = "Nombre_Perfil";
+            cmbPerfil.ValueMember = "Id_Perfil";
+            if (_idPerfil > 0)
+                cmbPerfil.SelectedValue = _idPerfil;
+        }
+
         private void btnCargar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtDNI.Text) ||
@@ -185,7 +212,8 @@ namespace pryPereiroERP
                     chkActivar.Checked, txtDNI.Text.Trim(),
                     txtDireccion.Text.Trim(), txtGPS.Text.Trim(),
                     provincia, localidad,
-                    mskTelefono.Text.Trim(), redes);
+                    mskTelefono.Text.Trim(), redes,
+                    (int)cmbPerfil.SelectedValue);
 
                 if (resultado)
                 {
@@ -205,7 +233,8 @@ namespace pryPereiroERP
                     chkActivar.Checked, txtDNI.Text.Trim(),
                     txtDireccion.Text.Trim(), txtGPS.Text.Trim(),
                     provincia, localidad,
-                    mskTelefono.Text.Trim(), redes);
+                    mskTelefono.Text.Trim(), redes,
+                    (int)cmbPerfil.SelectedValue);
 
                 if (resultado)
                 {
