@@ -34,17 +34,17 @@
             this.statusStripTop = new System.Windows.Forms.StatusStrip();
             this.tabAyuda = new System.Windows.Forms.TabPage();
             this.tabRRHH = new System.Windows.Forms.TabPage();
-            this.dvgUsuarios = new System.Windows.Forms.DataGridView();
-            this.lblRRHH = new System.Windows.Forms.Label();
             this.btnRegistrar = new System.Windows.Forms.Button();
+            this.lblRRHH = new System.Windows.Forms.Label();
+            this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.tabGrilla = new System.Windows.Forms.TabPage();
-            this.dgvConsulta = new System.Windows.Forms.DataGridView();
-            this.lblAuditoria = new System.Windows.Forms.Label();
-            this.optAsc = new System.Windows.Forms.RadioButton();
             this.optDesc = new System.Windows.Forms.RadioButton();
+            this.optAsc = new System.Windows.Forms.RadioButton();
+            this.lblAuditoria = new System.Windows.Forms.Label();
+            this.dgvConsulta = new System.Windows.Forms.DataGridView();
             this.tabMenu = new System.Windows.Forms.TabControl();
             this.tabRRHH.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dvgUsuarios)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.tabGrilla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConsulta)).BeginInit();
             this.tabMenu.SuspendLayout();
@@ -53,7 +53,7 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 747);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 742);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 14, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1161, 22);
@@ -86,7 +86,7 @@
             // 
             this.tabRRHH.Controls.Add(this.btnRegistrar);
             this.tabRRHH.Controls.Add(this.lblRRHH);
-            this.tabRRHH.Controls.Add(this.dvgUsuarios);
+            this.tabRRHH.Controls.Add(this.dgvUsuarios);
             this.tabRRHH.Location = new System.Drawing.Point(4, 29);
             this.tabRRHH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabRRHH.Name = "tabRRHH";
@@ -97,18 +97,16 @@
             this.tabRRHH.UseVisualStyleBackColor = true;
             this.tabRRHH.Click += new System.EventHandler(this.tabRRHH_Click);
             // 
-            // dvgUsuarios
+            // btnRegistrar
             // 
-            this.dvgUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dvgUsuarios.Location = new System.Drawing.Point(10, 138);
-            this.dvgUsuarios.Name = "dvgUsuarios";
-            this.dvgUsuarios.ReadOnly = true;
-            this.dvgUsuarios.RowHeadersWidth = 62;
-            this.dvgUsuarios.RowTemplate.Height = 28;
-            this.dvgUsuarios.Size = new System.Drawing.Size(1126, 506);
-            this.dvgUsuarios.TabIndex = 3;
-            this.dvgUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUsuarios_CellContentClick);
-            this.dvgUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUsuarios_CellDoubleClick);
+            this.btnRegistrar.Location = new System.Drawing.Point(10, 80);
+            this.btnRegistrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRegistrar.Name = "btnRegistrar";
+            this.btnRegistrar.Size = new System.Drawing.Size(112, 35);
+            this.btnRegistrar.TabIndex = 5;
+            this.btnRegistrar.Text = "Registrar";
+            this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // lblRRHH
             // 
@@ -121,16 +119,19 @@
             this.lblRRHH.TabIndex = 4;
             this.lblRRHH.Text = "Lista de Usuarios";
             // 
-            // btnRegistrar
+            // dgvUsuarios
             // 
-            this.btnRegistrar.Location = new System.Drawing.Point(10, 80);
-            this.btnRegistrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(112, 35);
-            this.btnRegistrar.TabIndex = 5;
-            this.btnRegistrar.Text = "Registrar";
-            this.btnRegistrar.UseVisualStyleBackColor = true;
-            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
+            this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvUsuarios.Location = new System.Drawing.Point(10, 138);
+            this.dgvUsuarios.Name = "dgvUsuarios";
+            this.dgvUsuarios.ReadOnly = true;
+            this.dgvUsuarios.RowHeadersWidth = 62;
+            this.dgvUsuarios.RowTemplate.Height = 28;
+            this.dgvUsuarios.Size = new System.Drawing.Size(1126, 506);
+            this.dgvUsuarios.TabIndex = 3;
+        
+            this.dgvUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellDoubleClick);
+           
             // 
             // tabGrilla
             // 
@@ -148,28 +149,18 @@
             this.tabGrilla.UseVisualStyleBackColor = true;
             this.tabGrilla.Click += new System.EventHandler(this.tabGrilla_Click);
             // 
-            // dgvConsulta
+            // optDesc
             // 
-            this.dgvConsulta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvConsulta.Location = new System.Drawing.Point(10, 118);
-            this.dgvConsulta.Name = "dgvConsulta";
-            this.dgvConsulta.ReadOnly = true;
-            this.dgvConsulta.RowHeadersWidth = 62;
-            this.dgvConsulta.RowTemplate.Height = 28;
-            this.dgvConsulta.Size = new System.Drawing.Size(1128, 526);
-            this.dgvConsulta.TabIndex = 2;
-            this.dgvConsulta.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvConsulta_CellContentClick);
-            // 
-            // lblAuditoria
-            // 
-            this.lblAuditoria.AutoSize = true;
-            this.lblAuditoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAuditoria.Location = new System.Drawing.Point(12, 22);
-            this.lblAuditoria.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblAuditoria.Name = "lblAuditoria";
-            this.lblAuditoria.Size = new System.Drawing.Size(172, 29);
-            this.lblAuditoria.TabIndex = 3;
-            this.lblAuditoria.Text = "Listar Auditoria";
+            this.optDesc.AutoSize = true;
+            this.optDesc.Location = new System.Drawing.Point(214, 71);
+            this.optDesc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.optDesc.Name = "optDesc";
+            this.optDesc.Size = new System.Drawing.Size(178, 24);
+            this.optDesc.TabIndex = 5;
+            this.optDesc.TabStop = true;
+            this.optDesc.Text = "Orden Descendente";
+            this.optDesc.UseVisualStyleBackColor = true;
+            this.optDesc.CheckedChanged += new System.EventHandler(this.optDesc_CheckedChanged);
             // 
             // optAsc
             // 
@@ -184,18 +175,28 @@
             this.optAsc.UseVisualStyleBackColor = true;
             this.optAsc.CheckedChanged += new System.EventHandler(this.optAsc_CheckedChanged);
             // 
-            // optDesc
+            // lblAuditoria
             // 
-            this.optDesc.AutoSize = true;
-            this.optDesc.Location = new System.Drawing.Point(214, 71);
-            this.optDesc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.optDesc.Name = "optDesc";
-            this.optDesc.Size = new System.Drawing.Size(178, 24);
-            this.optDesc.TabIndex = 5;
-            this.optDesc.TabStop = true;
-            this.optDesc.Text = "Orden Descendente";
-            this.optDesc.UseVisualStyleBackColor = true;
-            this.optDesc.CheckedChanged += new System.EventHandler(this.optDesc_CheckedChanged);
+            this.lblAuditoria.AutoSize = true;
+            this.lblAuditoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAuditoria.Location = new System.Drawing.Point(12, 22);
+            this.lblAuditoria.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAuditoria.Name = "lblAuditoria";
+            this.lblAuditoria.Size = new System.Drawing.Size(172, 29);
+            this.lblAuditoria.TabIndex = 3;
+            this.lblAuditoria.Text = "Listar Auditoria";
+            // 
+            // dgvConsulta
+            // 
+            this.dgvConsulta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvConsulta.Location = new System.Drawing.Point(10, 118);
+            this.dgvConsulta.Name = "dgvConsulta";
+            this.dgvConsulta.ReadOnly = true;
+            this.dgvConsulta.RowHeadersWidth = 62;
+            this.dgvConsulta.RowTemplate.Height = 28;
+            this.dgvConsulta.Size = new System.Drawing.Size(1128, 526);
+            this.dgvConsulta.TabIndex = 2;
+
             // 
             // tabMenu
             // 
@@ -213,7 +214,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1161, 769);
+            this.ClientSize = new System.Drawing.Size(1161, 764);
             this.Controls.Add(this.tabMenu);
             this.Controls.Add(this.statusStripTop);
             this.Controls.Add(this.statusStrip1);
@@ -223,10 +224,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema ERP";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
+
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabRRHH.ResumeLayout(false);
             this.tabRRHH.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dvgUsuarios)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.tabGrilla.ResumeLayout(false);
             this.tabGrilla.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConsulta)).EndInit();
@@ -244,7 +246,7 @@
         private System.Windows.Forms.TabPage tabRRHH;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Label lblRRHH;
-        private System.Windows.Forms.DataGridView dvgUsuarios;
+        private System.Windows.Forms.DataGridView dgvUsuarios;
         private System.Windows.Forms.TabPage tabGrilla;
         private System.Windows.Forms.RadioButton optDesc;
         private System.Windows.Forms.RadioButton optAsc;

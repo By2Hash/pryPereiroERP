@@ -40,17 +40,19 @@ namespace pryPereiroERP
                     {
                         // Si el perfil validado es RRHH, instanciamos y abrimos su ventana específica
                         frmRRHH formularioRRHH = new frmRRHH();
+                        
+                        formularioRRHH.Show();
                         this.Hide();
-                        formularioRRHH.ShowDialog();
-                        this.Close();
+
                     }
                     else
                     {
                         // Si es Administrador o cualquier otro perfil, va al menú principal normal
                         frmMain formularioPrincipal = new frmMain(usuario);
+                       
+                        formularioPrincipal.Show();
                         this.Hide();
-                        formularioPrincipal.ShowDialog();
-                        this.Close();
+
                     }
                 }
                 else

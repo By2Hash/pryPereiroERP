@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace pryPereiroERP
@@ -100,20 +101,20 @@ namespace pryPereiroERP
 
             if (dt != null && dt.Rows.Count > 0)
             {
-               dvgUsuarios.DataSource = dt;
+               dgvUsuarios.DataSource = dt;
 
                 // Opcional: Mejorar visualmente los encabezados de las columnas
-                dvgUsuarios.Columns["Id_Usuario"].HeaderText = "ID";
-                dvgUsuarios.Columns["DNI"].HeaderText = "DNI";
-                dvgUsuarios.Columns["Nombre"].HeaderText = "Nombre";
-                dvgUsuarios.Columns["Apellido"].HeaderText = "Apellido";
-                dvgUsuarios.Columns["Mail"].HeaderText = "Mail";
-                dvgUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
-                dvgUsuarios.Columns["Activo"].HeaderText = "Activo";
+                dgvUsuarios.Columns["Id_Usuario"].HeaderText = "ID";
+                dgvUsuarios.Columns["DNI"].HeaderText = "DNI";
+                dgvUsuarios.Columns["Nombre"].HeaderText = "Nombre";
+                dgvUsuarios.Columns["Apellido"].HeaderText = "Apellido";
+                dgvUsuarios.Columns["Mail"].HeaderText = "Mail";
+                dgvUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
+                dgvUsuarios.Columns["Activo"].HeaderText = "Activo";
                
 
                 // Ajustar automáticamente el ancho de las columnas para que se vea ordenado
-                dvgUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             else if (!string.IsNullOrEmpty(conexion.GetError()))
             {
@@ -123,7 +124,7 @@ namespace pryPereiroERP
 
         private void dgvConsulta_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+           
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
@@ -157,15 +158,21 @@ namespace pryPereiroERP
 
         }
 
-        private void dvgUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+        
 
-        }
-
-        private void dvgUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            frmRRHH rrhh = new frmRRHH();
+            if (e.RowIndex < 0) return;
+
+            // Capturamos el ID de la celda seleccionada
+            int idUsuario = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["Id_Usuario"].Value);
+
+            // Abrimos el formulario pasándole el ID
+            frmRRHH rrhh = new frmRRHH(idUsuario);
             rrhh.ShowDialog();
+
+            // Al regresar, refrescamos la grilla para ver los cambios
+            CargarGrillaUsuarios();
         }
 
         private void optDesc_CheckedChanged(object sender, EventArgs e)
@@ -189,28 +196,34 @@ namespace pryPereiroERP
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Lanzamos el cuadro de diálogo para preguntar
-            DialogResult respuesta = MessageBox.Show(
-                "¿Está seguro de que desea cerrar sesión y salir del sistema ERP?",
-                "Confirmar Salida",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
-            // Si el usuario responde que NO, cancelamos el cierre de la ventana
-            if (respuesta == DialogResult.No)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                e.Cancel = true; // Esto detiene a Windows y mantiene el programa abierto
-            }
-            else
-            {
-                // Si responde que SÍ, dejamos que el formulario se cierre normalmente.
-                // Aquí puedes agregar código para reabrir el Login si no quieres que el programa muera:
+                DialogResult respuesta = MessageBox.Show(
+                    "¿Está seguro de que desea cerrar sesión y salir del sistema ERP?",
+                    "Confirmar Salida",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
 
-                // frmLogin login = new frmLogin();
-                // login.Show();
-                Application.Exit();
+                if (respuesta == DialogResult.No)
+                {
+                    e.Cancel = true; // Detiene el cierre y mantiene el programa abierto
+                }
+                else
+                {
+                    // SI RESPONDE QUE SÍ:
+                    // Desasociamos el evento antes de salir para evitar ejecuciones fantasma
+                    this.FormClosing -= frmMain_FormClosing;
+
+                    // Instanciamos el login para que el programa no muera por completo
+                    frmLogin login = new frmLogin();
+                    login.Show();
+                }
             }
         }
+
+       
+
+        
     }
 }

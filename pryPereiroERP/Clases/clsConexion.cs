@@ -375,5 +375,102 @@ namespace pryPereiroERP
             return dt;
         }
 
+        //Metodos para poder modificar los datos de los usuarios
+
+        public DataTable ObtenerUsuarioPorId(int id)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                // Consulta SQL con JOINs corregida para Access
+                string query = "SELECT u.Id_Usuario, u.Nombre, u.Apellido, u.Mail, u.Contraseña, u.DNI, u.Activo, " +
+                               "d.Dirección, d.GPS, d.Provincia, d.Localidad, " +
+                               "c.Telefono, c.Redes_Sociales " +
+                               "FROM (Usuarios AS u " +
+                               "LEFT JOIN Domicilio_Usuario AS d ON u.Id_Usuario = d.Id_Usuario) " +
+                               "LEFT JOIN Contacto_Usuario AS c ON u.Id_Usuario = c.Id_Usuario " +
+                               "WHERE u.Id_Usuario = ?";
+
+                OleDbCommand cmd = new OleDbCommand(query, CNN);
+
+                // CRUCIAL PARA ACCESS: El parámetro debe agregarse estrictamente en el orden del "?"
+                cmd.Parameters.AddWithValue("?", id);
+
+                OleDbDataAdapter da = new OleDbDataAdapter(cmd);
+                da.Fill(dt);
+
+                CNN.Close();
+                ERROR = "";
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+            }
+            return dt;
+        }
+
+        public bool ActualizarUsuario(int id, string nombre, string apellido, string mail,
+                                       string contraseña, bool activo, string dni,
+                                       string direccion, string gps, string provincia,
+                                       string localidad, string telefono, string redesSociales)
+        {
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                string queryUsuario = @"UPDATE Usuarios 
+                                SET Nombre=?, Apellido=?, Mail=?, Contraseña=?, Activo=?, DNI=?
+                                WHERE Id_Usuario=?";
+
+                OleDbCommand cmdUsuario = new OleDbCommand(queryUsuario, CNN);
+                cmdUsuario.Parameters.AddWithValue("?", nombre);
+                cmdUsuario.Parameters.AddWithValue("?", apellido);
+                cmdUsuario.Parameters.AddWithValue("?", mail);
+                cmdUsuario.Parameters.AddWithValue("?", contraseña);
+                cmdUsuario.Parameters.AddWithValue("?", activo);
+                cmdUsuario.Parameters.AddWithValue("?", dni);
+                cmdUsuario.Parameters.AddWithValue("?", id);
+                cmdUsuario.ExecuteNonQuery();
+
+                string queryDomicilio = @"UPDATE Domicilio_Usuario 
+                                  SET Dirección=?, GPS=?, Provincia=?, Localidad=?
+                                  WHERE Id_Usuario=?";
+
+                OleDbCommand cmdDomicilio = new OleDbCommand(queryDomicilio, CNN);
+                cmdDomicilio.Parameters.AddWithValue("?", direccion);
+                cmdDomicilio.Parameters.AddWithValue("?", gps);
+                cmdDomicilio.Parameters.AddWithValue("?", provincia);
+                cmdDomicilio.Parameters.AddWithValue("?", localidad);
+                cmdDomicilio.Parameters.AddWithValue("?", id);
+                cmdDomicilio.ExecuteNonQuery();
+
+                string queryContacto = @"UPDATE Contacto_Usuario 
+                                 SET Telefono=?, Redes_Sociales=?
+                                 WHERE Id_Usuario=?";
+
+                OleDbCommand cmdContacto = new OleDbCommand(queryContacto, CNN);
+                cmdContacto.Parameters.AddWithValue("?", telefono);
+                cmdContacto.Parameters.AddWithValue("?", redesSociales);
+                cmdContacto.Parameters.AddWithValue("?", id);
+                cmdContacto.ExecuteNonQuery();
+
+                CNN.Close();
+                ERROR = "";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+                return false;
+            }
+        }
+
     }
 }
