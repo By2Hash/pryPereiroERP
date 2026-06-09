@@ -26,8 +26,8 @@ namespace pryPereiroERP
         {
             if (_usuario == null) return;
 
-            MostrarDatosUsuario();
             VerificarConexion();
+            CargarDatosUsuarioTab();
 
             // Bloquear RRHH si el perfil no es Admin ni RRHH
             if (!_usuario.Rol.Equals("Admin", StringComparison.OrdinalIgnoreCase) &&
@@ -40,8 +40,52 @@ namespace pryPereiroERP
 
             clsConexion conexion = new clsConexion();
             conexion.RegistrarAuditoria(_usuario.Nombre, "Navegacion", this.Name);
-            CargarGrillaAuditoria();
+
+            radioDesc.Checked = true;
+            cboTablas.SelectedItem = "Auditoria-Sesion";
+
             CargarGrillaUsuarios();
+        }
+
+        private void CargarDatosUsuarioTab()
+        {
+            lblNombreValor.Text = "  Nombre: " + _usuario.Nombre;
+            lblApellidoValor.Text = "  Apellido: " + _usuario.Apellido;
+            lblRolValor.Text = "  Perfil: " + _usuario.Rol;
+            lblConexionValor.Text = "  Conectado desde: " + _usuario.HoraConexion;
+
+            try
+            {
+                clsConexion conexion = new clsConexion();
+                DataTable dt = conexion.ObtenerUsuarioPorId(_usuario.Id);
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+
+                    lblEmailValor.Text = "  Email: " + (row["Mail"] != DBNull.Value ? row["Mail"].ToString().Trim() : "-");
+                    lblDireccionValor.Text = "  Dirección: " + (row["Dirección"] != DBNull.Value ? row["Dirección"].ToString().Trim() : "-");
+                    lblGPSValor.Text = "  GPS: " + (row["GPS"] != DBNull.Value ? row["GPS"].ToString().Trim() : "-");
+                    lblProvinciaValor.Text = "  Provincia: " + (row["Provincia"] != DBNull.Value ? row["Provincia"].ToString().Trim() : "-");
+                    lblLocalidadValor.Text = "  Localidad: " + (row["Localidad"] != DBNull.Value ? row["Localidad"].ToString().Trim() : "-");
+                    lblTelefonoValor.Text = "  Teléfono: " + (row["Telefono"] != DBNull.Value ? row["Telefono"].ToString().Trim() : "-");
+                    lblRedesValor.Text = "  Redes Sociales: " + (row["Redes_Sociales"] != DBNull.Value ? row["Redes_Sociales"].ToString().Trim() : "-");
+                }
+                else
+                {
+                    lblEmailValor.Text = "  Email: -";
+                    lblDireccionValor.Text = "  Dirección: -";
+                    lblGPSValor.Text = "  GPS: -";
+                    lblProvinciaValor.Text = "  Provincia: -";
+                    lblLocalidadValor.Text = "  Localidad: -";
+                    lblTelefonoValor.Text = "  Teléfono: -";
+                    lblRedesValor.Text = "  Redes Sociales: -";
+                }
+            }
+            catch
+            {
+                lblEmailValor.Text = "  Email: Error al cargar";
+            }
         }
 
         private void CargarAyuda()
@@ -64,32 +108,15 @@ namespace pryPereiroERP
                        "• Auditoría: La pestaña AUDITORIA muestra un historial " +
                        "de inicios de sesión y movimientos. Puede ordenarlo " +
                        "de forma ascendente o descendente.",
+                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
                 Location = new System.Drawing.Point(20, 20),
                 Size = new System.Drawing.Size(tabAyuda.Width - 40, tabAyuda.Height - 40),
                 Font = new System.Drawing.Font("Segoe UI", 11, System.Drawing.FontStyle.Regular),
-                ForeColor = System.Drawing.Color.FromArgb(50, 50, 50),
+                ForeColor = System.Drawing.Color.FromArgb(204, 204, 204),
                 AutoSize = false,
                 TextAlign = System.Drawing.ContentAlignment.TopLeft
             };
             tabAyuda.Controls.Add(lbl);
-        }
-
-        private void MostrarDatosUsuario()
-        {
-            statusStripTop.Items.Clear();
-
-            var lblNombre = new ToolStripStatusLabel("👤 " + _usuario.Nombre + " " + _usuario.Apellido + " ");
-            lblNombre.ForeColor = Color.White;
-
-            var lblHora = new ToolStripStatusLabel("|  📅 Conectado: " + _usuario.HoraConexion + "  ");
-            lblHora.ForeColor = Color.White;
-
-            var lblRol = new ToolStripStatusLabel("|  🔑 Perfil: " + _usuario.Rol);
-            lblRol.ForeColor = Color.White;
-
-            statusStripTop.Items.Add(lblNombre);
-            statusStripTop.Items.Add(lblHora);
-            statusStripTop.Items.Add(lblRol);
         }
 
         private void VerificarConexion()
@@ -99,34 +126,72 @@ namespace pryPereiroERP
             ToolStripStatusLabel lbl;
 
             if (conexion.ProbarConexion())
-                lbl = new ToolStripStatusLabel("🟢 DB Conectada") { ForeColor = Color.Green };
+                lbl = new ToolStripStatusLabel("  🟢 Base de datos conectada") { ForeColor = Color.Lime };
             else
-                lbl = new ToolStripStatusLabel("🔴 Sin conexión") { ForeColor = Color.Red };
+                lbl = new ToolStripStatusLabel("  🔴 Sin conexión") { ForeColor = Color.Red };
 
+            lbl.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             statusStrip1.Items.Add(lbl);
         }
 
-        private void CargarGrillaAuditoria()
+        private void CargarTablaEnGrilla(string tabla)
         {
             clsConexion conexion = new clsConexion();
-            DataTable dt = conexion.ObtenerAuditoria();
+            DataTable dt = conexion.ObtenerDatosTabla(tabla);
 
-            if (dt != null && dt.Rows.Count > 0)
+            if (dt != null)
             {
-                dgvConsulta.DataSource = dt;
+                bool ascendente = radioAsc.Checked;
+                string colOrden = ObtenerColumnaOrden(tabla, dt);
+                if (!string.IsNullOrEmpty(colOrden))
+                {
+                    dt.DefaultView.Sort = colOrden + (ascendente ? " ASC" : " DESC");
+                    dgvConsulta.DataSource = dt.DefaultView;
+                }
+                else
+                {
+                    dgvConsulta.DataSource = dt;
+                }
 
-                if (dgvConsulta.Columns["Id_Auditoria"] != null) dgvConsulta.Columns["Id_Auditoria"].HeaderText = "ID";
-                if (dgvConsulta.Columns["Usuario"] != null) dgvConsulta.Columns["Usuario"].HeaderText = "Usuario";
-                if (dgvConsulta.Columns["FechaHora"] != null) dgvConsulta.Columns["FechaHora"].HeaderText = "Fecha y Hora";
-                if (dgvConsulta.Columns["Estado"] != null) dgvConsulta.Columns["Estado"].HeaderText = "Estado";
-                if (dgvConsulta.Columns["Historial"] != null) dgvConsulta.Columns["Historial"].HeaderText = "Último Formulario";
-
-                // Ajustar automáticamente el ancho de las columnas para que se vea ordenado
                 dgvConsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                lblResultados.Text = dt.Rows.Count + " registros encontrados";
             }
             else if (!string.IsNullOrEmpty(conexion.GetError()))
             {
-                MessageBox.Show("Error al cargar la grilla de auditoría: " + conexion.GetError(), "Error");
+                MessageBox.Show("Error al cargar la tabla " + tabla + ": " + conexion.GetError(), "Error");
+            }
+        }
+
+        private string ObtenerColumnaOrden(string tabla, DataTable dt)
+        {
+            if (dt == null || dt.Columns.Count == 0) return null;
+
+            foreach (string colName in new[] { "Id_Auditoria", "Id_Usuario", "Id_Perfil", "Id_Provincia", "Id_Localidad" })
+            {
+                if (dt.Columns[colName] != null) return colName;
+            }
+
+            foreach (DataColumn col in dt.Columns)
+            {
+                Type t = col.DataType;
+                if (t == typeof(int) || t == typeof(long) || t == typeof(short) || t == typeof(byte))
+                    return col.ColumnName;
+            }
+
+            return dt.Columns[0].ColumnName;
+        }
+
+        private void cboTablas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboTablas.SelectedItem == null) return;
+            CargarTablaEnGrilla(cboTablas.SelectedItem.ToString());
+        }
+
+        private void radioOrden_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cboTablas.SelectedItem != null)
+            {
+                CargarTablaEnGrilla(cboTablas.SelectedItem.ToString());
             }
         }
 
@@ -146,9 +211,7 @@ namespace pryPereiroERP
                 if (dgvUsuarios.Columns["Mail"] != null) dgvUsuarios.Columns["Mail"].HeaderText = "Mail";
                 if (dgvUsuarios.Columns["Contraseña"] != null) dgvUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
                 if (dgvUsuarios.Columns["Activo"] != null) dgvUsuarios.Columns["Activo"].HeaderText = "Activo";
-               
 
-                // Ajustar automáticamente el ancho de las columnas para que se vea ordenado
                 dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             else if (!string.IsNullOrEmpty(conexion.GetError()))
@@ -157,44 +220,12 @@ namespace pryPereiroERP
             }
         }
 
-        private void dgvConsulta_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
-        }
-
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             frmRRHH rrhh = new frmRRHH();
             rrhh.UsuarioActual = _usuario?.Nombre;
             rrhh.ShowDialog();
         }
-
-        private void optAsc_CheckedChanged(object sender, EventArgs e)
-        {
-            if (optAsc.Checked)
-            { 
-                clsConexion conexion = new clsConexion();
-                DataTable dt = conexion.ObtenerAuditoriaASC();
-
-                dgvConsulta.DataSource = dt;
-            }
-            else
-                           {
-                CargarGrillaAuditoria();
-            }
-        }
-
-        private void tabRRHH_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tabGrilla_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        
 
         private void dgvUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -212,25 +243,6 @@ namespace pryPereiroERP
             CargarGrillaUsuarios();
         }
 
-        private void optDesc_CheckedChanged(object sender, EventArgs e)
-        {
-            if (optDesc.Checked)
-            {
-                clsConexion conexion = new clsConexion();
-                DataTable dt = conexion.ObtenerAuditoria();
-                dgvConsulta.DataSource = dt;
-            }
-            else
-            {
-                CargarGrillaAuditoria();
-            }
-        }
-
-        private void statusStripTop_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -244,23 +256,16 @@ namespace pryPereiroERP
 
                 if (respuesta == DialogResult.No)
                 {
-                    e.Cancel = true; // Detiene el cierre y mantiene el programa abierto
+                    e.Cancel = true;
                 }
                 else
                 {
-                    // SI RESPONDE QUE SÍ:
-                    // Desasociamos el evento antes de salir para evitar ejecuciones fantasma
                     this.FormClosing -= frmMain_FormClosing;
 
-                    // Instanciamos el login para que el programa no muera por completo
                     frmLogin login = new frmLogin();
                     login.Show();
                 }
             }
         }
-
-       
-
-        
     }
 }

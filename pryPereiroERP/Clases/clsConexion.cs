@@ -77,10 +77,11 @@ namespace pryPereiroERP
                 }
 
                 clsUsuario usuario = new clsUsuario();
+                usuario.Id = Convert.ToInt32(reader1["Id_Usuario"]);
                 usuario.Nombre = reader1["Nombre"].ToString();
                 usuario.Apellido = reader1["Apellido"].ToString();
                 usuario.HoraConexion = DateTime.Now.ToString("dd/MM/yyyy  HH:mm:ss");
-                int idUsuario = Convert.ToInt32(reader1["Id_Usuario"]);
+                int idUsuario = usuario.Id;
                 reader1.Close();
 
                 string query2 = "SELECT p.Nombre FROM Perfil AS p " +
@@ -471,6 +472,145 @@ namespace pryPereiroERP
                 if (CNN.State == ConnectionState.Open) CNN.Close();
                 return false;
             }
+        }
+
+        public DataTable ObtenerDatosTabla(string tabla)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+                string query = "SELECT * FROM [" + tabla + "]";
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+            }
+            return dt;
+        }
+
+        public DataTable FiltrarTabla(string tabla, string campo, string valor)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+
+                string tipo = ObtenerTipoColumna(tabla, campo);
+                string query;
+                OleDbCommand cmd = new OleDbCommand();
+
+                if (tipo == "string")
+                {
+                    query = "SELECT * FROM [" + tabla + "] WHERE [" + campo + "] LIKE ?";
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("?", "%" + valor + "%");
+                }
+                else if (tipo == "boolean")
+                {
+                    bool boolVal = valor.Equals("1") || valor.Equals("true", StringComparison.OrdinalIgnoreCase)
+                        || valor.Equals("si", StringComparison.OrdinalIgnoreCase);
+                    query = "SELECT * FROM [" + tabla + "] WHERE [" + campo + "] = ?";
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("?", boolVal);
+                }
+                else if (tipo == "numeric")
+                {
+                    if (!decimal.TryParse(valor.Replace(",", "."), out decimal numVal))
+                    {
+                        ERROR = "El campo '" + campo + "' es numérico. Ingrese un valor numérico válido.";
+                        CNN.Close();
+                        return dt;
+                    }
+                    query = "SELECT * FROM [" + tabla + "] WHERE [" + campo + "] = ?";
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("?", numVal);
+                }
+                else if (tipo == "datetime")
+                {
+                    if (!DateTime.TryParse(valor, out DateTime dateVal))
+                    {
+                        ERROR = "El campo '" + campo + "' es una fecha. Ingrese un formato válido (dd/MM/yyyy).";
+                        CNN.Close();
+                        return dt;
+                    }
+                    query = "SELECT * FROM [" + tabla + "] WHERE [" + campo + "] = ?";
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("?", dateVal.ToString("dd/MM/yyyy"));
+                }
+                else
+                {
+                    query = "SELECT * FROM [" + tabla + "] WHERE [" + campo + "] LIKE ?";
+                    cmd.CommandText = query;
+                    cmd.Parameters.AddWithValue("?", "%" + valor + "%");
+                }
+
+                cmd.Connection = CNN;
+                using (OleDbDataAdapter adapter = new OleDbDataAdapter(cmd))
+                {
+                    adapter.Fill(dt);
+                }
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+            }
+            return dt;
+        }
+
+        private string ObtenerTipoColumna(string tabla, string campo)
+        {
+            try
+            {
+                DataTable schema = ObtenerEstructuraTabla(tabla);
+                foreach (DataColumn col in schema.Columns)
+                {
+                    if (col.ColumnName.Equals(campo, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Type t = col.DataType;
+                        if (t == typeof(string)) return "string";
+                        if (t == typeof(bool)) return "boolean";
+                        if (t == typeof(int) || t == typeof(long) || t == typeof(decimal) ||
+                            t == typeof(double) || t == typeof(float) || t == typeof(short) ||
+                            t == typeof(byte)) return "numeric";
+                        if (t == typeof(DateTime)) return "datetime";
+                        return "string";
+                    }
+                }
+            }
+            catch { }
+            return "string";
+        }
+
+        public DataTable ObtenerEstructuraTabla(string tabla)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+                CNN.ConnectionString = cadenaConexion;
+                CNN.Open();
+                string query = "SELECT TOP 0 * FROM [" + tabla + "]";
+                OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
+                adapter.Fill(dt);
+                CNN.Close();
+            }
+            catch (Exception ex)
+            {
+                ERROR = ex.Message;
+                if (CNN.State == ConnectionState.Open) CNN.Close();
+            }
+            return dt;
         }
 
     }

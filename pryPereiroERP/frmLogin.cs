@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Windows.Forms;
 
 namespace pryPereiroERP
@@ -9,7 +8,6 @@ namespace pryPereiroERP
         public frmLogin()
         {
             InitializeComponent();
-            CargarPerfiles();
         }
 
         int intentos = 3;
@@ -67,39 +65,9 @@ namespace pryPereiroERP
             }
         }
 
-        private void frmLogin_Load(object sender, EventArgs e)
-        {
-            CargarPerfiles();
-        }
-
-        public void CargarPerfiles()
-        {
-            try
-            {
-                clsConexion conexion = new clsConexion();
-                DataTable dt = conexion.ObtenerPerfil();
-
-                if (!string.IsNullOrEmpty(conexion.GetError()))
-                {
-                    MessageBox.Show("Error interno de la base de datos: " + conexion.GetError());
-                    return;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar los perfiles: " + ex.Message);
-            }
-        }
-
         private void chkMostrarOcultar_CheckedChanged(object sender, EventArgs e)
         {
             txtContraseña.UseSystemPasswordChar = !chkMostrarOcultar.Checked;
-        }
-
-        private void lblNombre_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

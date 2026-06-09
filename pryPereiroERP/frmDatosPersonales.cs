@@ -98,11 +98,11 @@ namespace pryPereiroERP
                 if (row["Redes_Sociales"] != DBNull.Value)
                 {
                     string val = row["Redes_Sociales"].ToString().Trim();
-                    for (int i = 0; i < comboBox4.Items.Count; i++)
+                    for (int i = 0; i < cmbRedesSociales.Items.Count; i++)
                     {
-                        if (comboBox4.Items[i].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
+                        if (cmbRedesSociales.Items[i].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
                         {
-                            comboBox4.SelectedIndex = i;
+                            cmbRedesSociales.SelectedIndex = i;
                             break;
                         }
                     }
@@ -157,20 +157,6 @@ namespace pryPereiroERP
             }
         }
 
-        private void chkActivar_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
-       
-
-        private void cmbProvincia_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void cmbLocalidad_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-
         private void btnCargar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtDNI.Text) ||
@@ -186,7 +172,7 @@ namespace pryPereiroERP
 
             string provincia = cmbProvincia.SelectedIndex >= 0 ? cmbProvincia.Text : "";
             string localidad = cmbLocalidad.SelectedIndex >= 0 ? cmbLocalidad.Text : "";
-            string redes = comboBox4.SelectedIndex >= 0 ? comboBox4.Text : "";
+            string redes = cmbRedesSociales.SelectedIndex >= 0 ? cmbRedesSociales.Text : "";
 
             clsConexion conexion = new clsConexion();
             bool resultado;
@@ -250,23 +236,21 @@ namespace pryPereiroERP
             mskTelefono.Clear();
             cmbProvincia.SelectedIndex = -1;
             cmbLocalidad.SelectedIndex = -1;
-            comboBox4.SelectedIndex = -1;
+            cmbRedesSociales.SelectedIndex = -1;
             chkActivar.Checked = false;
-        }
-
-        private void txtNombre_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void frmRRHH_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (Form f in Application.OpenForms)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                if (f is frmLogin)
+                foreach (Form f in Application.OpenForms)
                 {
-                    f.Show();
-                    break;
+                    if (f is frmLogin)
+                    {
+                        f.Show();
+                        break;
+                    }
                 }
             }
         }
