@@ -9,7 +9,8 @@ namespace pryPereiroERP
     {
         private OleDbConnection CNN;
         private string ERROR = "";
-        private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=|DataDirectory|\\Pereiro.db1.accdb";
+        private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" +
+            System.IO.Path.GetFullPath(System.Windows.Forms.Application.StartupPath + "\\..\\..\\Pereiro.db1.accdb");
 
         public clsConexion()
         {

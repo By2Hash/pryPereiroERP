@@ -53,10 +53,10 @@
             // statusStrip1
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
-            this.statusStrip1.Location = new System.Drawing.Point(0, 742);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 475);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(2, 0, 14, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1161, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(774, 22);
             this.statusStrip1.TabIndex = 0;
             // 
             // statusStripTop
@@ -66,18 +66,17 @@
             this.statusStripTop.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.statusStripTop.Location = new System.Drawing.Point(0, 0);
             this.statusStripTop.Name = "statusStripTop";
-            this.statusStripTop.Padding = new System.Windows.Forms.Padding(2, 0, 14, 0);
-            this.statusStripTop.Size = new System.Drawing.Size(1161, 22);
+            this.statusStripTop.Padding = new System.Windows.Forms.Padding(1, 0, 9, 0);
+            this.statusStripTop.Size = new System.Drawing.Size(774, 22);
             this.statusStripTop.TabIndex = 1;
             this.statusStripTop.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.statusStripTop_ItemClicked);
             // 
             // tabAyuda
             // 
-            this.tabAyuda.Location = new System.Drawing.Point(4, 29);
-            this.tabAyuda.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabAyuda.Location = new System.Drawing.Point(4, 22);
             this.tabAyuda.Name = "tabAyuda";
-            this.tabAyuda.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabAyuda.Size = new System.Drawing.Size(1152, 659);
+            this.tabAyuda.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabAyuda.Size = new System.Drawing.Size(765, 424);
             this.tabAyuda.TabIndex = 3;
             this.tabAyuda.Text = "AYUDA";
             this.tabAyuda.UseVisualStyleBackColor = true;
@@ -87,11 +86,10 @@
             this.tabRRHH.Controls.Add(this.btnRegistrar);
             this.tabRRHH.Controls.Add(this.lblRRHH);
             this.tabRRHH.Controls.Add(this.dgvUsuarios);
-            this.tabRRHH.Location = new System.Drawing.Point(4, 29);
-            this.tabRRHH.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabRRHH.Location = new System.Drawing.Point(4, 22);
             this.tabRRHH.Name = "tabRRHH";
-            this.tabRRHH.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabRRHH.Size = new System.Drawing.Size(1152, 659);
+            this.tabRRHH.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabRRHH.Size = new System.Drawing.Size(765, 424);
             this.tabRRHH.TabIndex = 1;
             this.tabRRHH.Text = "RRHH";
             this.tabRRHH.UseVisualStyleBackColor = true;
@@ -99,10 +97,9 @@
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.Location = new System.Drawing.Point(10, 80);
-            this.btnRegistrar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRegistrar.Location = new System.Drawing.Point(7, 52);
             this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(112, 35);
+            this.btnRegistrar.Size = new System.Drawing.Size(75, 23);
             this.btnRegistrar.TabIndex = 5;
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.UseVisualStyleBackColor = true;
@@ -112,26 +109,25 @@
             // 
             this.lblRRHH.AutoSize = true;
             this.lblRRHH.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRRHH.Location = new System.Drawing.Point(9, 18);
-            this.lblRRHH.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRRHH.Location = new System.Drawing.Point(6, 12);
             this.lblRRHH.Name = "lblRRHH";
-            this.lblRRHH.Size = new System.Drawing.Size(198, 29);
+            this.lblRRHH.Size = new System.Drawing.Size(132, 20);
             this.lblRRHH.TabIndex = 4;
             this.lblRRHH.Text = "Lista de Usuarios";
             // 
             // dgvUsuarios
             // 
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Location = new System.Drawing.Point(10, 138);
+            this.dgvUsuarios.Location = new System.Drawing.Point(7, 90);
+            this.dgvUsuarios.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ReadOnly = true;
             this.dgvUsuarios.RowHeadersWidth = 62;
             this.dgvUsuarios.RowTemplate.Height = 28;
-            this.dgvUsuarios.Size = new System.Drawing.Size(1126, 506);
+            this.dgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvUsuarios.Size = new System.Drawing.Size(751, 329);
             this.dgvUsuarios.TabIndex = 3;
-        
             this.dgvUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellDoubleClick);
-           
             // 
             // tabGrilla
             // 
@@ -139,11 +135,10 @@
             this.tabGrilla.Controls.Add(this.optAsc);
             this.tabGrilla.Controls.Add(this.lblAuditoria);
             this.tabGrilla.Controls.Add(this.dgvConsulta);
-            this.tabGrilla.Location = new System.Drawing.Point(4, 29);
-            this.tabGrilla.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabGrilla.Location = new System.Drawing.Point(4, 22);
             this.tabGrilla.Name = "tabGrilla";
-            this.tabGrilla.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.tabGrilla.Size = new System.Drawing.Size(1152, 659);
+            this.tabGrilla.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabGrilla.Size = new System.Drawing.Size(765, 424);
             this.tabGrilla.TabIndex = 0;
             this.tabGrilla.Text = "AUDITORIA";
             this.tabGrilla.UseVisualStyleBackColor = true;
@@ -152,10 +147,9 @@
             // optDesc
             // 
             this.optDesc.AutoSize = true;
-            this.optDesc.Location = new System.Drawing.Point(214, 71);
-            this.optDesc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.optDesc.Location = new System.Drawing.Point(143, 46);
             this.optDesc.Name = "optDesc";
-            this.optDesc.Size = new System.Drawing.Size(178, 24);
+            this.optDesc.Size = new System.Drawing.Size(121, 17);
             this.optDesc.TabIndex = 5;
             this.optDesc.TabStop = true;
             this.optDesc.Text = "Orden Descendente";
@@ -165,10 +159,9 @@
             // optAsc
             // 
             this.optAsc.AutoSize = true;
-            this.optAsc.Location = new System.Drawing.Point(14, 71);
-            this.optAsc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.optAsc.Location = new System.Drawing.Point(9, 46);
             this.optAsc.Name = "optAsc";
-            this.optAsc.Size = new System.Drawing.Size(168, 24);
+            this.optAsc.Size = new System.Drawing.Size(114, 17);
             this.optAsc.TabIndex = 4;
             this.optAsc.TabStop = true;
             this.optAsc.Text = "Orden Ascendente";
@@ -179,52 +172,49 @@
             // 
             this.lblAuditoria.AutoSize = true;
             this.lblAuditoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAuditoria.Location = new System.Drawing.Point(12, 22);
-            this.lblAuditoria.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblAuditoria.Location = new System.Drawing.Point(8, 14);
             this.lblAuditoria.Name = "lblAuditoria";
-            this.lblAuditoria.Size = new System.Drawing.Size(172, 29);
+            this.lblAuditoria.Size = new System.Drawing.Size(115, 20);
             this.lblAuditoria.TabIndex = 3;
             this.lblAuditoria.Text = "Listar Auditoria";
             // 
             // dgvConsulta
             // 
             this.dgvConsulta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvConsulta.Location = new System.Drawing.Point(10, 118);
+            this.dgvConsulta.Location = new System.Drawing.Point(7, 77);
+            this.dgvConsulta.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dgvConsulta.Name = "dgvConsulta";
             this.dgvConsulta.ReadOnly = true;
             this.dgvConsulta.RowHeadersWidth = 62;
             this.dgvConsulta.RowTemplate.Height = 28;
-            this.dgvConsulta.Size = new System.Drawing.Size(1128, 526);
+            this.dgvConsulta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvConsulta.Size = new System.Drawing.Size(752, 342);
             this.dgvConsulta.TabIndex = 2;
-
             // 
             // tabMenu
             // 
             this.tabMenu.Controls.Add(this.tabGrilla);
             this.tabMenu.Controls.Add(this.tabRRHH);
             this.tabMenu.Controls.Add(this.tabAyuda);
-            this.tabMenu.Location = new System.Drawing.Point(0, 38);
-            this.tabMenu.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tabMenu.Location = new System.Drawing.Point(0, 25);
             this.tabMenu.Name = "tabMenu";
             this.tabMenu.SelectedIndex = 0;
-            this.tabMenu.Size = new System.Drawing.Size(1160, 692);
+            this.tabMenu.Size = new System.Drawing.Size(773, 450);
             this.tabMenu.TabIndex = 3;
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1161, 764);
+            this.ClientSize = new System.Drawing.Size(774, 497);
             this.Controls.Add(this.tabMenu);
             this.Controls.Add(this.statusStripTop);
             this.Controls.Add(this.statusStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sistema ERP";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
-
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabRRHH.ResumeLayout(false);
             this.tabRRHH.PerformLayout();

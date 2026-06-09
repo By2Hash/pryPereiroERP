@@ -17,17 +17,17 @@ namespace pryPereiroERP
         private void btnIngresar_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrWhiteSpace(txtNombre.Text) ||
-                String.IsNullOrWhiteSpace(txtContraseña.Text) 
+                String.IsNullOrWhiteSpace(txtContraseña.Text)
                )
             {
                 intentos--;
-                MessageBox.Show("Debe completar todos los campos (Nombre/Mail y Contraseña ).\n" +
+                MessageBox.Show("Debe completar todos los campos \n(Nombre/Mail y Contraseña )\n" +
                                 "Intentos restantes: " + intentos,
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             else
             {
-              
+
                 clsConexion conexion = new clsConexion();
                 clsUsuario usuario = conexion.ValidarUsuario(txtNombre.Text, txtContraseña.Text);
 
@@ -47,7 +47,7 @@ namespace pryPereiroERP
                     {
                         // Si es Administrador o cualquier otro perfil, va al menú principal normal
                         frmMain formularioPrincipal = new frmMain(usuario);
-                       
+
                         formularioPrincipal.Show();
                         this.Hide();
 
@@ -92,36 +92,14 @@ namespace pryPereiroERP
             }
         }
 
-        private void cmbPerfil_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlIniciarSesion_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void optMostrarContra_CheckedChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void optMostrarContra_Click(object sender, EventArgs e)
-        {
-           
-        }
-
         private void chkMostrarOcultar_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkMostrarOcultar.Checked)
-            {
-                txtContraseña.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                txtContraseña.UseSystemPasswordChar = true;
-            }
+            txtContraseña.UseSystemPasswordChar = !chkMostrarOcultar.Checked;
+        }
+
+        private void lblNombre_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
