@@ -38,12 +38,10 @@ namespace pryPereiroERP
                     // --- AQUÍ HACEMOS LA REDIRECCIÓN SEGÚN EL ROL ---
                     if (usuario.Rol == "RRHH")
                     {
-                        // Si el perfil validado es RRHH, instanciamos y abrimos su ventana específica
                         frmRRHH formularioRRHH = new frmRRHH();
-                        
+                        formularioRRHH.UsuarioActual = usuario.Nombre;
                         formularioRRHH.Show();
                         this.Hide();
-
                     }
                     else
                     {

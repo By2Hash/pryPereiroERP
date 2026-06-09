@@ -29,12 +29,49 @@ namespace pryPereiroERP
             MostrarDatosUsuario();
             VerificarConexion();
 
-            // Guarda el movimiento de navegación en la base de datos
+            // Bloquear RRHH si el perfil no es Admin ni RRHH
+            if (!_usuario.Rol.Equals("Admin", StringComparison.OrdinalIgnoreCase) &&
+                !_usuario.Rol.Equals("RRHH", StringComparison.OrdinalIgnoreCase))
+            {
+                tabMenu.TabPages.Remove(tabRRHH);
+            }
+
+            CargarAyuda();
+
             clsConexion conexion = new clsConexion();
             conexion.RegistrarAuditoria(_usuario.Nombre, "Navegacion", this.Name);
             CargarGrillaAuditoria();
             CargarGrillaUsuarios();
-           
+        }
+
+        private void CargarAyuda()
+        {
+            var lbl = new Label
+            {
+                Text = "GUÍA RÁPIDA DEL SISTEMA ERP\n\n" +
+                       "• Cerrar sesión: Cierre la ventana principal y confirme \"Sí\" " +
+                       "cuando se le pregunte si desea salir. La ventana de inicio " +
+                       "de sesión se abrirá automáticamente.\n\n" +
+                       "• Editar datos de un usuario: Solo los usuarios con perfil " +
+                       "Admin o RRHH pueden modificar datos. Haga doble clic sobre " +
+                       "la fila del usuario en la grilla de la pestaña RRHH.\n\n" +
+                       "• Registrar un usuario nuevo: Vaya a la pestaña RRHH y " +
+                       "presione el botón \"Registrar\". Complete los campos " +
+                       "obligatorios (DNI, Apellido, Nombre, Mail, Contraseña).\n\n" +
+                       "• Activar/Desactivar usuario: Al editar un usuario, marque " +
+                       "o desmarque la casilla \"Activar/Desactivar\" y presione " +
+                       "\"Actualizar\".\n\n" +
+                       "• Auditoría: La pestaña AUDITORIA muestra un historial " +
+                       "de inicios de sesión y movimientos. Puede ordenarlo " +
+                       "de forma ascendente o descendente.",
+                Location = new System.Drawing.Point(20, 20),
+                Size = new System.Drawing.Size(tabAyuda.Width - 40, tabAyuda.Height - 40),
+                Font = new System.Drawing.Font("Segoe UI", 11, System.Drawing.FontStyle.Regular),
+                ForeColor = System.Drawing.Color.FromArgb(50, 50, 50),
+                AutoSize = false,
+                TextAlign = System.Drawing.ContentAlignment.TopLeft
+            };
+            tabAyuda.Controls.Add(lbl);
         }
 
         private void MostrarDatosUsuario()
@@ -78,12 +115,11 @@ namespace pryPereiroERP
             {
                 dgvConsulta.DataSource = dt;
 
-                // Opcional: Mejorar visualmente los encabezados de las columnas
-                dgvConsulta.Columns["Id_Auditoria"].HeaderText = "ID";
-                dgvConsulta.Columns["Usuario"].HeaderText = "Usuario";
-                dgvConsulta.Columns["FechaHora"].HeaderText = "Fecha y Hora";
-                dgvConsulta.Columns["Estado"].HeaderText = "Estado";
-                dgvConsulta.Columns["Historial"].HeaderText = "Último Formulario";
+                if (dgvConsulta.Columns["Id_Auditoria"] != null) dgvConsulta.Columns["Id_Auditoria"].HeaderText = "ID";
+                if (dgvConsulta.Columns["Usuario"] != null) dgvConsulta.Columns["Usuario"].HeaderText = "Usuario";
+                if (dgvConsulta.Columns["FechaHora"] != null) dgvConsulta.Columns["FechaHora"].HeaderText = "Fecha y Hora";
+                if (dgvConsulta.Columns["Estado"] != null) dgvConsulta.Columns["Estado"].HeaderText = "Estado";
+                if (dgvConsulta.Columns["Historial"] != null) dgvConsulta.Columns["Historial"].HeaderText = "Último Formulario";
 
                 // Ajustar automáticamente el ancho de las columnas para que se vea ordenado
                 dgvConsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -103,14 +139,13 @@ namespace pryPereiroERP
             {
                dgvUsuarios.DataSource = dt;
 
-                // Opcional: Mejorar visualmente los encabezados de las columnas
-                dgvUsuarios.Columns["Id_Usuario"].HeaderText = "ID";
-                dgvUsuarios.Columns["DNI"].HeaderText = "DNI";
-                dgvUsuarios.Columns["Nombre"].HeaderText = "Nombre";
-                dgvUsuarios.Columns["Apellido"].HeaderText = "Apellido";
-                dgvUsuarios.Columns["Mail"].HeaderText = "Mail";
-                dgvUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
-                dgvUsuarios.Columns["Activo"].HeaderText = "Activo";
+                if (dgvUsuarios.Columns["Id_Usuario"] != null) dgvUsuarios.Columns["Id_Usuario"].HeaderText = "Id";
+                if (dgvUsuarios.Columns["DNI"] != null) dgvUsuarios.Columns["DNI"].HeaderText = "DNI";
+                if (dgvUsuarios.Columns["Nombre"] != null) dgvUsuarios.Columns["Nombre"].HeaderText = "Nombre";
+                if (dgvUsuarios.Columns["Apellido"] != null) dgvUsuarios.Columns["Apellido"].HeaderText = "Apellido";
+                if (dgvUsuarios.Columns["Mail"] != null) dgvUsuarios.Columns["Mail"].HeaderText = "Mail";
+                if (dgvUsuarios.Columns["Contraseña"] != null) dgvUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
+                if (dgvUsuarios.Columns["Activo"] != null) dgvUsuarios.Columns["Activo"].HeaderText = "Activo";
                
 
                 // Ajustar automáticamente el ancho de las columnas para que se vea ordenado
@@ -130,6 +165,7 @@ namespace pryPereiroERP
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             frmRRHH rrhh = new frmRRHH();
+            rrhh.UsuarioActual = _usuario?.Nombre;
             rrhh.ShowDialog();
         }
 
@@ -164,14 +200,15 @@ namespace pryPereiroERP
         {
             if (e.RowIndex < 0) return;
 
-            // Capturamos el ID de la celda seleccionada
-            int idUsuario = Convert.ToInt32(dgvUsuarios.Rows[e.RowIndex].Cells["Id_Usuario"].Value);
+            object val = dgvUsuarios.Rows[e.RowIndex].Cells["Id_Usuario"].Value;
+            if (val == null || val == DBNull.Value) return;
 
-            // Abrimos el formulario pasándole el ID
+            int idUsuario = Convert.ToInt32(val);
+
             frmRRHH rrhh = new frmRRHH(idUsuario);
+            rrhh.UsuarioActual = _usuario?.Nombre;
             rrhh.ShowDialog();
 
-            // Al regresar, refrescamos la grilla para ver los cambios
             CargarGrillaUsuarios();
         }
 

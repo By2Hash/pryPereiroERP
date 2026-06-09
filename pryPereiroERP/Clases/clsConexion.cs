@@ -385,18 +385,18 @@ namespace pryPereiroERP
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                // Consulta SQL con JOINs corregida para Access
+                // Access requiere doble paréntesis envolviendo múltiples LEFT JOIN
                 string query = "SELECT u.Id_Usuario, u.Nombre, u.Apellido, u.Mail, u.Contraseña, u.DNI, u.Activo, " +
                                "d.Dirección, d.GPS, d.Provincia, d.Localidad, " +
                                "c.Telefono, c.Redes_Sociales " +
-                               "FROM (Usuarios AS u " +
+                               "FROM ((Usuarios AS u " +
                                "LEFT JOIN Domicilio_Usuario AS d ON u.Id_Usuario = d.Id_Usuario) " +
-                               "LEFT JOIN Contacto_Usuario AS c ON u.Id_Usuario = c.Id_Usuario " +
+                               "LEFT JOIN Contacto_Usuario AS c ON u.Id_Usuario = c.Id_Usuario) " +
                                "WHERE u.Id_Usuario = ?";
 
                 OleDbCommand cmd = new OleDbCommand(query, CNN);
 
-                // CRUCIAL PARA ACCESS: El parámetro debe agregarse estrictamente en el orden del "?"
+                // OleDb ignora el nombre del parámetro -> debe coincidir por posición con el ?
                 cmd.Parameters.AddWithValue("?", id);
 
                 OleDbDataAdapter da = new OleDbDataAdapter(cmd);

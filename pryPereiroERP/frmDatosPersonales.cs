@@ -12,10 +12,13 @@ namespace pryPereiroERP
 {
     public partial class frmRRHH : Form
     {
-        // Se declara la variable para identificar quién está usando este formulario de carga
         private string nombreUsuarioActual = "Admin_RRHH";
-
         private int _idUsuario = -1;
+
+        public string UsuarioActual
+        {
+            set { nombreUsuarioActual = value ?? "Admin_RRHH"; }
+        }
 
         public frmRRHH()
         {
@@ -25,7 +28,6 @@ namespace pryPereiroERP
         {
             InitializeComponent();
             _idUsuario = idUsuario;
-
         }
 
         private void frmRRHH_Load(object sender, EventArgs e)
@@ -50,72 +52,58 @@ namespace pryPereiroERP
                 clsConexion conexion = new clsConexion();
                 DataTable dt = conexion.ObtenerUsuarioPorId(_idUsuario);
 
-                if (dt != null && dt.Rows.Count > 0)
+                if (dt == null || dt.Rows.Count == 0) return;
+
+                DataRow row = dt.Rows[0];
+
+                txtNombre.Text = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString().Trim() : "";
+                txtApellido.Text = row["Apellido"] != DBNull.Value ? row["Apellido"].ToString().Trim() : "";
+                txtMail.Text = row["Mail"] != DBNull.Value ? row["Mail"].ToString().Trim() : "";
+                txtContraseña.Text = row["Contraseña"] != DBNull.Value ? row["Contraseña"].ToString().Trim() : "";
+                txtDNI.Text = row["DNI"] != DBNull.Value ? row["DNI"].ToString().Trim() : "";
+                chkActivar.Checked = row["Activo"] != DBNull.Value && Convert.ToBoolean(row["Activo"]);
+
+                txtDireccion.Text = row["Dirección"] != DBNull.Value ? row["Dirección"].ToString().Trim() : "";
+                txtGPS.Text = row["GPS"] != DBNull.Value ? row["GPS"].ToString().Trim() : "";
+                mskTelefono.Text = row["Telefono"] != DBNull.Value ? row["Telefono"].ToString().Trim() : "";
+
+                if (row["Provincia"] != DBNull.Value)
                 {
-                    DataRow row = dt.Rows[0];
-
-                    // 1. Datos Principales (Tabla Usuarios)
-                    txtNombre.Text = row["Nombre"] != DBNull.Value ? row["Nombre"].ToString().Trim() : "";
-                    txtApellido.Text = row["Apellido"] != DBNull.Value ? row["Apellido"].ToString().Trim() : "";
-                    txtMail.Text = row["Mail"] != DBNull.Value ? row["Mail"].ToString().Trim() : "";
-                    txtContraseña.Text = row["Contraseña"] != DBNull.Value ? row["Contraseña"].ToString().Trim() : "";
-                    txtDNI.Text = row["DNI"] != DBNull.Value ? row["DNI"].ToString().Trim() : "";
-                    chkActivar.Checked = row["Activo"] != DBNull.Value && Convert.ToBoolean(row["Activo"]);
-
-                    // 2. Datos de Domicilio (Validando nulos de Access)
-                    txtDireccion.Text = row["Dirección"] != DBNull.Value ? row["Dirección"].ToString().Trim() : "";
-                    txtGPS.Text = row["GPS"] != DBNull.Value ? row["GPS"].ToString().Trim() : "";
-
-                    // 3. Datos de Contacto (Validando nulos de Access)
-                    mskTelefono.Text = row["Telefono"] != DBNull.Value ? row["Telefono"].ToString().Trim() : "";
-
-                    // 4. Posicionar ComboBox de Provincia inteligentemente
-                    if (row["Provincia"] != DBNull.Value)
+                    string val = row["Provincia"].ToString().Trim();
+                    for (int i = 0; i < cmbProvincia.Items.Count; i++)
                     {
-                        string provinciaBuscada = row["Provincia"].ToString().Trim();
-                        for (int i = 0; i < cmbProvincia.Items.Count; i++)
+                        if (cmbProvincia.Items[i] is DataRowView drv &&
+                            drv["Nombres"].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
                         {
-                            // Como tus combos se llenan de BD, leemos el DataRowView interno
-                            if (cmbProvincia.Items[i] is DataRowView drv)
-                            {
-                                // Buscamos en la columna "Nombres" o la columna de texto de tu consulta de Provincias
-                                if (drv["Nombres"].ToString().Trim().Equals(provinciaBuscada, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    cmbProvincia.SelectedIndex = i;
-                                    break;
-                                }
-                            }
+                            cmbProvincia.SelectedIndex = i;
+                            break;
                         }
                     }
+                }
 
-                    // 5. Posicionar ComboBox de Localidad inteligentemente
-                    if (row["Localidad"] != DBNull.Value)
+                if (row["Localidad"] != DBNull.Value)
+                {
+                    string val = row["Localidad"].ToString().Trim();
+                    for (int i = 0; i < cmbLocalidad.Items.Count; i++)
                     {
-                        string localidadBuscada = row["Localidad"].ToString().Trim();
-                        for (int i = 0; i < cmbLocalidad.Items.Count; i++)
+                        if (cmbLocalidad.Items[i] is DataRowView drv &&
+                            drv["Nombres"].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
                         {
-                            if (cmbLocalidad.Items[i] is DataRowView drv)
-                            {
-                                if (drv["Nombres"].ToString().Trim().Equals(localidadBuscada, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    cmbLocalidad.SelectedIndex = i;
-                                    break;
-                                }
-                            }
+                            cmbLocalidad.SelectedIndex = i;
+                            break;
                         }
                     }
+                }
 
-                    // 6. Posicionar ComboBox de Redes Sociales (comboBox4)
-                    if (row["Redes_Sociales"] != DBNull.Value)
+                if (row["Redes_Sociales"] != DBNull.Value)
+                {
+                    string val = row["Redes_Sociales"].ToString().Trim();
+                    for (int i = 0; i < comboBox4.Items.Count; i++)
                     {
-                        string redBuscada = row["Redes_Sociales"].ToString().Trim();
-                        for (int i = 0; i < comboBox4.Items.Count; i++)
+                        if (comboBox4.Items[i].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
                         {
-                            if (comboBox4.Items[i].ToString().Trim().Equals(redBuscada, StringComparison.OrdinalIgnoreCase))
-                            {
-                                comboBox4.SelectedIndex = i;
-                                break;
-                            }
+                            comboBox4.SelectedIndex = i;
+                            break;
                         }
                     }
                 }
@@ -273,7 +261,14 @@ namespace pryPereiroERP
 
         private void frmRRHH_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f is frmLogin)
+                {
+                    f.Show();
+                    break;
+                }
+            }
         }
     }
 }
