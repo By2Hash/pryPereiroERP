@@ -36,24 +36,20 @@ namespace pryPereiroERP
                 tabMenu.TabPages.Remove(tabRRHH);
             }
 
-            CargarAyuda();
-
             clsConexion conexion = new clsConexion();
             conexion.RegistrarAuditoria(_usuario.Nombre, "Navegacion", this.Name);
 
             radioDesc.Checked = true;
-            cboTablas.SelectedItem = "Auditoria-Sesion";
 
+            CargarTablaEnGrilla("Auditoria-Sesion");
             CargarGrillaUsuarios();
-            CargarDashboard();
         }
 
         private void CargarDatosUsuarioTab()
         {
-            lblNombreValor.Text = "  Nombre: " + _usuario.Nombre;
-            lblApellidoValor.Text = "  Apellido: " + _usuario.Apellido;
-            lblRolValor.Text = "  Perfil: " + _usuario.Rol;
-            lblConexionValor.Text = "  Conectado desde: " + _usuario.HoraConexion;
+            lblNombreValor.Text = _usuario.Nombre;
+            lblApellidoValor.Text = _usuario.Apellido;
+            lblRolValor.Text = _usuario.Rol;
 
             try
             {
@@ -64,75 +60,58 @@ namespace pryPereiroERP
                 {
                     DataRow row = dt.Rows[0];
 
-                    lblEmailValor.Text = "  Email: " + (row["Mail"] != DBNull.Value ? row["Mail"].ToString().Trim() : "-");
-                    lblDireccionValor.Text = "  Dirección: " + (row["Dirección"] != DBNull.Value ? row["Dirección"].ToString().Trim() : "-");
-                    lblGPSValor.Text = "  GPS: " + (row["GPS"] != DBNull.Value ? row["GPS"].ToString().Trim() : "-");
-                    lblProvinciaValor.Text = "  Provincia: " + (row["Provincia"] != DBNull.Value ? row["Provincia"].ToString().Trim() : "-");
-                    lblLocalidadValor.Text = "  Localidad: " + (row["Localidad"] != DBNull.Value ? row["Localidad"].ToString().Trim() : "-");
-                    lblTelefonoValor.Text = "  Teléfono: " + (row["Telefono"] != DBNull.Value ? row["Telefono"].ToString().Trim() : "-");
-                    lblRedesValor.Text = "  Redes Sociales: " + (row["Redes_Sociales"] != DBNull.Value ? row["Redes_Sociales"].ToString().Trim() : "-");
+                    lblEmailValor.Text = row["Mail"] != DBNull.Value ? row["Mail"].ToString().Trim() : "-";
+                    lblDireccionValor.Text = row["Dirección"] != DBNull.Value ? row["Dirección"].ToString().Trim() : "-";
+                    lblGPSValor.Text = row["GPS"] != DBNull.Value ? row["GPS"].ToString().Trim() : "-";
+                    lblProvinciaValor.Text = row["Provincia"] != DBNull.Value ? row["Provincia"].ToString().Trim() : "-";
+                    lblLocalidadValor.Text = row["Localidad"] != DBNull.Value ? row["Localidad"].ToString().Trim() : "-";
+                    lblTelefonoValor.Text = row["Telefono"] != DBNull.Value ? row["Telefono"].ToString().Trim() : "-";
+                    lblRedesValor.Text = row["Redes_Sociales"] != DBNull.Value ? row["Redes_Sociales"].ToString().Trim() : "-";
                 }
                 else
                 {
-                    lblEmailValor.Text = "  Email: -";
-                    lblDireccionValor.Text = "  Dirección: -";
-                    lblGPSValor.Text = "  GPS: -";
-                    lblProvinciaValor.Text = "  Provincia: -";
-                    lblLocalidadValor.Text = "  Localidad: -";
-                    lblTelefonoValor.Text = "  Teléfono: -";
-                    lblRedesValor.Text = "  Redes Sociales: -";
+                    lblEmailValor.Text = "-";
+                    lblDireccionValor.Text = "-";
+                    lblGPSValor.Text = "-";
+                    lblProvinciaValor.Text = "-";
+                    lblLocalidadValor.Text = "-";
+                    lblTelefonoValor.Text = "-";
+                    lblRedesValor.Text = "-";
                 }
             }
             catch
             {
-                lblEmailValor.Text = "  Email: Error al cargar";
+                lblEmailValor.Text = "Error al cargar";
             }
-        }
-
-        private void CargarAyuda()
-        {
-            var lbl = new Label
-            {
-                Text = "GUÍA RÁPIDA DEL SISTEMA ERP\n\n" +
-                       "• Cerrar sesión: Cierre la ventana principal y confirme \"Sí\" " +
-                       "cuando se le pregunte si desea salir. La ventana de inicio " +
-                       "de sesión se abrirá automáticamente.\n\n" +
-                       "• Editar datos de un usuario: Solo los usuarios con perfil " +
-                       "Admin o RRHH pueden modificar datos. Haga doble clic sobre " +
-                       "la fila del usuario en la grilla de la pestaña RRHH.\n\n" +
-                       "• Registrar un usuario nuevo: Vaya a la pestaña RRHH y " +
-                       "presione el botón \"Registrar\". Complete los campos " +
-                       "obligatorios (DNI, Apellido, Nombre, Mail, Contraseña).\n\n" +
-                       "• Activar/Desactivar usuario: Al editar un usuario, marque " +
-                       "o desmarque la casilla \"Activar/Desactivar\" y presione " +
-                       "\"Actualizar\".\n\n" +
-                       "• Auditoría: La pestaña AUDITORIA muestra un historial " +
-                       "de inicios de sesión y movimientos. Puede ordenarlo " +
-                       "de forma ascendente o descendente.",
-                Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right,
-                Location = new System.Drawing.Point(20, 20),
-                Size = new System.Drawing.Size(tabAyuda.Width - 40, tabAyuda.Height - 40),
-                Font = new System.Drawing.Font("Segoe UI", 11, System.Drawing.FontStyle.Regular),
-                ForeColor = System.Drawing.Color.FromArgb(204, 204, 204),
-                AutoSize = false,
-                TextAlign = System.Drawing.ContentAlignment.TopLeft
-            };
-            tabAyuda.Controls.Add(lbl);
         }
 
         private void VerificarConexion()
         {
             statusStrip1.Items.Clear();
             clsConexion conexion = new clsConexion();
-            ToolStripStatusLabel lbl;
+
+            ToolStripStatusLabel lblIcono = new ToolStripStatusLabel(" ●");
+            lblIcono.Font = new Font("Segoe UI", 12, FontStyle.Bold);
+            lblIcono.Alignment = ToolStripItemAlignment.Right;
+
+            ToolStripStatusLabel lblTexto = new ToolStripStatusLabel();
+            lblTexto.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            lblTexto.ForeColor = Color.FromArgb(255, 219, 137);
+            lblTexto.Alignment = ToolStripItemAlignment.Right;
 
             if (conexion.ProbarConexion())
-                lbl = new ToolStripStatusLabel("  🟢 Base de datos conectada") { ForeColor = Color.Lime };
+            {
+                lblIcono.ForeColor = Color.Lime;
+                lblTexto.Text = " Base de datos conectada";
+            }
             else
-                lbl = new ToolStripStatusLabel("  🔴 Sin conexión") { ForeColor = Color.Red };
+            {
+                lblIcono.ForeColor = Color.Red;
+                lblTexto.Text = " Sin conexión";
+            }
 
-            lbl.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-            statusStrip1.Items.Add(lbl);
+            statusStrip1.Items.Add(lblIcono);
+            statusStrip1.Items.Add(lblTexto);
         }
 
         private void CargarTablaEnGrilla(string tabla)
@@ -147,12 +126,8 @@ namespace pryPereiroERP
                 if (!string.IsNullOrEmpty(colOrden))
                 {
                     dt.DefaultView.Sort = colOrden + (ascendente ? " ASC" : " DESC");
-                    dgvConsulta.DataSource = dt.DefaultView;
                 }
-                else
-                {
-                    dgvConsulta.DataSource = dt;
-                }
+                dgvConsulta.DataSource = dt.DefaultView;
 
                 dgvConsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 lblResultados.Text = dt.Rows.Count + " registros encontrados";
@@ -182,18 +157,9 @@ namespace pryPereiroERP
             return dt.Columns[0].ColumnName;
         }
 
-        private void cboTablas_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cboTablas.SelectedItem == null) return;
-            CargarTablaEnGrilla(cboTablas.SelectedItem.ToString());
-        }
-
         private void radioOrden_CheckedChanged(object sender, EventArgs e)
         {
-            if (cboTablas.SelectedItem != null)
-            {
-                CargarTablaEnGrilla(cboTablas.SelectedItem.ToString());
-            }
+            CargarTablaEnGrilla("Auditoria-Sesion");
         }
 
         private void CargarGrillaUsuarios()
@@ -212,6 +178,8 @@ namespace pryPereiroERP
                 if (dgvUsuarios.Columns["Mail"] != null) dgvUsuarios.Columns["Mail"].HeaderText = "Mail";
                 if (dgvUsuarios.Columns["Contraseña"] != null) dgvUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
                 if (dgvUsuarios.Columns["Activo"] != null) dgvUsuarios.Columns["Activo"].HeaderText = "Activo";
+                if (dgvUsuarios.Columns["Perfil"] != null) dgvUsuarios.Columns["Perfil"].HeaderText = "Perfil";
+                if (dgvUsuarios.Columns["Contraseña"] != null) dgvUsuarios.Columns["Contraseña"].Visible = false;
 
                 dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
@@ -298,12 +266,89 @@ namespace pryPereiroERP
             }
         }
 
-        private void CargarDashboard()
+        private void txtFiltro_Enter(object sender, EventArgs e)
         {
-            clsConexion conexion = new clsConexion();
-            lblDashboardTotalValor.Text = conexion.ContarUsuarios().ToString();
-            lblDashboardActivosValor.Text = conexion.ContarUsuariosActivos().ToString();
-            lblDashboardAccesosValor.Text = conexion.ContarAccesosHoy().ToString();
+            TextBox txt = sender as TextBox;
+            if (txt == null) return;
+
+            if (txt.Text == "Buscar usuario...")
+            {
+                txt.Text = "";
+                txt.ForeColor = System.Drawing.Color.White;
+            }
+        }
+
+        private void txtFiltro_Leave(object sender, EventArgs e)
+        {
+            TextBox txt = sender as TextBox;
+            if (txt == null) return;
+
+            if (string.IsNullOrWhiteSpace(txt.Text))
+            {
+                txt.Text = "Buscar usuario...";
+                txt.ForeColor = System.Drawing.Color.Gray;
+            }
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            CargarTablaEnGrilla("Auditoria-Sesion");
+
+            if (dgvConsulta.DataSource is DataView dv)
+            {
+                string filtros = "";
+
+                string usuario = txtFiltroUsuario.Text;
+                if (usuario != "Buscar usuario..." && !string.IsNullOrWhiteSpace(usuario))
+                {
+                    filtros += string.Format("CONVERT(Usuario, System.String) LIKE '%{0}%'", usuario.Replace("'", "''"));
+                }
+
+                if (dtpFiltroFechaDesde.Checked && dtpFiltroFechaHasta.Checked)
+                {
+                    if (dtpFiltroFechaDesde.Value > dtpFiltroFechaHasta.Value)
+                    {
+                        MessageBox.Show("La fecha 'Desde' no puede ser posterior a la fecha 'Hasta'.", "Fechas inválidas", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                if (dtpFiltroFechaDesde.Checked)
+                {
+                    if (filtros.Length > 0) filtros += " AND ";
+                    filtros += string.Format("FechaHora >= #{0}#", dtpFiltroFechaDesde.Value.Date.ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture));
+                }
+
+                if (dtpFiltroFechaHasta.Checked)
+                {
+                    if (filtros.Length > 0) filtros += " AND ";
+                    filtros += string.Format("FechaHora <= #{0}#", dtpFiltroFechaHasta.Value.Date.AddDays(1).ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture));
+                }
+
+                dv.RowFilter = filtros;
+
+                string orden = radioAsc.Checked ? " ASC" : " DESC";
+                string colOrden = ObtenerColumnaOrden("Auditoria-Sesion", dv.Table);
+                if (!string.IsNullOrEmpty(colOrden))
+                    dv.Sort = colOrden + orden;
+
+                lblResultados.Text = dv.Count + " registros encontrados";
+            }
+        }
+
+        private void btnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            txtFiltroUsuario.Text = "Buscar usuario...";
+            txtFiltroUsuario.ForeColor = System.Drawing.Color.Gray;
+            dtpFiltroFechaDesde.Checked = false;
+            dtpFiltroFechaHasta.Checked = false;
+
+            CargarTablaEnGrilla("Auditoria-Sesion");
+        }
+
+        private void dgvUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

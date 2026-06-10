@@ -29,7 +29,6 @@ namespace pryPereiroERP
         {
             InitializeComponent();
             _idUsuario = idUsuario;
-            CargarPerfiles();
         }
 
         private void frmRRHH_Load(object sender, EventArgs e)
@@ -41,7 +40,12 @@ namespace pryPereiroERP
             {
                 this.Text = "Modificar Usuario";
                 btnCargar.Text = "Actualizar";
+                btnEliminar.Visible = true;
                 CargarDatosUsuario();
+            }
+            else
+            {
+                btnEliminar.Visible = false;
             }
             clsConexion conexion = new clsConexion();
             conexion.RegistrarAuditoria(nombreUsuarioActual, "Navegacion", this.Name);
@@ -118,8 +122,15 @@ namespace pryPereiroERP
                     if (rows.Length > 0)
                     {
                         _idPerfil = Convert.ToInt32(rows[0]["Id_Perfil"]);
-                        if (cmbPerfil.Items.Count > 0)
-                            cmbPerfil.SelectedValue = _idPerfil;
+                        string nombrePerfil = ObtenerNombrePerfil(_idPerfil);
+                        for (int i = 0; i < cmbTipoPerfil.Items.Count; i++)
+                        {
+                            if (cmbTipoPerfil.Items[i].ToString().Equals(nombrePerfil, StringComparison.OrdinalIgnoreCase))
+                            {
+                                cmbTipoPerfil.SelectedIndex = i;
+                                break;
+                            }
+                        }
                     }
                 }
                 catch { }
@@ -173,15 +184,24 @@ namespace pryPereiroERP
             }
         }
 
-        private void CargarPerfiles()
+        private string ObtenerNombrePerfil(int idPerfil)
         {
-            clsConexion conexion = new clsConexion();
-            DataTable dt = conexion.ObtenerDatosTabla("Perfil");
-            cmbPerfil.DataSource = dt;
-            cmbPerfil.DisplayMember = "Nombre_Perfil";
-            cmbPerfil.ValueMember = "Id_Perfil";
-            if (_idPerfil > 0)
-                cmbPerfil.SelectedValue = _idPerfil;
+            clsConexion con = new clsConexion();
+            DataTable dt = con.ObtenerDatosTabla("Perfil");
+            DataRow[] rows = dt.Select("Id_Perfil=" + idPerfil);
+            return rows.Length > 0 ? rows[0]["Nombre"].ToString() : "";
+        }
+
+        private int ObtenerIdPerfilPorNombre(string nombre)
+        {
+            clsConexion con = new clsConexion();
+            DataTable dt = con.ObtenerDatosTabla("Perfil");
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["Nombre"].ToString().Equals(nombre, StringComparison.OrdinalIgnoreCase))
+                    return Convert.ToInt32(row["Id_Perfil"]);
+            }
+            return -1;
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
@@ -201,6 +221,13 @@ namespace pryPereiroERP
             string localidad = cmbLocalidad.SelectedIndex >= 0 ? cmbLocalidad.Text : "";
             string redes = cmbRedesSociales.SelectedIndex >= 0 ? cmbRedesSociales.Text : "";
 
+            int idPerfil = ObtenerIdPerfilPorNombre(cmbTipoPerfil.Text);
+            if (idPerfil < 0)
+            {
+                MessageBox.Show("Seleccione un Tipo de Perfil válido.", "Perfil inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             clsConexion conexion = new clsConexion();
             bool resultado;
 
@@ -213,7 +240,7 @@ namespace pryPereiroERP
                     txtDireccion.Text.Trim(), txtGPS.Text.Trim(),
                     provincia, localidad,
                     mskTelefono.Text.Trim(), redes,
-                    (int)cmbPerfil.SelectedValue);
+                    idPerfil);
 
                 if (resultado)
                 {
@@ -234,7 +261,7 @@ namespace pryPereiroERP
                     txtDireccion.Text.Trim(), txtGPS.Text.Trim(),
                     provincia, localidad,
                     mskTelefono.Text.Trim(), redes,
-                    (int)cmbPerfil.SelectedValue);
+                    idPerfil);
 
                 if (resultado)
                 {
@@ -253,6 +280,34 @@ namespace pryPereiroERP
             }
         }
 
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (_idUsuario < 0) return;
+
+            DialogResult confirm = MessageBox.Show(
+                "¿Está seguro de que desea eliminar al usuario " + txtNombre.Text.Trim() + " " + txtApellido.Text.Trim() + "?\n\nEsta acción no se puede deshacer.",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirm != DialogResult.Yes) return;
+
+            clsConexion conexion = new clsConexion();
+            if (conexion.EliminarUsuario(_idUsuario))
+            {
+                conexion.RegistrarAuditoria(nombreUsuarioActual,
+                                            "Eliminó Usuario: " + txtNombre.Text.Trim(), this.Name);
+                MessageBox.Show("Usuario eliminado correctamente.",
+                                "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error al eliminar: " + conexion.GetError(),
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void LimpiarFormulario()
         {
             txtDNI.Clear();
@@ -266,6 +321,7 @@ namespace pryPereiroERP
             cmbProvincia.SelectedIndex = -1;
             cmbLocalidad.SelectedIndex = -1;
             cmbRedesSociales.SelectedIndex = -1;
+            cmbTipoPerfil.SelectedIndex = -1;
             chkActivar.Checked = false;
         }
 
@@ -282,6 +338,11 @@ namespace pryPereiroERP
                     }
                 }
             }
+        }
+
+        private void cmbTipoPerfil_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

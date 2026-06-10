@@ -19,33 +19,44 @@ namespace pryPereiroERP
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMain));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.tabAyuda = new System.Windows.Forms.TabPage();
-            this.tabDashboard = new System.Windows.Forms.TabPage();
-            this.lblDashboardTotalUsuarios = new System.Windows.Forms.Label();
-            this.lblDashboardActivos = new System.Windows.Forms.Label();
-            this.lblDashboardAccesosHoy = new System.Windows.Forms.Label();
-            this.lblDashboardTotalValor = new System.Windows.Forms.Label();
-            this.lblDashboardActivosValor = new System.Windows.Forms.Label();
-            this.lblDashboardAccesosValor = new System.Windows.Forms.Label();
             this.tabRRHH = new System.Windows.Forms.TabPage();
+            this.txtBuscarUsuario = new System.Windows.Forms.TextBox();
             this.btnRegistrar = new System.Windows.Forms.Button();
             this.lblRRHH = new System.Windows.Forms.Label();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.tabGrilla = new System.Windows.Forms.TabPage();
             this.lblAuditoria = new System.Windows.Forms.Label();
             this.dgvConsulta = new System.Windows.Forms.DataGridView();
-            this.cboTablas = new System.Windows.Forms.ComboBox();
             this.gbOrden = new System.Windows.Forms.GroupBox();
             this.radioDesc = new System.Windows.Forms.RadioButton();
             this.radioAsc = new System.Windows.Forms.RadioButton();
             this.lblResultados = new System.Windows.Forms.Label();
+            this.txtFiltroUsuario = new System.Windows.Forms.TextBox();
+            this.dtpFiltroFechaDesde = new System.Windows.Forms.DateTimePicker();
+            this.dtpFiltroFechaHasta = new System.Windows.Forms.DateTimePicker();
+            this.lblFiltroDesde = new System.Windows.Forms.Label();
+            this.lblFiltroHasta = new System.Windows.Forms.Label();
+            this.btnFiltrar = new System.Windows.Forms.Button();
+            this.btnLimpiarFiltros = new System.Windows.Forms.Button();
             this.tabUsuario = new System.Windows.Forms.TabPage();
             this.lblUsuarioTitulo = new System.Windows.Forms.Label();
+            this.lblSeparador = new System.Windows.Forms.Label();
+            this.gbPersonal = new System.Windows.Forms.GroupBox();
+            this.lblFNombre = new System.Windows.Forms.Label();
+            this.lblFApellido = new System.Windows.Forms.Label();
+            this.lblFEmail = new System.Windows.Forms.Label();
+            this.lblFRol = new System.Windows.Forms.Label();
             this.lblNombreValor = new System.Windows.Forms.Label();
             this.lblApellidoValor = new System.Windows.Forms.Label();
             this.lblEmailValor = new System.Windows.Forms.Label();
             this.lblRolValor = new System.Windows.Forms.Label();
-            this.lblConexionValor = new System.Windows.Forms.Label();
+            this.gbContacto = new System.Windows.Forms.GroupBox();
+            this.lblFDireccion = new System.Windows.Forms.Label();
+            this.lblFGPS = new System.Windows.Forms.Label();
+            this.lblFProvincia = new System.Windows.Forms.Label();
+            this.lblFLocalidad = new System.Windows.Forms.Label();
+            this.lblFTelefono = new System.Windows.Forms.Label();
+            this.lblFRedes = new System.Windows.Forms.Label();
             this.lblDireccionValor = new System.Windows.Forms.Label();
             this.lblGPSValor = new System.Windows.Forms.Label();
             this.lblProvinciaValor = new System.Windows.Forms.Label();
@@ -55,11 +66,12 @@ namespace pryPereiroERP
             this.tabMenu = new System.Windows.Forms.TabControl();
             this.tabRRHH.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
-            this.tabDashboard.SuspendLayout();
             this.tabGrilla.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConsulta)).BeginInit();
             this.gbOrden.SuspendLayout();
             this.tabUsuario.SuspendLayout();
+            this.gbPersonal.SuspendLayout();
+            this.gbContacto.SuspendLayout();
             this.tabMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,19 +86,10 @@ namespace pryPereiroERP
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 0;
             // 
-            // tabAyuda
-            // 
-            this.tabAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
-            this.tabAyuda.Location = new System.Drawing.Point(4, 26);
-            this.tabAyuda.Name = "tabAyuda";
-            this.tabAyuda.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAyuda.Size = new System.Drawing.Size(1092, 520);
-            this.tabAyuda.TabIndex = 3;
-            this.tabAyuda.Text = "AYUDA";
-            // 
             // tabRRHH
             // 
             this.tabRRHH.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.tabRRHH.Controls.Add(this.txtBuscarUsuario);
             this.tabRRHH.Controls.Add(this.btnRegistrar);
             this.tabRRHH.Controls.Add(this.lblRRHH);
             this.tabRRHH.Controls.Add(this.dgvUsuarios);
@@ -96,6 +99,23 @@ namespace pryPereiroERP
             this.tabRRHH.Size = new System.Drawing.Size(1092, 520);
             this.tabRRHH.TabIndex = 1;
             this.tabRRHH.Text = "RRHH";
+            // 
+            // txtBuscarUsuario
+            // 
+            this.txtBuscarUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscarUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.txtBuscarUsuario.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtBuscarUsuario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscarUsuario.ForeColor = System.Drawing.Color.Gray;
+            this.txtBuscarUsuario.Location = new System.Drawing.Point(753, 15);
+            this.txtBuscarUsuario.Name = "txtBuscarUsuario";
+            this.txtBuscarUsuario.Size = new System.Drawing.Size(180, 25);
+            this.txtBuscarUsuario.TabIndex = 6;
+            this.txtBuscarUsuario.Text = "Buscar usuario...";
+            this.txtBuscarUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBuscarUsuario.TextChanged += new System.EventHandler(this.txtBuscarUsuario_TextChanged);
+            this.txtBuscarUsuario.Enter += new System.EventHandler(this.txtBuscarUsuario_Enter);
+            this.txtBuscarUsuario.Leave += new System.EventHandler(this.txtBuscarUsuario_Leave);
             // 
             // btnRegistrar
             // 
@@ -119,7 +139,7 @@ namespace pryPereiroERP
             this.lblRRHH.AutoSize = true;
             this.lblRRHH.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRRHH.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
-            this.lblRRHH.Location = new System.Drawing.Point(12, 15);
+            this.lblRRHH.Location = new System.Drawing.Point(8, 15);
             this.lblRRHH.Name = "lblRRHH";
             this.lblRRHH.Size = new System.Drawing.Size(161, 25);
             this.lblRRHH.TabIndex = 4;
@@ -135,122 +155,32 @@ namespace pryPereiroERP
             this.dgvUsuarios.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.dgvUsuarios.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Location = new System.Drawing.Point(12, 58);
+            this.dgvUsuarios.Location = new System.Drawing.Point(12, 77);
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ReadOnly = true;
             this.dgvUsuarios.RowHeadersWidth = 51;
             this.dgvUsuarios.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvUsuarios.RowTemplate.Height = 30;
             this.dgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsuarios.Size = new System.Drawing.Size(1061, 446);
+            this.dgvUsuarios.Size = new System.Drawing.Size(1061, 427);
             this.dgvUsuarios.TabIndex = 3;
+            this.dgvUsuarios.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellContentClick);
             this.dgvUsuarios.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsuarios_CellDoubleClick);
-            // 
-            // txtBuscarUsuario
-            // 
-            this.txtBuscarUsuario = new System.Windows.Forms.TextBox();
-            this.txtBuscarUsuario.BackColor = System.Drawing.Color.FromArgb(44, 44, 44);
-            this.txtBuscarUsuario.ForeColor = System.Drawing.Color.White;
-            this.txtBuscarUsuario.Location = new System.Drawing.Point(10, 10);
-            this.txtBuscarUsuario.Name = "txtBuscarUsuario";
-            this.txtBuscarUsuario.Size = new System.Drawing.Size(200, 20);
-            this.txtBuscarUsuario.TabIndex = 0;
-            this.txtBuscarUsuario.Text = "Buscar usuario...";
-            this.txtBuscarUsuario.Enter += new System.EventHandler(this.txtBuscarUsuario_Enter);
-            this.txtBuscarUsuario.Leave += new System.EventHandler(this.txtBuscarUsuario_Leave);
-            this.txtBuscarUsuario.TextChanged += new System.EventHandler(this.txtBuscarUsuario_TextChanged);
-            this.tabRRHH.Controls.Add(this.txtBuscarUsuario);
-            // 
-            // tabDashboard
-            // 
-            this.tabDashboard.BackColor = System.Drawing.Color.FromArgb(3, 3, 3);
-            this.tabDashboard.Controls.Add(this.lblDashboardTotalValor);
-            this.tabDashboard.Controls.Add(this.lblDashboardActivosValor);
-            this.tabDashboard.Controls.Add(this.lblDashboardAccesosValor);
-            this.tabDashboard.Controls.Add(this.lblDashboardTotalUsuarios);
-            this.tabDashboard.Controls.Add(this.lblDashboardActivos);
-            this.tabDashboard.Controls.Add(this.lblDashboardAccesosHoy);
-            this.tabDashboard.Location = new System.Drawing.Point(4, 22);
-            this.tabDashboard.Name = "tabDashboard";
-            this.tabDashboard.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDashboard.Size = new System.Drawing.Size(940, 477);
-            this.tabDashboard.TabIndex = 0;
-            this.tabDashboard.Text = "DASHBOARD";
-            // 
-            // lblDashboardTotalUsuarios
-            // 
-            this.lblDashboardTotalUsuarios.AutoSize = true;
-            this.lblDashboardTotalUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            this.lblDashboardTotalUsuarios.ForeColor = System.Drawing.Color.FromArgb(255, 219, 137);
-            this.lblDashboardTotalUsuarios.Location = new System.Drawing.Point(30, 30);
-            this.lblDashboardTotalUsuarios.Name = "lblDashboardTotalUsuarios";
-            this.lblDashboardTotalUsuarios.Size = new System.Drawing.Size(140, 20);
-            this.lblDashboardTotalUsuarios.TabIndex = 0;
-            this.lblDashboardTotalUsuarios.Text = "Total Usuarios:";
-            // 
-            // lblDashboardActivos
-            // 
-            this.lblDashboardActivos.AutoSize = true;
-            this.lblDashboardActivos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            this.lblDashboardActivos.ForeColor = System.Drawing.Color.FromArgb(255, 219, 137);
-            this.lblDashboardActivos.Location = new System.Drawing.Point(30, 70);
-            this.lblDashboardActivos.Name = "lblDashboardActivos";
-            this.lblDashboardActivos.Size = new System.Drawing.Size(162, 20);
-            this.lblDashboardActivos.TabIndex = 1;
-            this.lblDashboardActivos.Text = "Usuarios Activos:";
-            // 
-            // lblDashboardAccesosHoy
-            // 
-            this.lblDashboardAccesosHoy.AutoSize = true;
-            this.lblDashboardAccesosHoy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            this.lblDashboardAccesosHoy.ForeColor = System.Drawing.Color.FromArgb(255, 219, 137);
-            this.lblDashboardAccesosHoy.Location = new System.Drawing.Point(30, 110);
-            this.lblDashboardAccesosHoy.Name = "lblDashboardAccesosHoy";
-            this.lblDashboardAccesosHoy.Size = new System.Drawing.Size(195, 20);
-            this.lblDashboardAccesosHoy.TabIndex = 2;
-            this.lblDashboardAccesosHoy.Text = "Accesos Exitosos Hoy:";
-            // 
-            // lblDashboardTotalValor
-            // 
-            this.lblDashboardTotalValor.AutoSize = true;
-            this.lblDashboardTotalValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            this.lblDashboardTotalValor.ForeColor = System.Drawing.Color.White;
-            this.lblDashboardTotalValor.Location = new System.Drawing.Point(240, 26);
-            this.lblDashboardTotalValor.Name = "lblDashboardTotalValor";
-            this.lblDashboardTotalValor.Size = new System.Drawing.Size(30, 31);
-            this.lblDashboardTotalValor.TabIndex = 3;
-            this.lblDashboardTotalValor.Text = "0";
-            // 
-            // lblDashboardActivosValor
-            // 
-            this.lblDashboardActivosValor.AutoSize = true;
-            this.lblDashboardActivosValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            this.lblDashboardActivosValor.ForeColor = System.Drawing.Color.White;
-            this.lblDashboardActivosValor.Location = new System.Drawing.Point(240, 66);
-            this.lblDashboardActivosValor.Name = "lblDashboardActivosValor";
-            this.lblDashboardActivosValor.Size = new System.Drawing.Size(30, 31);
-            this.lblDashboardActivosValor.TabIndex = 4;
-            this.lblDashboardActivosValor.Text = "0";
-            // 
-            // lblDashboardAccesosValor
-            // 
-            this.lblDashboardAccesosValor.AutoSize = true;
-            this.lblDashboardAccesosValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
-            this.lblDashboardAccesosValor.ForeColor = System.Drawing.Color.White;
-            this.lblDashboardAccesosValor.Location = new System.Drawing.Point(240, 106);
-            this.lblDashboardAccesosValor.Name = "lblDashboardAccesosValor";
-            this.lblDashboardAccesosValor.Size = new System.Drawing.Size(30, 31);
-            this.lblDashboardAccesosValor.TabIndex = 5;
-            this.lblDashboardAccesosValor.Text = "0";
             // 
             // tabGrilla
             // 
             this.tabGrilla.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.tabGrilla.Controls.Add(this.lblAuditoria);
             this.tabGrilla.Controls.Add(this.dgvConsulta);
-            this.tabGrilla.Controls.Add(this.cboTablas);
             this.tabGrilla.Controls.Add(this.gbOrden);
             this.tabGrilla.Controls.Add(this.lblResultados);
+            this.tabGrilla.Controls.Add(this.txtFiltroUsuario);
+            this.tabGrilla.Controls.Add(this.dtpFiltroFechaDesde);
+            this.tabGrilla.Controls.Add(this.dtpFiltroFechaHasta);
+            this.tabGrilla.Controls.Add(this.lblFiltroDesde);
+            this.tabGrilla.Controls.Add(this.lblFiltroHasta);
+            this.tabGrilla.Controls.Add(this.btnFiltrar);
+            this.tabGrilla.Controls.Add(this.btnLimpiarFiltros);
             this.tabGrilla.Location = new System.Drawing.Point(4, 26);
             this.tabGrilla.Name = "tabGrilla";
             this.tabGrilla.Padding = new System.Windows.Forms.Padding(3);
@@ -265,9 +195,9 @@ namespace pryPereiroERP
             this.lblAuditoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblAuditoria.Location = new System.Drawing.Point(16, 14);
             this.lblAuditoria.Name = "lblAuditoria";
-            this.lblAuditoria.Size = new System.Drawing.Size(313, 25);
+            this.lblAuditoria.Size = new System.Drawing.Size(238, 25);
             this.lblAuditoria.TabIndex = 3;
-            this.lblAuditoria.Text = "CONSULTAS A LA BASE DE DATOS";
+            this.lblAuditoria.Text = "REGISTRO DE AUDITORÍA";
             this.lblAuditoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dgvConsulta
@@ -280,36 +210,15 @@ namespace pryPereiroERP
             this.dgvConsulta.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.dgvConsulta.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvConsulta.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvConsulta.Location = new System.Drawing.Point(12, 130);
+            this.dgvConsulta.Location = new System.Drawing.Point(12, 125);
             this.dgvConsulta.Name = "dgvConsulta";
             this.dgvConsulta.ReadOnly = true;
             this.dgvConsulta.RowHeadersWidth = 51;
             this.dgvConsulta.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvConsulta.RowTemplate.Height = 30;
             this.dgvConsulta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvConsulta.Size = new System.Drawing.Size(1066, 375);
-            this.dgvConsulta.TabIndex = 2;
-            // 
-            // cboTablas
-            // 
-            this.cboTablas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTablas.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboTablas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.cboTablas.FormattingEnabled = true;
-            this.cboTablas.Items.AddRange(new object[] {
-            "Usuarios",
-            "Perfil",
-            "Relacion-Usuario-Perfil",
-            "Auditoria-Sesion",
-            "Domicilio_Usuario",
-            "Contacto_Usuario",
-            "Provincias",
-            "Localidades"});
-            this.cboTablas.Location = new System.Drawing.Point(16, 50);
-            this.cboTablas.Name = "cboTablas";
-            this.cboTablas.Size = new System.Drawing.Size(180, 25);
-            this.cboTablas.TabIndex = 6;
-            this.cboTablas.SelectedIndexChanged += new System.EventHandler(this.cboTablas_SelectedIndexChanged);
+            this.dgvConsulta.Size = new System.Drawing.Size(1066, 380);
+            this.dgvConsulta.TabIndex = 6;
             // 
             // gbOrden
             // 
@@ -318,10 +227,10 @@ namespace pryPereiroERP
             this.gbOrden.Controls.Add(this.radioAsc);
             this.gbOrden.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
-            this.gbOrden.Location = new System.Drawing.Point(210, 35);
+            this.gbOrden.Location = new System.Drawing.Point(766, 58);
             this.gbOrden.Name = "gbOrden";
-            this.gbOrden.Size = new System.Drawing.Size(210, 50);
-            this.gbOrden.TabIndex = 12;
+            this.gbOrden.Size = new System.Drawing.Size(200, 50);
+            this.gbOrden.TabIndex = 4;
             this.gbOrden.TabStop = false;
             this.gbOrden.Text = "Orden";
             // 
@@ -331,7 +240,7 @@ namespace pryPereiroERP
             this.radioDesc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.radioDesc.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioDesc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.radioDesc.Location = new System.Drawing.Point(110, 22);
+            this.radioDesc.Location = new System.Drawing.Point(105, 22);
             this.radioDesc.Name = "radioDesc";
             this.radioDesc.Size = new System.Drawing.Size(93, 19);
             this.radioDesc.TabIndex = 1;
@@ -360,26 +269,121 @@ namespace pryPereiroERP
             this.lblResultados.AutoSize = true;
             this.lblResultados.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResultados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            this.lblResultados.Location = new System.Drawing.Point(16, 95);
+            this.lblResultados.Location = new System.Drawing.Point(16, 105);
             this.lblResultados.Name = "lblResultados";
             this.lblResultados.Size = new System.Drawing.Size(0, 15);
             this.lblResultados.TabIndex = 11;
+            // 
+            // txtFiltroUsuario
+            // 
+            this.txtFiltroUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.txtFiltroUsuario.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFiltroUsuario.ForeColor = System.Drawing.Color.Gray;
+            this.txtFiltroUsuario.Location = new System.Drawing.Point(12, 72);
+            this.txtFiltroUsuario.Name = "txtFiltroUsuario";
+            this.txtFiltroUsuario.Size = new System.Drawing.Size(230, 25);
+            this.txtFiltroUsuario.TabIndex = 0;
+            this.txtFiltroUsuario.Text = "Buscar usuario...";
+            this.txtFiltroUsuario.Enter += new System.EventHandler(this.txtFiltro_Enter);
+            this.txtFiltroUsuario.Leave += new System.EventHandler(this.txtFiltro_Leave);
+            // 
+            // dtpFiltroFechaDesde
+            // 
+            this.dtpFiltroFechaDesde.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.dtpFiltroFechaDesde.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dtpFiltroFechaDesde.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.dtpFiltroFechaDesde.CalendarTitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.dtpFiltroFechaDesde.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.dtpFiltroFechaDesde.CalendarTrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            this.dtpFiltroFechaDesde.Checked = false;
+            this.dtpFiltroFechaDesde.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFiltroFechaDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dtpFiltroFechaDesde.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFiltroFechaDesde.Location = new System.Drawing.Point(262, 70);
+            this.dtpFiltroFechaDesde.Name = "dtpFiltroFechaDesde";
+            this.dtpFiltroFechaDesde.ShowCheckBox = true;
+            this.dtpFiltroFechaDesde.Size = new System.Drawing.Size(180, 25);
+            this.dtpFiltroFechaDesde.TabIndex = 1;
+            // 
+            // dtpFiltroFechaHasta
+            // 
+            this.dtpFiltroFechaHasta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.dtpFiltroFechaHasta.CalendarForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dtpFiltroFechaHasta.CalendarMonthBackground = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.dtpFiltroFechaHasta.CalendarTitleBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.dtpFiltroFechaHasta.CalendarTitleForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.dtpFiltroFechaHasta.CalendarTrailingForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+            this.dtpFiltroFechaHasta.Checked = false;
+            this.dtpFiltroFechaHasta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFiltroFechaHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dtpFiltroFechaHasta.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFiltroFechaHasta.Location = new System.Drawing.Point(460, 70);
+            this.dtpFiltroFechaHasta.Name = "dtpFiltroFechaHasta";
+            this.dtpFiltroFechaHasta.ShowCheckBox = true;
+            this.dtpFiltroFechaHasta.Size = new System.Drawing.Size(180, 25);
+            this.dtpFiltroFechaHasta.TabIndex = 2;
+            // 
+            // lblFiltroDesde
+            // 
+            this.lblFiltroDesde.AutoSize = true;
+            this.lblFiltroDesde.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFiltroDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFiltroDesde.Location = new System.Drawing.Point(262, 45);
+            this.lblFiltroDesde.Name = "lblFiltroDesde";
+            this.lblFiltroDesde.Size = new System.Drawing.Size(50, 19);
+            this.lblFiltroDesde.TabIndex = 13;
+            this.lblFiltroDesde.Text = "Desde";
+            // 
+            // lblFiltroHasta
+            // 
+            this.lblFiltroHasta.AutoSize = true;
+            this.lblFiltroHasta.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFiltroHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFiltroHasta.Location = new System.Drawing.Point(460, 45);
+            this.lblFiltroHasta.Name = "lblFiltroHasta";
+            this.lblFiltroHasta.Size = new System.Drawing.Size(47, 19);
+            this.lblFiltroHasta.TabIndex = 14;
+            this.lblFiltroHasta.Text = "Hasta";
+            // 
+            // btnFiltrar
+            // 
+            this.btnFiltrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.btnFiltrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFiltrar.FlatAppearance.BorderSize = 0;
+            this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFiltrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFiltrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(3)))), ((int)(((byte)(3)))));
+            this.btnFiltrar.Location = new System.Drawing.Point(658, 70);
+            this.btnFiltrar.Name = "btnFiltrar";
+            this.btnFiltrar.Size = new System.Drawing.Size(90, 28);
+            this.btnFiltrar.TabIndex = 3;
+            this.btnFiltrar.Text = "Filtrar";
+            this.btnFiltrar.UseVisualStyleBackColor = false;
+            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            // 
+            // btnLimpiarFiltros
+            // 
+            this.btnLimpiarFiltros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.btnLimpiarFiltros.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpiarFiltros.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiarFiltros.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(984, 70);
+            this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
+            this.btnLimpiarFiltros.Size = new System.Drawing.Size(90, 28);
+            this.btnLimpiarFiltros.TabIndex = 5;
+            this.btnLimpiarFiltros.Text = "Limpiar";
+            this.btnLimpiarFiltros.UseVisualStyleBackColor = false;
+            this.btnLimpiarFiltros.Click += new System.EventHandler(this.btnLimpiarFiltros_Click);
             // 
             // tabUsuario
             // 
             this.tabUsuario.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
             this.tabUsuario.Controls.Add(this.lblUsuarioTitulo);
-            this.tabUsuario.Controls.Add(this.lblNombreValor);
-            this.tabUsuario.Controls.Add(this.lblApellidoValor);
-            this.tabUsuario.Controls.Add(this.lblEmailValor);
-            this.tabUsuario.Controls.Add(this.lblRolValor);
-            this.tabUsuario.Controls.Add(this.lblConexionValor);
-            this.tabUsuario.Controls.Add(this.lblDireccionValor);
-            this.tabUsuario.Controls.Add(this.lblGPSValor);
-            this.tabUsuario.Controls.Add(this.lblProvinciaValor);
-            this.tabUsuario.Controls.Add(this.lblLocalidadValor);
-            this.tabUsuario.Controls.Add(this.lblTelefonoValor);
-            this.tabUsuario.Controls.Add(this.lblRedesValor);
+            this.tabUsuario.Controls.Add(this.lblSeparador);
+            this.tabUsuario.Controls.Add(this.gbPersonal);
+            this.tabUsuario.Controls.Add(this.gbContacto);
             this.tabUsuario.Location = new System.Drawing.Point(4, 26);
             this.tabUsuario.Name = "tabUsuario";
             this.tabUsuario.Padding = new System.Windows.Forms.Padding(3);
@@ -390,122 +394,274 @@ namespace pryPereiroERP
             // lblUsuarioTitulo
             // 
             this.lblUsuarioTitulo.AutoSize = true;
-            this.lblUsuarioTitulo.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUsuarioTitulo.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUsuarioTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
-            this.lblUsuarioTitulo.Location = new System.Drawing.Point(16, 14);
+            this.lblUsuarioTitulo.Location = new System.Drawing.Point(26, 14);
             this.lblUsuarioTitulo.Name = "lblUsuarioTitulo";
-            this.lblUsuarioTitulo.Size = new System.Drawing.Size(196, 30);
+            this.lblUsuarioTitulo.Size = new System.Drawing.Size(217, 32);
             this.lblUsuarioTitulo.TabIndex = 0;
             this.lblUsuarioTitulo.Text = "Datos del Usuario";
+            // 
+            // lblSeparador
+            // 
+            this.lblSeparador.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblSeparador.Location = new System.Drawing.Point(26, 50);
+            this.lblSeparador.Name = "lblSeparador";
+            this.lblSeparador.Size = new System.Drawing.Size(1040, 2);
+            this.lblSeparador.TabIndex = 16;
+            // 
+            // gbPersonal
+            // 
+            this.gbPersonal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.gbPersonal.Controls.Add(this.lblFNombre);
+            this.gbPersonal.Controls.Add(this.lblFApellido);
+            this.gbPersonal.Controls.Add(this.lblFEmail);
+            this.gbPersonal.Controls.Add(this.lblFRol);
+            this.gbPersonal.Controls.Add(this.lblNombreValor);
+            this.gbPersonal.Controls.Add(this.lblApellidoValor);
+            this.gbPersonal.Controls.Add(this.lblEmailValor);
+            this.gbPersonal.Controls.Add(this.lblRolValor);
+            this.gbPersonal.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.gbPersonal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.gbPersonal.Location = new System.Drawing.Point(26, 60);
+            this.gbPersonal.Name = "gbPersonal";
+            this.gbPersonal.Size = new System.Drawing.Size(516, 445);
+            this.gbPersonal.TabIndex = 12;
+            this.gbPersonal.TabStop = false;
+            this.gbPersonal.Text = "Información Personal";
+            // 
+            // lblFNombre
+            // 
+            this.lblFNombre.AutoSize = true;
+            this.lblFNombre.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFNombre.Location = new System.Drawing.Point(30, 48);
+            this.lblFNombre.Name = "lblFNombre";
+            this.lblFNombre.Size = new System.Drawing.Size(91, 25);
+            this.lblFNombre.TabIndex = 12;
+            this.lblFNombre.Text = "Nombre:";
+            // 
+            // lblFApellido
+            // 
+            this.lblFApellido.AutoSize = true;
+            this.lblFApellido.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFApellido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFApellido.Location = new System.Drawing.Point(30, 143);
+            this.lblFApellido.Name = "lblFApellido";
+            this.lblFApellido.Size = new System.Drawing.Size(91, 25);
+            this.lblFApellido.TabIndex = 13;
+            this.lblFApellido.Text = "Apellido:";
+            // 
+            // lblFEmail
+            // 
+            this.lblFEmail.AutoSize = true;
+            this.lblFEmail.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFEmail.Location = new System.Drawing.Point(30, 238);
+            this.lblFEmail.Name = "lblFEmail";
+            this.lblFEmail.Size = new System.Drawing.Size(64, 25);
+            this.lblFEmail.TabIndex = 14;
+            this.lblFEmail.Text = "Email:";
+            // 
+            // lblFRol
+            // 
+            this.lblFRol.AutoSize = true;
+            this.lblFRol.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFRol.Location = new System.Drawing.Point(30, 333);
+            this.lblFRol.Name = "lblFRol";
+            this.lblFRol.Size = new System.Drawing.Size(46, 25);
+            this.lblFRol.TabIndex = 15;
+            this.lblFRol.Text = "Rol:";
             // 
             // lblNombreValor
             // 
             this.lblNombreValor.AutoSize = true;
-            this.lblNombreValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblNombreValor.Location = new System.Drawing.Point(18, 62);
+            this.lblNombreValor.Location = new System.Drawing.Point(200, 48);
             this.lblNombreValor.Name = "lblNombreValor";
-            this.lblNombreValor.Size = new System.Drawing.Size(0, 21);
+            this.lblNombreValor.Size = new System.Drawing.Size(0, 30);
             this.lblNombreValor.TabIndex = 1;
             // 
             // lblApellidoValor
             // 
             this.lblApellidoValor.AutoSize = true;
-            this.lblApellidoValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblApellidoValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblApellidoValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblApellidoValor.Location = new System.Drawing.Point(18, 97);
+            this.lblApellidoValor.Location = new System.Drawing.Point(200, 143);
             this.lblApellidoValor.Name = "lblApellidoValor";
-            this.lblApellidoValor.Size = new System.Drawing.Size(0, 21);
+            this.lblApellidoValor.Size = new System.Drawing.Size(0, 30);
             this.lblApellidoValor.TabIndex = 2;
             // 
             // lblEmailValor
             // 
             this.lblEmailValor.AutoSize = true;
-            this.lblEmailValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmailValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEmailValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblEmailValor.Location = new System.Drawing.Point(18, 132);
+            this.lblEmailValor.Location = new System.Drawing.Point(200, 238);
             this.lblEmailValor.Name = "lblEmailValor";
-            this.lblEmailValor.Size = new System.Drawing.Size(0, 21);
+            this.lblEmailValor.Size = new System.Drawing.Size(0, 30);
             this.lblEmailValor.TabIndex = 3;
             // 
             // lblRolValor
             // 
             this.lblRolValor.AutoSize = true;
-            this.lblRolValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRolValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRolValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblRolValor.Location = new System.Drawing.Point(18, 167);
+            this.lblRolValor.Location = new System.Drawing.Point(200, 333);
             this.lblRolValor.Name = "lblRolValor";
-            this.lblRolValor.Size = new System.Drawing.Size(0, 21);
+            this.lblRolValor.Size = new System.Drawing.Size(0, 30);
             this.lblRolValor.TabIndex = 4;
             // 
-            // lblConexionValor
+            // gbContacto
             // 
-            this.lblConexionValor.AutoSize = true;
-            this.lblConexionValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblConexionValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblConexionValor.Location = new System.Drawing.Point(18, 202);
-            this.lblConexionValor.Name = "lblConexionValor";
-            this.lblConexionValor.Size = new System.Drawing.Size(0, 21);
-            this.lblConexionValor.TabIndex = 5;
+            this.gbContacto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.gbContacto.Controls.Add(this.lblFDireccion);
+            this.gbContacto.Controls.Add(this.lblFGPS);
+            this.gbContacto.Controls.Add(this.lblFProvincia);
+            this.gbContacto.Controls.Add(this.lblFLocalidad);
+            this.gbContacto.Controls.Add(this.lblFTelefono);
+            this.gbContacto.Controls.Add(this.lblFRedes);
+            this.gbContacto.Controls.Add(this.lblDireccionValor);
+            this.gbContacto.Controls.Add(this.lblGPSValor);
+            this.gbContacto.Controls.Add(this.lblProvinciaValor);
+            this.gbContacto.Controls.Add(this.lblLocalidadValor);
+            this.gbContacto.Controls.Add(this.lblTelefonoValor);
+            this.gbContacto.Controls.Add(this.lblRedesValor);
+            this.gbContacto.Font = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Bold);
+            this.gbContacto.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.gbContacto.Location = new System.Drawing.Point(550, 60);
+            this.gbContacto.Name = "gbContacto";
+            this.gbContacto.Size = new System.Drawing.Size(516, 445);
+            this.gbContacto.TabIndex = 14;
+            this.gbContacto.TabStop = false;
+            this.gbContacto.Text = "Contacto y Ubicación";
+            // 
+            // lblFDireccion
+            // 
+            this.lblFDireccion.AutoSize = true;
+            this.lblFDireccion.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFDireccion.Location = new System.Drawing.Point(30, 40);
+            this.lblFDireccion.Name = "lblFDireccion";
+            this.lblFDireccion.Size = new System.Drawing.Size(101, 25);
+            this.lblFDireccion.TabIndex = 16;
+            this.lblFDireccion.Text = "Dirección:";
+            // 
+            // lblFGPS
+            // 
+            this.lblFGPS.AutoSize = true;
+            this.lblFGPS.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFGPS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFGPS.Location = new System.Drawing.Point(30, 100);
+            this.lblFGPS.Name = "lblFGPS";
+            this.lblFGPS.Size = new System.Drawing.Size(54, 25);
+            this.lblFGPS.TabIndex = 17;
+            this.lblFGPS.Text = "GPS:";
+            // 
+            // lblFProvincia
+            // 
+            this.lblFProvincia.AutoSize = true;
+            this.lblFProvincia.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFProvincia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFProvincia.Location = new System.Drawing.Point(30, 160);
+            this.lblFProvincia.Name = "lblFProvincia";
+            this.lblFProvincia.Size = new System.Drawing.Size(100, 25);
+            this.lblFProvincia.TabIndex = 18;
+            this.lblFProvincia.Text = "Provincia:";
+            // 
+            // lblFLocalidad
+            // 
+            this.lblFLocalidad.AutoSize = true;
+            this.lblFLocalidad.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFLocalidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFLocalidad.Location = new System.Drawing.Point(30, 220);
+            this.lblFLocalidad.Name = "lblFLocalidad";
+            this.lblFLocalidad.Size = new System.Drawing.Size(102, 25);
+            this.lblFLocalidad.TabIndex = 19;
+            this.lblFLocalidad.Text = "Localidad:";
+            // 
+            // lblFTelefono
+            // 
+            this.lblFTelefono.AutoSize = true;
+            this.lblFTelefono.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFTelefono.Location = new System.Drawing.Point(30, 280);
+            this.lblFTelefono.Name = "lblFTelefono";
+            this.lblFTelefono.Size = new System.Drawing.Size(94, 25);
+            this.lblFTelefono.TabIndex = 20;
+            this.lblFTelefono.Text = "Teléfono:";
+            // 
+            // lblFRedes
+            // 
+            this.lblFRedes.AutoSize = true;
+            this.lblFRedes.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFRedes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblFRedes.Location = new System.Drawing.Point(30, 340);
+            this.lblFRedes.Name = "lblFRedes";
+            this.lblFRedes.Size = new System.Drawing.Size(144, 25);
+            this.lblFRedes.TabIndex = 21;
+            this.lblFRedes.Text = "Redes Sociales:";
             // 
             // lblDireccionValor
             // 
             this.lblDireccionValor.AutoSize = true;
-            this.lblDireccionValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDireccionValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDireccionValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblDireccionValor.Location = new System.Drawing.Point(500, 62);
+            this.lblDireccionValor.Location = new System.Drawing.Point(200, 40);
             this.lblDireccionValor.Name = "lblDireccionValor";
-            this.lblDireccionValor.Size = new System.Drawing.Size(0, 21);
+            this.lblDireccionValor.Size = new System.Drawing.Size(0, 30);
             this.lblDireccionValor.TabIndex = 6;
             // 
             // lblGPSValor
             // 
             this.lblGPSValor.AutoSize = true;
-            this.lblGPSValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGPSValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGPSValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblGPSValor.Location = new System.Drawing.Point(500, 97);
+            this.lblGPSValor.Location = new System.Drawing.Point(200, 100);
             this.lblGPSValor.Name = "lblGPSValor";
-            this.lblGPSValor.Size = new System.Drawing.Size(0, 21);
+            this.lblGPSValor.Size = new System.Drawing.Size(0, 30);
             this.lblGPSValor.TabIndex = 7;
             // 
             // lblProvinciaValor
             // 
             this.lblProvinciaValor.AutoSize = true;
-            this.lblProvinciaValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProvinciaValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblProvinciaValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblProvinciaValor.Location = new System.Drawing.Point(500, 132);
+            this.lblProvinciaValor.Location = new System.Drawing.Point(200, 160);
             this.lblProvinciaValor.Name = "lblProvinciaValor";
-            this.lblProvinciaValor.Size = new System.Drawing.Size(0, 21);
+            this.lblProvinciaValor.Size = new System.Drawing.Size(0, 30);
             this.lblProvinciaValor.TabIndex = 8;
             // 
             // lblLocalidadValor
             // 
             this.lblLocalidadValor.AutoSize = true;
-            this.lblLocalidadValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLocalidadValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblLocalidadValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblLocalidadValor.Location = new System.Drawing.Point(500, 167);
+            this.lblLocalidadValor.Location = new System.Drawing.Point(200, 220);
             this.lblLocalidadValor.Name = "lblLocalidadValor";
-            this.lblLocalidadValor.Size = new System.Drawing.Size(0, 21);
+            this.lblLocalidadValor.Size = new System.Drawing.Size(0, 30);
             this.lblLocalidadValor.TabIndex = 9;
             // 
             // lblTelefonoValor
             // 
             this.lblTelefonoValor.AutoSize = true;
-            this.lblTelefonoValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTelefonoValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTelefonoValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblTelefonoValor.Location = new System.Drawing.Point(500, 202);
+            this.lblTelefonoValor.Location = new System.Drawing.Point(200, 280);
             this.lblTelefonoValor.Name = "lblTelefonoValor";
-            this.lblTelefonoValor.Size = new System.Drawing.Size(0, 21);
+            this.lblTelefonoValor.Size = new System.Drawing.Size(0, 30);
             this.lblTelefonoValor.TabIndex = 10;
             // 
             // lblRedesValor
             // 
             this.lblRedesValor.AutoSize = true;
-            this.lblRedesValor.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRedesValor.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRedesValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
-            this.lblRedesValor.Location = new System.Drawing.Point(500, 237);
+            this.lblRedesValor.Location = new System.Drawing.Point(200, 340);
             this.lblRedesValor.Name = "lblRedesValor";
-            this.lblRedesValor.Size = new System.Drawing.Size(0, 21);
+            this.lblRedesValor.Size = new System.Drawing.Size(0, 30);
             this.lblRedesValor.TabIndex = 11;
             // 
             // tabMenu
@@ -513,11 +669,9 @@ namespace pryPereiroERP
             this.tabMenu.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabMenu.Controls.Add(this.tabDashboard);
             this.tabMenu.Controls.Add(this.tabUsuario);
             this.tabMenu.Controls.Add(this.tabGrilla);
             this.tabMenu.Controls.Add(this.tabRRHH);
-            this.tabMenu.Controls.Add(this.tabAyuda);
             this.tabMenu.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabMenu.Location = new System.Drawing.Point(0, 0);
             this.tabMenu.Name = "tabMenu";
@@ -538,15 +692,13 @@ namespace pryPereiroERP
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Pereiro ERP - Panel Principal";
+            this.Text = "Panel Principal";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabRRHH.ResumeLayout(false);
             this.tabRRHH.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
-            this.tabDashboard.ResumeLayout(false);
-            this.tabDashboard.PerformLayout();
             this.tabGrilla.ResumeLayout(false);
             this.tabGrilla.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConsulta)).EndInit();
@@ -554,6 +706,10 @@ namespace pryPereiroERP
             this.gbOrden.PerformLayout();
             this.tabUsuario.ResumeLayout(false);
             this.tabUsuario.PerformLayout();
+            this.gbPersonal.ResumeLayout(false);
+            this.gbPersonal.PerformLayout();
+            this.gbContacto.ResumeLayout(false);
+            this.gbContacto.PerformLayout();
             this.tabMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -563,7 +719,6 @@ namespace pryPereiroERP
         #endregion
 
         private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.TabPage tabAyuda;
         private System.Windows.Forms.TabPage tabRRHH;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.Label lblRRHH;
@@ -577,26 +732,37 @@ namespace pryPereiroERP
         private System.Windows.Forms.Label lblApellidoValor;
         private System.Windows.Forms.Label lblEmailValor;
         private System.Windows.Forms.Label lblRolValor;
-        private System.Windows.Forms.Label lblConexionValor;
         private System.Windows.Forms.Label lblDireccionValor;
         private System.Windows.Forms.Label lblGPSValor;
         private System.Windows.Forms.Label lblProvinciaValor;
         private System.Windows.Forms.Label lblLocalidadValor;
         private System.Windows.Forms.Label lblTelefonoValor;
         private System.Windows.Forms.Label lblRedesValor;
+        private System.Windows.Forms.Label lblFNombre;
+        private System.Windows.Forms.Label lblFApellido;
+        private System.Windows.Forms.Label lblFEmail;
+        private System.Windows.Forms.Label lblFRol;
+        private System.Windows.Forms.Label lblFDireccion;
+        private System.Windows.Forms.Label lblFGPS;
+        private System.Windows.Forms.Label lblFProvincia;
+        private System.Windows.Forms.Label lblFLocalidad;
+        private System.Windows.Forms.Label lblFTelefono;
+        private System.Windows.Forms.Label lblFRedes;
+        private System.Windows.Forms.Label lblSeparador;
+        private System.Windows.Forms.GroupBox gbPersonal;
+        private System.Windows.Forms.GroupBox gbContacto;
         private System.Windows.Forms.TabControl tabMenu;
-        private System.Windows.Forms.ComboBox cboTablas;
         private System.Windows.Forms.Label lblResultados;
         private System.Windows.Forms.GroupBox gbOrden;
         private System.Windows.Forms.RadioButton radioAsc;
         private System.Windows.Forms.RadioButton radioDesc;
-        private System.Windows.Forms.TabPage tabDashboard;
-        private System.Windows.Forms.Label lblDashboardTotalUsuarios;
-        private System.Windows.Forms.Label lblDashboardActivos;
-        private System.Windows.Forms.Label lblDashboardAccesosHoy;
-        private System.Windows.Forms.Label lblDashboardTotalValor;
-        private System.Windows.Forms.Label lblDashboardActivosValor;
-        private System.Windows.Forms.Label lblDashboardAccesosValor;
+        private System.Windows.Forms.TextBox txtFiltroUsuario;
+        private System.Windows.Forms.DateTimePicker dtpFiltroFechaDesde;
+        private System.Windows.Forms.DateTimePicker dtpFiltroFechaHasta;
+        private System.Windows.Forms.Button btnFiltrar;
+        private System.Windows.Forms.Button btnLimpiarFiltros;
+        private System.Windows.Forms.Label lblFiltroDesde;
+        private System.Windows.Forms.Label lblFiltroHasta;
         private System.Windows.Forms.TextBox txtBuscarUsuario;
     }
 }

@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>database_theapplication_3365.ico</ApplicationIcon>
+    <ApplicationIcon>base_data_icon_215803.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -103,6 +103,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="base_data_icon_215803.ico" />
     <Content Include="database_theapplication_3365.ico" />
     <Content Include="Pereiro.db1.accdb" />
   </ItemGroup>

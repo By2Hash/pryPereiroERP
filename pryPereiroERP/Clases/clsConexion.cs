@@ -375,8 +375,10 @@ namespace pryPereiroERP
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                // Traemos todo ordenado por el ID de forma descendente (el último movimiento primero)
-                string query = "SELECT Id_Usuario, Nombre, Apellido, Mail, Activo, DNI FROM Usuarios";
+                string query = @"SELECT U.Id_Usuario, U.Nombre, U.Apellido, U.Mail, U.Activo, U.DNI, P.Nombre AS Perfil
+                                 FROM ((Usuarios U
+                                 LEFT JOIN [Relacion-Usuario-Perfil] RUP ON U.Id_Usuario = RUP.Id_Usuario)
+                                 LEFT JOIN Perfil P ON RUP.Id_Perfil = P.Id_Perfil)";
 
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
