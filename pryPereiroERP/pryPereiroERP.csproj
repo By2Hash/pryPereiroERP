@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="Clases\clsConexion.cs" />
     <Compile Include="Clases\clsUsuario.cs" />
+    <Compile Include="Clases\DireccionItem.cs" />
+    <Compile Include="Clases\RedSocialItem.cs" />
+    <Compile Include="Clases\UsuarioController.cs" />
     <Compile Include="frmDatosPersonales.cs">
       <SubType>Form</SubType>
     </Compile>

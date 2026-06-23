@@ -53,7 +53,7 @@
             this.chkMostrarOcultar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.chkMostrarOcultar.Location = new System.Drawing.Point(154, 115);
             this.chkMostrarOcultar.Name = "chkMostrarOcultar";
-            this.chkMostrarOcultar.Size = new System.Drawing.Size(125, 19);
+            this.chkMostrarOcultar.Size = new System.Drawing.Size(186, 29);
             this.chkMostrarOcultar.TabIndex = 7;
             this.chkMostrarOcultar.Text = "Mostrar contraseña";
             this.chkMostrarOcultar.UseVisualStyleBackColor = true;
@@ -84,7 +84,7 @@
             this.txtContraseña.Location = new System.Drawing.Point(154, 82);
             this.txtContraseña.MaxLength = 12;
             this.txtContraseña.Name = "txtContraseña";
-            this.txtContraseña.Size = new System.Drawing.Size(250, 27);
+            this.txtContraseña.Size = new System.Drawing.Size(250, 37);
             this.txtContraseña.TabIndex = 3;
             this.txtContraseña.UseSystemPasswordChar = true;
             // 
@@ -97,7 +97,7 @@
             this.txtNombre.Location = new System.Drawing.Point(154, 40);
             this.txtNombre.MaxLength = 30;
             this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(250, 27);
+            this.txtNombre.Size = new System.Drawing.Size(250, 37);
             this.txtNombre.TabIndex = 2;
             // 
             // lblContraseña
@@ -107,7 +107,7 @@
             this.lblContraseña.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblContraseña.Location = new System.Drawing.Point(33, 86);
             this.lblContraseña.Name = "lblContraseña";
-            this.lblContraseña.Size = new System.Drawing.Size(79, 19);
+            this.lblContraseña.Size = new System.Drawing.Size(110, 28);
             this.lblContraseña.TabIndex = 1;
             this.lblContraseña.Text = "Contraseña";
             // 
@@ -118,7 +118,7 @@
             this.lblNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblNombre.Location = new System.Drawing.Point(33, 44);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(101, 19);
+            this.lblNombre.Size = new System.Drawing.Size(144, 28);
             this.lblNombre.TabIndex = 0;
             this.lblNombre.Text = "Usuario / Email";
             // 
@@ -129,7 +129,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblTitulo.Location = new System.Drawing.Point(139, 29);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(254, 47);
+            this.lblTitulo.Size = new System.Drawing.Size(371, 70);
             this.lblTitulo.TabIndex = 3;
             this.lblTitulo.Text = "SISTEMA  ERP";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -141,7 +141,7 @@
             this.lblSubtitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.lblSubtitulo.Location = new System.Drawing.Point(150, 76);
             this.lblSubtitulo.Name = "lblSubtitulo";
-            this.lblSubtitulo.Size = new System.Drawing.Size(229, 21);
+            this.lblSubtitulo.Size = new System.Drawing.Size(348, 32);
             this.lblSubtitulo.TabIndex = 4;
             this.lblSubtitulo.Text = "Sistema de Gestión Empresarial";
             this.lblSubtitulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -149,7 +149,7 @@
             // frmLogin
             // 
             this.AcceptButton = this.btnIngresar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(3)))), ((int)(((byte)(3)))));
             this.ClientSize = new System.Drawing.Size(540, 350);

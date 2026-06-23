@@ -311,7 +311,7 @@ namespace pryPereiroERP
                 cmdDomicilio.ExecuteNonQuery();
 
                 // 4. Insertar en Contacto_Usuario
-                string queryContacto = @"INSERT INTO Contacto_Usuario (Id_Usuario, Telefono, Redes_Sociales)
+                string queryContacto = @"INSERT INTO Contacto_Usuario (Id_Usuario, Telefono, Id_Redes_Sociales)
                                          VALUES (?, ?, ?)";
 
                 OleDbCommand cmdContacto = new OleDbCommand(queryContacto, CNN);
@@ -375,10 +375,14 @@ namespace pryPereiroERP
                 CNN.ConnectionString = cadenaConexion;
                 CNN.Open();
 
-                string query = @"SELECT U.Id_Usuario, U.Nombre, U.Apellido, U.Mail, U.Activo, U.DNI, P.Nombre AS Perfil
-                                 FROM ((Usuarios U
+                string query = @"SELECT U.Id_Usuario, U.Nombre, U.Apellido, U.Mail, U.Activo, U.DNI, P.Nombre AS Perfil,
+                                D.[Dirección], D.Provincia, D.Localidad,
+                                C.Telefono, C.Id_Redes_Sociales AS Redes
+                                 FROM (((Usuarios U
                                  LEFT JOIN [Relacion-Usuario-Perfil] RUP ON U.Id_Usuario = RUP.Id_Usuario)
-                                 LEFT JOIN Perfil P ON RUP.Id_Perfil = P.Id_Perfil)";
+                                 LEFT JOIN Perfil P ON RUP.Id_Perfil = P.Id_Perfil)
+                                 LEFT JOIN Domicilio_Usuario D ON U.Id_Usuario = D.Id_Usuario)
+                                 LEFT JOIN Contacto_Usuario C ON U.Id_Usuario = C.Id_Usuario";
 
                 OleDbDataAdapter adapter = new OleDbDataAdapter(query, CNN);
                 adapter.Fill(dt);
@@ -430,8 +434,8 @@ namespace pryPereiroERP
 
                 // Access requiere doble paréntesis envolviendo múltiples LEFT JOIN
                 string query = "SELECT u.Id_Usuario, u.Nombre, u.Apellido, u.Mail, u.Contraseña, u.DNI, u.Activo, " +
-                               "d.Dirección, d.GPS, d.Provincia, d.Localidad, " +
-                               "c.Telefono, c.Redes_Sociales " +
+                               "d.[Dirección], d.[GPS], d.Provincia, d.Localidad, " +
+                                "c.Telefono, c.Id_Redes_Sociales " +
                                "FROM ((Usuarios AS u " +
                                "LEFT JOIN Domicilio_Usuario AS d ON u.Id_Usuario = d.Id_Usuario) " +
                                "LEFT JOIN Contacto_Usuario AS c ON u.Id_Usuario = c.Id_Usuario) " +
@@ -498,7 +502,7 @@ namespace pryPereiroERP
                 cmdDomicilio.ExecuteNonQuery();
 
                 string queryContacto = @"UPDATE Contacto_Usuario 
-                                 SET Telefono=?, Redes_Sociales=?
+                                 SET Telefono=?, Id_Redes_Sociales=?
                                  WHERE Id_Usuario=?";
 
                 OleDbCommand cmdContacto = new OleDbCommand(queryContacto, CNN);

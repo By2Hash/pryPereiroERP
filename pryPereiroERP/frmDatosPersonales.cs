@@ -15,6 +15,8 @@ namespace pryPereiroERP
         private string nombreUsuarioActual = "Admin_RRHH";
         private int _idUsuario = -1;
         private int _idPerfil = -1;
+        private ErrorProvider errorProvider;
+        private const string PLACEHOLDER_RED = "Ingresá el usuario o URL de esta red";
 
         public string UsuarioActual
         {
@@ -24,11 +26,21 @@ namespace pryPereiroERP
         public frmRRHH()
         {
             InitializeComponent();
+            errorProvider = new ErrorProvider();
+            InicializarPlaceholderRed();
         }
         public frmRRHH(int idUsuario)
         {
             InitializeComponent();
             _idUsuario = idUsuario;
+            errorProvider = new ErrorProvider();
+            InicializarPlaceholderRed();
+        }
+
+        private void InicializarPlaceholderRed()
+        {
+            txtUrlRed.Text = PLACEHOLDER_RED;
+            txtUrlRed.ForeColor = Color.FromArgb(120, 120, 120);
         }
 
         private void frmRRHH_Load(object sender, EventArgs e)
@@ -69,50 +81,19 @@ namespace pryPereiroERP
                 txtDNI.Text = row["DNI"] != DBNull.Value ? row["DNI"].ToString().Trim() : "";
                 chkActivar.Checked = row["Activo"] != DBNull.Value && Convert.ToBoolean(row["Activo"]);
 
-                txtDireccion.Text = row["Dirección"] != DBNull.Value ? row["Dirección"].ToString().Trim() : "";
                 txtGPS.Text = row["GPS"] != DBNull.Value ? row["GPS"].ToString().Trim() : "";
                 mskTelefono.Text = row["Telefono"] != DBNull.Value ? row["Telefono"].ToString().Trim() : "";
 
-                if (row["Provincia"] != DBNull.Value)
-                {
-                    string val = row["Provincia"].ToString().Trim();
-                    for (int i = 0; i < cmbProvincia.Items.Count; i++)
-                    {
-                        if (cmbProvincia.Items[i] is DataRowView drv &&
-                            drv["Nombres"].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
-                        {
-                            cmbProvincia.SelectedIndex = i;
-                            break;
-                        }
-                    }
-                }
+                UsuarioController controller = new UsuarioController();
+                var datos = controller.CargarDireccionesYRedes(_idUsuario);
 
-                if (row["Localidad"] != DBNull.Value)
-                {
-                    string val = row["Localidad"].ToString().Trim();
-                    for (int i = 0; i < cmbLocalidad.Items.Count; i++)
-                    {
-                        if (cmbLocalidad.Items[i] is DataRowView drv &&
-                            drv["Nombres"].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
-                        {
-                            cmbLocalidad.SelectedIndex = i;
-                            break;
-                        }
-                    }
-                }
+                lstDirecciones.Items.Clear();
+                foreach (var d in datos.Direcciones)
+                    lstDirecciones.Items.Add(d);
 
-                if (row["Redes_Sociales"] != DBNull.Value)
-                {
-                    string val = row["Redes_Sociales"].ToString().Trim();
-                    for (int i = 0; i < cmbRedesSociales.Items.Count; i++)
-                    {
-                        if (cmbRedesSociales.Items[i].ToString().Trim().Equals(val, StringComparison.OrdinalIgnoreCase))
-                        {
-                            cmbRedesSociales.SelectedIndex = i;
-                            break;
-                        }
-                    }
-                }
+                lstRedesSociales.Items.Clear();
+                foreach (var r in datos.Redes)
+                    lstRedesSociales.Items.Add(r);
 
                 try
                 {
@@ -206,76 +187,63 @@ namespace pryPereiroERP
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtDNI.Text) ||
-                string.IsNullOrWhiteSpace(txtApellido.Text) ||
-                string.IsNullOrWhiteSpace(txtNombre.Text) ||
-                string.IsNullOrWhiteSpace(txtMail.Text) ||
-                string.IsNullOrWhiteSpace(txtContraseña.Text))
-            {
-                MessageBox.Show("DNI, Apellido, Nombre, Contraseña y Mail son obligatorios.",
-                                "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            bool valido = true;
+            errorProvider.Clear();
 
-            string provincia = cmbProvincia.SelectedIndex >= 0 ? cmbProvincia.Text : "";
-            string localidad = cmbLocalidad.SelectedIndex >= 0 ? cmbLocalidad.Text : "";
-            string redes = cmbRedesSociales.SelectedIndex >= 0 ? cmbRedesSociales.Text : "";
+            if (string.IsNullOrWhiteSpace(txtDNI.Text))
+            { errorProvider.SetError(txtDNI, "DNI requerido"); valido = false; }
+            if (string.IsNullOrWhiteSpace(txtApellido.Text))
+            { errorProvider.SetError(txtApellido, "Apellido requerido"); valido = false; }
+            if (string.IsNullOrWhiteSpace(txtNombre.Text))
+            { errorProvider.SetError(txtNombre, "Nombre requerido"); valido = false; }
+            if (string.IsNullOrWhiteSpace(txtMail.Text))
+            { errorProvider.SetError(txtMail, "Mail requerido"); valido = false; }
+            if (string.IsNullOrWhiteSpace(txtContraseña.Text))
+            { errorProvider.SetError(txtContraseña, "Contraseña requerida"); valido = false; }
+
+            if (lstDirecciones.Items.Count == 0)
+            {
+                errorProvider.SetError(lstDirecciones, "Debe agregar al menos una dirección");
+                valido = false;
+            }
 
             int idPerfil = ObtenerIdPerfilPorNombre(cmbTipoPerfil.Text);
             if (idPerfil < 0)
+            { errorProvider.SetError(cmbTipoPerfil, "Seleccione un Perfil válido"); valido = false; }
+
+            if (!valido) return;
+
+            var direcciones = lstDirecciones.Items.Cast<DireccionItem>().ToList();
+            var redes = lstRedesSociales.Items.Cast<RedSocialItem>().ToList();
+
+            UsuarioController controller = new UsuarioController();
+            bool resultado = controller.GuardarUsuario(
+                _idUsuario == -1 ? null : (int?)_idUsuario,
+                txtNombre.Text.Trim(), txtApellido.Text.Trim(),
+                txtMail.Text.Trim(), txtContraseña.Text.Trim(),
+                chkActivar.Checked, txtDNI.Text.Trim(),
+                direcciones,
+                txtGPS.Text.Trim(),
+                mskTelefono.Text.Trim(),
+                redes,
+                idPerfil);
+
+            if (resultado)
             {
-                MessageBox.Show("Seleccione un Tipo de Perfil válido.", "Perfil inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                string accion = _idUsuario == -1 ? "Registro" : "Modificó";
+                MessageBox.Show("Usuario " + (_idUsuario == -1 ? "ingresado" : "actualizado") + " correctamente.",
+                                "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                controller.RegistrarAuditoria(nombreUsuarioActual,
+                    accion + " Usuario: " + txtNombre.Text.Trim(), this.Name);
 
-            clsConexion conexion = new clsConexion();
-            bool resultado;
-
-            if (_idUsuario == -1) // INSERTAR
-            {
-                resultado = conexion.InsertarUsuario(
-                    txtNombre.Text.Trim(), txtApellido.Text.Trim(),
-                    txtMail.Text.Trim(), txtContraseña.Text.Trim(),
-                    chkActivar.Checked, txtDNI.Text.Trim(),
-                    txtDireccion.Text.Trim(), txtGPS.Text.Trim(),
-                    provincia, localidad,
-                    mskTelefono.Text.Trim(), redes,
-                    idPerfil);
-
-                if (resultado)
-                {
-                    MessageBox.Show("Usuario ingresado correctamente.",
-                                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    conexion.RegistrarAuditoria(nombreUsuarioActual,
-                                                "Registro Usuario: " + txtNombre.Text.Trim(), this.Name);
+                if (_idUsuario == -1)
                     LimpiarFormulario();
-                }
-            }
-            else // ACTUALIZAR
-            {
-                resultado = conexion.ActualizarUsuario(
-                    _idUsuario,
-                    txtNombre.Text.Trim(), txtApellido.Text.Trim(),
-                    txtMail.Text.Trim(), txtContraseña.Text.Trim(),
-                    chkActivar.Checked, txtDNI.Text.Trim(),
-                    txtDireccion.Text.Trim(), txtGPS.Text.Trim(),
-                    provincia, localidad,
-                    mskTelefono.Text.Trim(), redes,
-                    idPerfil);
-
-                if (resultado)
-                {
-                    MessageBox.Show("Usuario actualizado correctamente.",
-                                    "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    conexion.RegistrarAuditoria(nombreUsuarioActual,
-                                                "Modificó Usuario: " + txtNombre.Text.Trim(), this.Name);
+                else
                     this.Close();
-                }
             }
-
-            if (!resultado)
+            else
             {
-                MessageBox.Show("Error: " + conexion.GetError(),
+                MessageBox.Show("Error: " + controller.GetError(),
                                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -310,6 +278,7 @@ namespace pryPereiroERP
 
         private void LimpiarFormulario()
         {
+            errorProvider.Clear();
             txtDNI.Clear();
             txtApellido.Clear();
             txtNombre.Clear();
@@ -320,9 +289,12 @@ namespace pryPereiroERP
             mskTelefono.Clear();
             cmbProvincia.SelectedIndex = -1;
             cmbLocalidad.SelectedIndex = -1;
-            cmbRedesSociales.SelectedIndex = -1;
             cmbTipoPerfil.SelectedIndex = -1;
             chkActivar.Checked = false;
+            lstDirecciones.Items.Clear();
+            lstRedesSociales.Items.Clear();
+            cmbTipoRed.SelectedIndex = -1;
+            txtUrlRed.Clear();
         }
 
         private void frmRRHH_FormClosing(object sender, FormClosingEventArgs e)
@@ -340,9 +312,104 @@ namespace pryPereiroERP
             }
         }
 
+        private void btnAgregarDireccion_Click(object sender, EventArgs e)
+        {
+            errorProvider.Clear();
+
+            string dir = txtDireccion.Text.Trim();
+            string prov = cmbProvincia.SelectedIndex >= 0 ? cmbProvincia.Text.Trim() : "";
+            string loc = cmbLocalidad.SelectedIndex >= 0 ? cmbLocalidad.Text.Trim() : "";
+
+            if (string.IsNullOrWhiteSpace(dir))
+            { errorProvider.SetError(txtDireccion, "Ingrese la dirección"); return; }
+            if (string.IsNullOrWhiteSpace(prov))
+            { errorProvider.SetError(cmbProvincia, "Seleccione una provincia"); return; }
+            if (string.IsNullOrWhiteSpace(loc))
+            { errorProvider.SetError(cmbLocalidad, "Seleccione una localidad"); return; }
+
+            lstDirecciones.Items.Add(new DireccionItem
+            {
+                Direccion = dir,
+                Provincia = prov,
+                Localidad = loc
+            });
+
+            txtDireccion.Clear();
+            txtGPS.Clear();
+            cmbProvincia.SelectedIndex = -1;
+            cmbLocalidad.SelectedIndex = -1;
+            txtDireccion.Focus();
+        }
+
+        private void btnQuitarDireccion_Click(object sender, EventArgs e)
+        {
+            if (lstDirecciones.SelectedItem != null)
+            {
+                lstDirecciones.Items.Remove(lstDirecciones.SelectedItem);
+                errorProvider.SetError(lstDirecciones, null);
+            }
+        }
+
+        private void lstDirecciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnQuitarDireccion.Enabled = lstDirecciones.SelectedItem != null;
+        }
+
+        private void btnAgregarRed_Click(object sender, EventArgs e)
+        {
+            errorProvider.Clear();
+
+            string tipo = cmbTipoRed.SelectedIndex >= 0 ? cmbTipoRed.Text.Trim() : "";
+            string url = txtUrlRed.Text.Trim();
+            if (url == PLACEHOLDER_RED) url = "";
+
+            if (string.IsNullOrWhiteSpace(tipo))
+            { errorProvider.SetError(cmbTipoRed, "Seleccione el tipo de red"); return; }
+            if (string.IsNullOrWhiteSpace(url))
+            { errorProvider.SetError(txtUrlRed, "Ingrese la URL o usuario"); return; }
+
+            lstRedesSociales.Items.Add(new RedSocialItem
+            {
+                Tipo = tipo,
+                Url = url
+            });
+
+            cmbTipoRed.SelectedIndex = -1;
+            txtUrlRed.Clear();
+            cmbTipoRed.Focus();
+        }
+
+        private void btnQuitarRed_Click(object sender, EventArgs e)
+        {
+            if (lstRedesSociales.SelectedItem != null)
+                lstRedesSociales.Items.Remove(lstRedesSociales.SelectedItem);
+        }
+
+        private void lstRedesSociales_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnQuitarRed.Enabled = lstRedesSociales.SelectedItem != null;
+        }
+
         private void cmbTipoPerfil_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
 
+        private void txtUrlRed_Enter(object sender, EventArgs e)
+        {
+            if (txtUrlRed.Text == PLACEHOLDER_RED)
+            {
+                txtUrlRed.Text = "";
+                txtUrlRed.ForeColor = Color.FromArgb(210, 210, 210);
+            }
+        }
+
+        private void txtUrlRed_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtUrlRed.Text))
+            {
+                txtUrlRed.Text = PLACEHOLDER_RED;
+                txtUrlRed.ForeColor = Color.FromArgb(120, 120, 120);
+            }
         }
     }
 }

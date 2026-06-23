@@ -51,6 +51,19 @@ namespace pryPereiroERP
             lblApellidoValor.Text = _usuario.Apellido;
             lblRolValor.Text = _usuario.Rol;
 
+            lblEmailValor.AutoSize = false;
+            lblEmailValor.Width = 290;
+            lblDireccionValor.AutoSize = false;
+            lblDireccionValor.Width = 290;
+            lblProvinciaValor.AutoSize = false;
+            lblProvinciaValor.Width = 290;
+            lblLocalidadValor.AutoSize = false;
+            lblLocalidadValor.Width = 290;
+            lblTelefonoValor.AutoSize = false;
+            lblTelefonoValor.Width = 290;
+            lblRedesValor.AutoSize = false;
+            lblRedesValor.Width = 290;
+
             try
             {
                 clsConexion conexion = new clsConexion();
@@ -62,17 +75,15 @@ namespace pryPereiroERP
 
                     lblEmailValor.Text = row["Mail"] != DBNull.Value ? row["Mail"].ToString().Trim() : "-";
                     lblDireccionValor.Text = row["Dirección"] != DBNull.Value ? row["Dirección"].ToString().Trim() : "-";
-                    lblGPSValor.Text = row["GPS"] != DBNull.Value ? row["GPS"].ToString().Trim() : "-";
                     lblProvinciaValor.Text = row["Provincia"] != DBNull.Value ? row["Provincia"].ToString().Trim() : "-";
                     lblLocalidadValor.Text = row["Localidad"] != DBNull.Value ? row["Localidad"].ToString().Trim() : "-";
                     lblTelefonoValor.Text = row["Telefono"] != DBNull.Value ? row["Telefono"].ToString().Trim() : "-";
-                    lblRedesValor.Text = row["Redes_Sociales"] != DBNull.Value ? row["Redes_Sociales"].ToString().Trim() : "-";
+                    lblRedesValor.Text = row["Id_Redes_Sociales"] != DBNull.Value ? row["Id_Redes_Sociales"].ToString().Trim() : "-";
                 }
                 else
                 {
                     lblEmailValor.Text = "-";
                     lblDireccionValor.Text = "-";
-                    lblGPSValor.Text = "-";
                     lblProvinciaValor.Text = "-";
                     lblLocalidadValor.Text = "-";
                     lblTelefonoValor.Text = "-";
@@ -176,11 +187,14 @@ namespace pryPereiroERP
                 if (dgvUsuarios.Columns["Nombre"] != null) dgvUsuarios.Columns["Nombre"].HeaderText = "Nombre";
                 if (dgvUsuarios.Columns["Apellido"] != null) dgvUsuarios.Columns["Apellido"].HeaderText = "Apellido";
                 if (dgvUsuarios.Columns["Mail"] != null) dgvUsuarios.Columns["Mail"].HeaderText = "Mail";
-                if (dgvUsuarios.Columns["Contraseña"] != null) dgvUsuarios.Columns["Contraseña"].HeaderText = "Contraseña";
+                if (dgvUsuarios.Columns["Contraseña"] != null) { dgvUsuarios.Columns["Contraseña"].HeaderText = "Contraseña"; dgvUsuarios.Columns["Contraseña"].Visible = false; }
                 if (dgvUsuarios.Columns["Activo"] != null) dgvUsuarios.Columns["Activo"].HeaderText = "Activo";
                 if (dgvUsuarios.Columns["Perfil"] != null) dgvUsuarios.Columns["Perfil"].HeaderText = "Perfil";
-                if (dgvUsuarios.Columns["Contraseña"] != null) dgvUsuarios.Columns["Contraseña"].Visible = false;
-
+                if (dgvUsuarios.Columns["Dirección"] != null) dgvUsuarios.Columns["Dirección"].HeaderText = "Dirección";
+                if (dgvUsuarios.Columns["Provincia"] != null) dgvUsuarios.Columns["Provincia"].HeaderText = "Provincia";
+                if (dgvUsuarios.Columns["Localidad"] != null) dgvUsuarios.Columns["Localidad"].HeaderText = "Localidad";
+                if (dgvUsuarios.Columns["Telefono"] != null) dgvUsuarios.Columns["Telefono"].HeaderText = "Teléfono";
+                if (dgvUsuarios.Columns["Redes"] != null) dgvUsuarios.Columns["Redes"].HeaderText = "Redes Sociales";
                 dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             }
             else if (!string.IsNullOrEmpty(conexion.GetError()))
@@ -194,6 +208,7 @@ namespace pryPereiroERP
             frmRRHH rrhh = new frmRRHH();
             rrhh.UsuarioActual = _usuario?.Nombre;
             rrhh.ShowDialog();
+            CargarGrillaUsuarios();
         }
 
         private void dgvUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
