@@ -36,6 +36,8 @@ namespace pryPereiroERP
             this.dtpFiltroFechaHasta = new System.Windows.Forms.DateTimePicker();
             this.lblFiltroDesde = new System.Windows.Forms.Label();
             this.lblFiltroHasta = new System.Windows.Forms.Label();
+            this.lblPorEstado = new System.Windows.Forms.Label();
+            this.cmbEstado = new System.Windows.Forms.ComboBox();
             this.btnFiltrar = new System.Windows.Forms.Button();
             this.btnLimpiarFiltros = new System.Windows.Forms.Button();
             this.tabUsuario = new System.Windows.Forms.TabPage();
@@ -80,7 +82,7 @@ namespace pryPereiroERP
             this.statusStrip1.Location = new System.Drawing.Point(0, 554);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(1100, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1198, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 0;
             // 
@@ -91,10 +93,10 @@ namespace pryPereiroERP
             this.tabRRHH.Controls.Add(this.btnRegistrar);
             this.tabRRHH.Controls.Add(this.lblRRHH);
             this.tabRRHH.Controls.Add(this.dgvUsuarios);
-            this.tabRRHH.Location = new System.Drawing.Point(4, 37);
+            this.tabRRHH.Location = new System.Drawing.Point(4, 26);
             this.tabRRHH.Name = "tabRRHH";
             this.tabRRHH.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRRHH.Size = new System.Drawing.Size(1092, 509);
+            this.tabRRHH.Size = new System.Drawing.Size(1092, 520);
             this.tabRRHH.TabIndex = 1;
             this.tabRRHH.Text = "RRHH";
             // 
@@ -107,7 +109,7 @@ namespace pryPereiroERP
             this.txtBuscarUsuario.ForeColor = System.Drawing.Color.Gray;
             this.txtBuscarUsuario.Location = new System.Drawing.Point(753, 15);
             this.txtBuscarUsuario.Name = "txtBuscarUsuario";
-            this.txtBuscarUsuario.Size = new System.Drawing.Size(180, 34);
+            this.txtBuscarUsuario.Size = new System.Drawing.Size(180, 25);
             this.txtBuscarUsuario.TabIndex = 6;
             this.txtBuscarUsuario.Text = "Buscar usuario...";
             this.txtBuscarUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -139,7 +141,7 @@ namespace pryPereiroERP
             this.lblRRHH.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblRRHH.Location = new System.Drawing.Point(8, 15);
             this.lblRRHH.Name = "lblRRHH";
-            this.lblRRHH.Size = new System.Drawing.Size(237, 38);
+            this.lblRRHH.Size = new System.Drawing.Size(161, 25);
             this.lblRRHH.TabIndex = 4;
             this.lblRRHH.Text = "Lista de Usuarios";
             // 
@@ -178,12 +180,14 @@ namespace pryPereiroERP
             this.tabGrilla.Controls.Add(this.dtpFiltroFechaHasta);
             this.tabGrilla.Controls.Add(this.lblFiltroDesde);
             this.tabGrilla.Controls.Add(this.lblFiltroHasta);
+            this.tabGrilla.Controls.Add(this.lblPorEstado);
+            this.tabGrilla.Controls.Add(this.cmbEstado);
             this.tabGrilla.Controls.Add(this.btnFiltrar);
             this.tabGrilla.Controls.Add(this.btnLimpiarFiltros);
-            this.tabGrilla.Location = new System.Drawing.Point(4, 37);
+            this.tabGrilla.Location = new System.Drawing.Point(4, 26);
             this.tabGrilla.Name = "tabGrilla";
             this.tabGrilla.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGrilla.Size = new System.Drawing.Size(1092, 509);
+            this.tabGrilla.Size = new System.Drawing.Size(1190, 520);
             this.tabGrilla.TabIndex = 0;
             this.tabGrilla.Text = "AUDITORIA";
             // 
@@ -194,7 +198,7 @@ namespace pryPereiroERP
             this.lblAuditoria.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblAuditoria.Location = new System.Drawing.Point(16, 14);
             this.lblAuditoria.Name = "lblAuditoria";
-            this.lblAuditoria.Size = new System.Drawing.Size(355, 38);
+            this.lblAuditoria.Size = new System.Drawing.Size(238, 25);
             this.lblAuditoria.TabIndex = 3;
             this.lblAuditoria.Text = "REGISTRO DE AUDITORÍA";
             this.lblAuditoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -218,7 +222,7 @@ namespace pryPereiroERP
             this.dgvConsulta.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgvConsulta.RowTemplate.Height = 30;
             this.dgvConsulta.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvConsulta.Size = new System.Drawing.Size(1066, 380);
+            this.dgvConsulta.Size = new System.Drawing.Size(1164, 380);
             this.dgvConsulta.TabIndex = 6;
             // 
             // gbOrden
@@ -228,7 +232,7 @@ namespace pryPereiroERP
             this.gbOrden.Controls.Add(this.radioAsc);
             this.gbOrden.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbOrden.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
-            this.gbOrden.Location = new System.Drawing.Point(766, 58);
+            this.gbOrden.Location = new System.Drawing.Point(759, 47);
             this.gbOrden.Name = "gbOrden";
             this.gbOrden.Size = new System.Drawing.Size(200, 50);
             this.gbOrden.TabIndex = 4;
@@ -243,7 +247,7 @@ namespace pryPereiroERP
             this.radioDesc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.radioDesc.Location = new System.Drawing.Point(105, 22);
             this.radioDesc.Name = "radioDesc";
-            this.radioDesc.Size = new System.Drawing.Size(139, 29);
+            this.radioDesc.Size = new System.Drawing.Size(93, 19);
             this.radioDesc.TabIndex = 1;
             this.radioDesc.TabStop = true;
             this.radioDesc.Text = "Descendente";
@@ -258,7 +262,7 @@ namespace pryPereiroERP
             this.radioAsc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.radioAsc.Location = new System.Drawing.Point(12, 22);
             this.radioAsc.Name = "radioAsc";
-            this.radioAsc.Size = new System.Drawing.Size(129, 29);
+            this.radioAsc.Size = new System.Drawing.Size(87, 19);
             this.radioAsc.TabIndex = 0;
             this.radioAsc.TabStop = true;
             this.radioAsc.Text = "Ascendente";
@@ -272,7 +276,7 @@ namespace pryPereiroERP
             this.lblResultados.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.lblResultados.Location = new System.Drawing.Point(16, 105);
             this.lblResultados.Name = "lblResultados";
-            this.lblResultados.Size = new System.Drawing.Size(0, 25);
+            this.lblResultados.Size = new System.Drawing.Size(0, 15);
             this.lblResultados.TabIndex = 11;
             // 
             // txtFiltroUsuario
@@ -282,7 +286,7 @@ namespace pryPereiroERP
             this.txtFiltroUsuario.ForeColor = System.Drawing.Color.Gray;
             this.txtFiltroUsuario.Location = new System.Drawing.Point(12, 72);
             this.txtFiltroUsuario.Name = "txtFiltroUsuario";
-            this.txtFiltroUsuario.Size = new System.Drawing.Size(230, 34);
+            this.txtFiltroUsuario.Size = new System.Drawing.Size(230, 25);
             this.txtFiltroUsuario.TabIndex = 0;
             this.txtFiltroUsuario.Text = "Buscar usuario...";
             this.txtFiltroUsuario.Enter += new System.EventHandler(this.txtFiltro_Enter);
@@ -303,7 +307,7 @@ namespace pryPereiroERP
             this.dtpFiltroFechaDesde.Location = new System.Drawing.Point(262, 70);
             this.dtpFiltroFechaDesde.Name = "dtpFiltroFechaDesde";
             this.dtpFiltroFechaDesde.ShowCheckBox = true;
-            this.dtpFiltroFechaDesde.Size = new System.Drawing.Size(180, 34);
+            this.dtpFiltroFechaDesde.Size = new System.Drawing.Size(180, 25);
             this.dtpFiltroFechaDesde.TabIndex = 1;
             // 
             // dtpFiltroFechaHasta
@@ -321,7 +325,7 @@ namespace pryPereiroERP
             this.dtpFiltroFechaHasta.Location = new System.Drawing.Point(460, 70);
             this.dtpFiltroFechaHasta.Name = "dtpFiltroFechaHasta";
             this.dtpFiltroFechaHasta.ShowCheckBox = true;
-            this.dtpFiltroFechaHasta.Size = new System.Drawing.Size(180, 34);
+            this.dtpFiltroFechaHasta.Size = new System.Drawing.Size(180, 25);
             this.dtpFiltroFechaHasta.TabIndex = 2;
             // 
             // lblFiltroDesde
@@ -331,7 +335,7 @@ namespace pryPereiroERP
             this.lblFiltroDesde.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFiltroDesde.Location = new System.Drawing.Point(262, 45);
             this.lblFiltroDesde.Name = "lblFiltroDesde";
-            this.lblFiltroDesde.Size = new System.Drawing.Size(70, 28);
+            this.lblFiltroDesde.Size = new System.Drawing.Size(50, 19);
             this.lblFiltroDesde.TabIndex = 13;
             this.lblFiltroDesde.Text = "Desde";
             // 
@@ -342,9 +346,36 @@ namespace pryPereiroERP
             this.lblFiltroHasta.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFiltroHasta.Location = new System.Drawing.Point(460, 45);
             this.lblFiltroHasta.Name = "lblFiltroHasta";
-            this.lblFiltroHasta.Size = new System.Drawing.Size(66, 28);
+            this.lblFiltroHasta.Size = new System.Drawing.Size(47, 19);
             this.lblFiltroHasta.TabIndex = 14;
             this.lblFiltroHasta.Text = "Hasta";
+            // 
+            // lblPorEstado
+            // 
+            this.lblPorEstado.AutoSize = true;
+            this.lblPorEstado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPorEstado.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
+            this.lblPorEstado.Location = new System.Drawing.Point(646, 45);
+            this.lblPorEstado.Name = "lblPorEstado";
+            this.lblPorEstado.Size = new System.Drawing.Size(81, 19);
+            this.lblPorEstado.TabIndex = 15;
+            this.lblPorEstado.Text = "Por Estado";
+            // 
+            // cmbEstado
+            // 
+            this.cmbEstado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(44)))), ((int)(((byte)(44)))));
+            this.cmbEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstado.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbEstado.ForeColor = System.Drawing.Color.Gray;
+            this.cmbEstado.FormattingEnabled = true;
+            this.cmbEstado.Items.AddRange(new object[] {
+            "Navegacion",
+            "Exitoso",
+            "Fallido"});
+            this.cmbEstado.Location = new System.Drawing.Point(650, 71);
+            this.cmbEstado.Name = "cmbEstado";
+            this.cmbEstado.Size = new System.Drawing.Size(88, 25);
+            this.cmbEstado.TabIndex = 4;
             // 
             // btnFiltrar
             // 
@@ -354,7 +385,7 @@ namespace pryPereiroERP
             this.btnFiltrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFiltrar.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFiltrar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(3)))), ((int)(((byte)(3)))));
-            this.btnFiltrar.Location = new System.Drawing.Point(658, 70);
+            this.btnFiltrar.Location = new System.Drawing.Point(971, 67);
             this.btnFiltrar.Name = "btnFiltrar";
             this.btnFiltrar.Size = new System.Drawing.Size(90, 28);
             this.btnFiltrar.TabIndex = 3;
@@ -370,7 +401,7 @@ namespace pryPereiroERP
             this.btnLimpiarFiltros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLimpiarFiltros.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLimpiarFiltros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
-            this.btnLimpiarFiltros.Location = new System.Drawing.Point(984, 70);
+            this.btnLimpiarFiltros.Location = new System.Drawing.Point(1086, 67);
             this.btnLimpiarFiltros.Name = "btnLimpiarFiltros";
             this.btnLimpiarFiltros.Size = new System.Drawing.Size(90, 28);
             this.btnLimpiarFiltros.TabIndex = 5;
@@ -385,10 +416,10 @@ namespace pryPereiroERP
             this.tabUsuario.Controls.Add(this.lblSeparador);
             this.tabUsuario.Controls.Add(this.gbPersonal);
             this.tabUsuario.Controls.Add(this.gbContacto);
-            this.tabUsuario.Location = new System.Drawing.Point(4, 37);
+            this.tabUsuario.Location = new System.Drawing.Point(4, 26);
             this.tabUsuario.Name = "tabUsuario";
             this.tabUsuario.Padding = new System.Windows.Forms.Padding(3);
-            this.tabUsuario.Size = new System.Drawing.Size(1092, 509);
+            this.tabUsuario.Size = new System.Drawing.Size(1092, 520);
             this.tabUsuario.TabIndex = 4;
             this.tabUsuario.Text = "USUARIO";
             // 
@@ -399,7 +430,7 @@ namespace pryPereiroERP
             this.lblUsuarioTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblUsuarioTitulo.Location = new System.Drawing.Point(26, 14);
             this.lblUsuarioTitulo.Name = "lblUsuarioTitulo";
-            this.lblUsuarioTitulo.Size = new System.Drawing.Size(318, 48);
+            this.lblUsuarioTitulo.Size = new System.Drawing.Size(217, 32);
             this.lblUsuarioTitulo.TabIndex = 0;
             this.lblUsuarioTitulo.Text = "Datos del Usuario";
             // 
@@ -438,7 +469,7 @@ namespace pryPereiroERP
             this.lblFNombre.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFNombre.Location = new System.Drawing.Point(30, 48);
             this.lblFNombre.Name = "lblFNombre";
-            this.lblFNombre.Size = new System.Drawing.Size(133, 38);
+            this.lblFNombre.Size = new System.Drawing.Size(91, 25);
             this.lblFNombre.TabIndex = 12;
             this.lblFNombre.Text = "Nombre:";
             // 
@@ -449,7 +480,7 @@ namespace pryPereiroERP
             this.lblFApellido.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFApellido.Location = new System.Drawing.Point(30, 143);
             this.lblFApellido.Name = "lblFApellido";
-            this.lblFApellido.Size = new System.Drawing.Size(135, 38);
+            this.lblFApellido.Size = new System.Drawing.Size(91, 25);
             this.lblFApellido.TabIndex = 13;
             this.lblFApellido.Text = "Apellido:";
             // 
@@ -460,7 +491,7 @@ namespace pryPereiroERP
             this.lblFEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFEmail.Location = new System.Drawing.Point(30, 238);
             this.lblFEmail.Name = "lblFEmail";
-            this.lblFEmail.Size = new System.Drawing.Size(97, 38);
+            this.lblFEmail.Size = new System.Drawing.Size(64, 25);
             this.lblFEmail.TabIndex = 14;
             this.lblFEmail.Text = "Email:";
             // 
@@ -471,7 +502,7 @@ namespace pryPereiroERP
             this.lblFRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFRol.Location = new System.Drawing.Point(30, 333);
             this.lblFRol.Name = "lblFRol";
-            this.lblFRol.Size = new System.Drawing.Size(67, 38);
+            this.lblFRol.Size = new System.Drawing.Size(46, 25);
             this.lblFRol.TabIndex = 15;
             this.lblFRol.Text = "Rol:";
             // 
@@ -482,7 +513,7 @@ namespace pryPereiroERP
             this.lblNombreValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblNombreValor.Location = new System.Drawing.Point(200, 48);
             this.lblNombreValor.Name = "lblNombreValor";
-            this.lblNombreValor.Size = new System.Drawing.Size(0, 45);
+            this.lblNombreValor.Size = new System.Drawing.Size(0, 30);
             this.lblNombreValor.TabIndex = 1;
             // 
             // lblApellidoValor
@@ -492,7 +523,7 @@ namespace pryPereiroERP
             this.lblApellidoValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblApellidoValor.Location = new System.Drawing.Point(200, 143);
             this.lblApellidoValor.Name = "lblApellidoValor";
-            this.lblApellidoValor.Size = new System.Drawing.Size(0, 45);
+            this.lblApellidoValor.Size = new System.Drawing.Size(0, 30);
             this.lblApellidoValor.TabIndex = 2;
             // 
             // lblEmailValor
@@ -502,7 +533,7 @@ namespace pryPereiroERP
             this.lblEmailValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblEmailValor.Location = new System.Drawing.Point(200, 238);
             this.lblEmailValor.Name = "lblEmailValor";
-            this.lblEmailValor.Size = new System.Drawing.Size(0, 45);
+            this.lblEmailValor.Size = new System.Drawing.Size(0, 30);
             this.lblEmailValor.TabIndex = 3;
             // 
             // lblRolValor
@@ -512,7 +543,7 @@ namespace pryPereiroERP
             this.lblRolValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblRolValor.Location = new System.Drawing.Point(200, 333);
             this.lblRolValor.Name = "lblRolValor";
-            this.lblRolValor.Size = new System.Drawing.Size(0, 45);
+            this.lblRolValor.Size = new System.Drawing.Size(0, 30);
             this.lblRolValor.TabIndex = 4;
             // 
             // gbContacto
@@ -544,7 +575,7 @@ namespace pryPereiroERP
             this.lblFDireccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFDireccion.Location = new System.Drawing.Point(30, 40);
             this.lblFDireccion.Name = "lblFDireccion";
-            this.lblFDireccion.Size = new System.Drawing.Size(148, 38);
+            this.lblFDireccion.Size = new System.Drawing.Size(101, 25);
             this.lblFDireccion.TabIndex = 16;
             this.lblFDireccion.Text = "Dirección:";
             // 
@@ -555,7 +586,7 @@ namespace pryPereiroERP
             this.lblFProvincia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFProvincia.Location = new System.Drawing.Point(30, 100);
             this.lblFProvincia.Name = "lblFProvincia";
-            this.lblFProvincia.Size = new System.Drawing.Size(146, 38);
+            this.lblFProvincia.Size = new System.Drawing.Size(100, 25);
             this.lblFProvincia.TabIndex = 18;
             this.lblFProvincia.Text = "Provincia:";
             // 
@@ -566,7 +597,7 @@ namespace pryPereiroERP
             this.lblFLocalidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFLocalidad.Location = new System.Drawing.Point(30, 160);
             this.lblFLocalidad.Name = "lblFLocalidad";
-            this.lblFLocalidad.Size = new System.Drawing.Size(149, 38);
+            this.lblFLocalidad.Size = new System.Drawing.Size(102, 25);
             this.lblFLocalidad.TabIndex = 19;
             this.lblFLocalidad.Text = "Localidad:";
             // 
@@ -577,7 +608,7 @@ namespace pryPereiroERP
             this.lblFTelefono.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFTelefono.Location = new System.Drawing.Point(30, 220);
             this.lblFTelefono.Name = "lblFTelefono";
-            this.lblFTelefono.Size = new System.Drawing.Size(138, 38);
+            this.lblFTelefono.Size = new System.Drawing.Size(94, 25);
             this.lblFTelefono.TabIndex = 20;
             this.lblFTelefono.Text = "Teléfono:";
             // 
@@ -588,7 +619,7 @@ namespace pryPereiroERP
             this.lblFRedes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(219)))), ((int)(((byte)(137)))));
             this.lblFRedes.Location = new System.Drawing.Point(30, 280);
             this.lblFRedes.Name = "lblFRedes";
-            this.lblFRedes.Size = new System.Drawing.Size(213, 38);
+            this.lblFRedes.Size = new System.Drawing.Size(144, 25);
             this.lblFRedes.TabIndex = 21;
             this.lblFRedes.Text = "Redes Sociales:";
             // 
@@ -599,7 +630,7 @@ namespace pryPereiroERP
             this.lblDireccionValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblDireccionValor.Location = new System.Drawing.Point(200, 40);
             this.lblDireccionValor.Name = "lblDireccionValor";
-            this.lblDireccionValor.Size = new System.Drawing.Size(0, 45);
+            this.lblDireccionValor.Size = new System.Drawing.Size(0, 30);
             this.lblDireccionValor.TabIndex = 6;
             // 
             // lblProvinciaValor
@@ -609,7 +640,7 @@ namespace pryPereiroERP
             this.lblProvinciaValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblProvinciaValor.Location = new System.Drawing.Point(200, 100);
             this.lblProvinciaValor.Name = "lblProvinciaValor";
-            this.lblProvinciaValor.Size = new System.Drawing.Size(0, 45);
+            this.lblProvinciaValor.Size = new System.Drawing.Size(0, 30);
             this.lblProvinciaValor.TabIndex = 8;
             // 
             // lblLocalidadValor
@@ -619,7 +650,7 @@ namespace pryPereiroERP
             this.lblLocalidadValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblLocalidadValor.Location = new System.Drawing.Point(200, 160);
             this.lblLocalidadValor.Name = "lblLocalidadValor";
-            this.lblLocalidadValor.Size = new System.Drawing.Size(0, 45);
+            this.lblLocalidadValor.Size = new System.Drawing.Size(0, 30);
             this.lblLocalidadValor.TabIndex = 9;
             // 
             // lblTelefonoValor
@@ -629,7 +660,7 @@ namespace pryPereiroERP
             this.lblTelefonoValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblTelefonoValor.Location = new System.Drawing.Point(200, 220);
             this.lblTelefonoValor.Name = "lblTelefonoValor";
-            this.lblTelefonoValor.Size = new System.Drawing.Size(0, 45);
+            this.lblTelefonoValor.Size = new System.Drawing.Size(0, 30);
             this.lblTelefonoValor.TabIndex = 10;
             // 
             // lblRedesValor
@@ -639,7 +670,7 @@ namespace pryPereiroERP
             this.lblRedesValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
             this.lblRedesValor.Location = new System.Drawing.Point(200, 280);
             this.lblRedesValor.Name = "lblRedesValor";
-            this.lblRedesValor.Size = new System.Drawing.Size(0, 45);
+            this.lblRedesValor.Size = new System.Drawing.Size(0, 30);
             this.lblRedesValor.TabIndex = 11;
             // 
             // tabMenu
@@ -654,15 +685,15 @@ namespace pryPereiroERP
             this.tabMenu.Location = new System.Drawing.Point(0, 0);
             this.tabMenu.Name = "tabMenu";
             this.tabMenu.SelectedIndex = 0;
-            this.tabMenu.Size = new System.Drawing.Size(1100, 550);
+            this.tabMenu.Size = new System.Drawing.Size(1198, 550);
             this.tabMenu.TabIndex = 3;
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(3)))), ((int)(((byte)(3)))));
-            this.ClientSize = new System.Drawing.Size(1100, 576);
+            this.ClientSize = new System.Drawing.Size(1198, 576);
             this.Controls.Add(this.tabMenu);
             this.Controls.Add(this.statusStrip1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -739,6 +770,8 @@ namespace pryPereiroERP
         private System.Windows.Forms.Button btnLimpiarFiltros;
         private System.Windows.Forms.Label lblFiltroDesde;
         private System.Windows.Forms.Label lblFiltroHasta;
+        private System.Windows.Forms.Label lblPorEstado;
+        private System.Windows.Forms.ComboBox cmbEstado;
         private System.Windows.Forms.TextBox txtBuscarUsuario;
     }
 }

@@ -340,6 +340,18 @@ namespace pryPereiroERP
                     filtros += string.Format("FechaHora <= #{0}#", dtpFiltroFechaHasta.Value.Date.AddDays(1).ToString("MM/dd/yyyy", System.Globalization.CultureInfo.InvariantCulture));
                 }
 
+                // Filtro por Estado (si se seleccionó alguno)
+                if (cmbEstado != null && cmbEstado.SelectedItem != null)
+                {
+                    string estado = cmbEstado.SelectedItem.ToString();
+                    if (!string.IsNullOrWhiteSpace(estado))
+                    {
+                        if (filtros.Length > 0) filtros += " AND ";
+                        // RowFilter usa comillas simples para cadenas
+                        filtros += string.Format("Estado = '{0}'", estado.Replace("'", "''"));
+                    }
+                }
+
                 dv.RowFilter = filtros;
 
                 string orden = radioAsc.Checked ? " ASC" : " DESC";
